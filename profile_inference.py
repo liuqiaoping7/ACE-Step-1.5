@@ -530,7 +530,7 @@ def run_profile_mode(dit_handler, llm_handler, args, timer: PreciseTimer):
     print_time_costs_breakdown(time_costs, total_wall_time)
 
     # Cleanup temp dir
-    _cleanup_dir(save_dir)
+    # _cleanup_dir(save_dir)
 
     return result, total_wall_time
 
@@ -2190,6 +2190,6 @@ def main():
     print("DONE")
     print("=" * 100)
 
-
+# python profile_inference.py --example example_01.json --thinking --lm-backend pt
 if __name__ == "__main__":
     main()
