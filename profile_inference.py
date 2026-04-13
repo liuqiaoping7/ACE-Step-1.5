@@ -2088,6 +2088,12 @@ Examples:
         default=None,
         help="Audio codes string (for understand mode)",
     )
+    parser.add_argument(
+        "--debug",
+        "-d",
+        action="store_true",
+        help="Enable debug mode with debugpy on port 5678",
+    )
 
     return parser
 
@@ -2100,6 +2106,13 @@ Examples:
 def main():
     parser = build_parser()
     args = parser.parse_args()
+
+    # Debug mode
+    if args.debug:
+        import debugpy
+        debugpy.listen(5678)
+        print("Debug mode enabled, waiting for debugger connection on port 5678...")
+        debugpy.wait_for_client()
 
     # Handle --no-constrained-decoding
     if args.no_constrained_decoding:
@@ -2190,6 +2203,6 @@ def main():
     print("DONE")
     print("=" * 100)
 
-# python profile_inference.py --example example_01.json --thinking --lm-backend pt
+# python profile_inference.py --example example_01.json --thinking --lm-backend pt -d
 if __name__ == "__main__":
     main()

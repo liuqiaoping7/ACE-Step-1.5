@@ -1,0 +1,28 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        // 注意这种方式多线程断点可能无效
+        "name": "Python: current file",
+        "type": "python",
+        "request": "launch",
+        "program": "${file}",          // 调试当前打开的文件
+        "console": "integratedTerminal", // 使用集成终端输出日志
+        "justMyCode": false,
+        "args": [],    // 命令行参数
+        "env": {                       // 关键：自定义环境变量
+          "GEVENT_SUPPORT": "True",
+          // "PYTHONPATH": "${workspaceFolder}",  # 看情况设置PYTHONPATH，可能设置反而报错
+          "CUDA_VISIBLE_DEVICES": "1",
+          "HF_ENDPOINT": "https://hf-mirror.com"
+        }
+      },
+      {
+        "name": "Local debugpy",
+        "justMyCode": false,
+        "type": "debugpy",
+        "request": "attach",
+        "connect": {"host": "localhost", "port": 5678}
+      }
+    ]
+}
