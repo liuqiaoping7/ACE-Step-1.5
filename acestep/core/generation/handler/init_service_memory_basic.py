@@ -227,7 +227,12 @@ class InitServiceMemoryBasicMixin:
         new tensor storage on each transfer and the old storage may not be
         returned to the OS by the default C allocator.
         """
-        gc.collect()
+        # A full ``gc.collect()`` costs ~0.2 s per call with large models loaded
+        # and ran on every load/offload (~2 s per generation).  Tensor storages
+        # are reference-counted and freed without it; only opt back in for
+        # debugging reference cycles.
+        if os.environ.get("ACESTEP_OFFLOAD_GC", "0") == "1":
+            gc.collect()
         self._empty_cache()
         libc = _get_libc()
         if libc is not None:

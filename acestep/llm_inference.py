@@ -4143,8 +4143,10 @@ class LLMHandler:
             start_time = time.time()
             if hasattr(model, "to"):
                 model.to("cpu")
-            # Clear accelerator cache after offloading
-            gc.collect()
+            # Clear accelerator cache after offloading (full GC is slow and
+            # unnecessary for refcounted tensor storages; opt-in for debugging)
+            if os.environ.get("ACESTEP_OFFLOAD_GC", "0") == "1":
+                gc.collect()
             if torch.cuda.is_available():
                 torch.cuda.empty_cache()
             elif hasattr(torch, 'xpu') and torch.xpu.is_available():
