@@ -1,0 +1,706 @@
+2026-11-20 22:43:43.485 | DEBUG    | acestep.core.generation.handler.init_service_memory_basic:_apply_malloc_mmap_threshold:50 - [memory] Set M_MMAP_THRESHOLD=131072 for immediate OS reclaim of large frees
+2026-11-20 22:43:49.553 | WARNING  | acestep.training.trainer:<module>:40 - bitsandbytes not installed. Using standard AdamW.
+2026-11-20 22:43:49.719 | INFO     | acestep.gpu_config:get_gpu_memory_gb:578 - CUDA GPU detected: NVIDIA GeForce RTX 4060 (7.6 GB)
+2026-11-20 22:43:49.822 | INFO     | acestep.core.generation.handler.init_service_loader:_load_main_model_from_checkpoint:174 - [initialize_service] Attempting to load model with attention implementation: sdpa
+2026-11-20 22:43:49.972 | INFO     | acestep.core.generation.handler.init_service_loader:_load_main_model_from_checkpoint:200 - [initialize_service] Keeping main model on cuda (persistent)
+2026-11-20 22:43:52.266 | INFO     | acestep.llm_inference:initialize:609 - loading 5Hz LM tokenizer... it may take 80~90s
+2026-11-20 22:44:03.947 | INFO     | acestep.llm_inference:initialize:613 - 5Hz LM tokenizer loaded successfully in 11.68 seconds
+2026-11-20 22:44:03.947 | INFO     | acestep.llm_inference:initialize:618 - Initializing constrained decoding processor...
+2026-11-20 22:44:03.947 | INFO     | acestep.llm_inference:initialize:624 - Setting constrained decoding max_duration to 480s based on GPU config (tier: tier3)
+2026-11-20 22:44:04.598 | DEBUG    | acestep.constrained_logits_processor:_precompute_audio_code_tokens:577 - Found 1535 audio code tokens with values outside valid range [0, 63999]
+2026-11-20 22:44:06.353 | INFO     | acestep.llm_inference:initialize:632 - Constrained processor initialized in 2.41 seconds
+2026-11-20 22:44:47.354 | INFO     | acestep.llm_inference:_load_pytorch_model:412 - 5Hz LM initialized successfully using PyTorch backend on cuda
+2026-11-20 22:44:49.610 | INFO     | acestep.inference:generate_music:686 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-20 22:44:49.620 | INFO     | acestep.inference:generate_music:744 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-20 22:44:49.621 | INFO     | acestep.llm_inference:generate_with_stop_condition:1371 - Phase 1: Generating CoT metadata...
+2026-11-20 22:44:52.812 | INFO     | acestep.llm_inference:generate_with_stop_condition:1377 - generate_with_stop_condition: formatted_prompt=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+
+2026-11-20 22:44:53.796 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 22:44:55.607 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 1.8109s
+2026-11-20 22:45:09.621 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 22:45:30.289 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 20.6680s
+2026-11-20 22:45:30.335 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening
+  verse over a driving synth bassline. The chorus expands with layered, harmonized
+  vocals, creating a fuller, more anthemic feel before transitioning into an instrumental
+  section that reprises the main synth hook, solidifying its dance-pop and electropop
+  character.
+duration: 30
+keyscale: E♭ minor
+language: en
+timesignature: 4
+<|im_end|>
+2026-11-20 22:45:30.335 | INFO     | acestep.llm_inference:generate_with_stop_condition:1422 - Phase 1 completed in 40.71s. Generated metadata: ['bpm', 'caption', 'duration', 'keyscale', 'language', 'timesignature']
+2026-11-20 22:45:30.335 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-20 22:45:30.337 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening
+  verse over a driving synth bassline. The chorus expands with layered, harmonized
+  vocals, creating a fuller, more anthemic feel before transitioning into an instrumental
+  section that reprises the main synth hook, solidifying its dance-pop and electropop
+  character.
+duration: 30
+keyscale: E♭ minor
+language: en
+timesignature: 4
+</think>
+
+
+2026-11-20 22:45:30.360 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 22:45:30.639 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2789s
+2026-11-20 22:45:30.640 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+2026-11-20 22:45:35.645 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 22:45:36.361 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.7156s
+2026-11-20 22:45:36.361 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_55724|><|audio_code_36165|><|audio_code_1600|><|audio_code_26364|><|audio_code_23843|><|audio_code_26243|><|audio_code_19991|><|audio_code_51774|><|audio_code_27758|><|audio_code_52249|><|audio_code_37948|><|audio_code_2189|><|audio_code_27848|><|audio_code_25336|><|audio_code_246|><|audio_code_12881|><|audio_code_48321|><|audio_code_3382|><|audio_code_40477|><|audio_code_27652|><|audio_code_7226|><|audio_code_18982|><|audio_code_63686|><|audio_code_22334|><|audio_code_34851|><|audio_code_10885|><|audio_code_29831|><|audio_code_30221|><|audio_code_62187|><|audio_code_52469|><|audio_code_24103|><|audio_code_10822|><|audio_code_39985|><|audio_code_23582|><|audio_code_13382|><|audio_code_52982|><|audio_code_48164|><|audio_code_22564|><|audio_code_10503|><|audio_code_38915|><|audio_code_46605|><|audio_code_2229|><|audio_code_47839|><|audio_code_16069|><|audio_code_43520|><|audio_code_12351|><|audio_code_12606|><|audio_code_9999|><|audio_code_44701|><|audio_code_19491|><|audio_code_49605|><|audio_code_32991|><|audio_code_51770|><|audio_code_7190|><|audio_code_61976|><|audio_code_31102|><|audio_code_11202|><|audio_code_46687|><|audio_code_63374|><|audio_code_56057|><|audio_code_16152|><|audio_code_49888|><|audio_code_63994|><|audio_code_16338|><|audio_code_48626|><|audio_code_441|><|audio_code_16345|><|audio_code_51177|><|audio_code_897|><|audio_code_29139|><|audio_code_61418|><|audio_code_13697|><|audio_code_16338|><|audio_code_59345|><|audio_code_28147|><|audio_code_18839|><|audio_code_55820|><|audio_code_40499|><|audio_code_11290|><|audio_code_20127|><|audio_code_27647|><|audio_code_31631|><|audio_code_54072|><|audio_code_27591|><|audio_code_665|><|audio_code_21072|><|audio_code_12171|><|audio_code_53690|><|audio_code_16272|><|audio_code_60913|><|audio_code_28199|><|audio_code_17471|><|audio_code_30217|><|audio_code_56879|><|audio_code_12671|><|audio_code_24401|><|audio_code_8796|><|audio_code_49153|><|audio_code_55947|><|audio_code_49590|><|audio_code_60271|><|audio_code_40108|><|audio_code_11786|><|audio_code_40976|><|audio_code_12345|><|audio_code_18716|><|audio_code_18683|><|audio_code_12554|><|audio_code_49561|><|audio_code_33666|><|audio_code_62892|><|audio_code_53579|><|audio_code_28483|><|audio_code_37230|><|audio_code_2663|><|audio_code_51270|><|audio_code_40048|><|audio_code_95|><|audio_code_41422|><|audio_code_2371|><|audio_code_52315|><|audio_code_9238|><|audio_code_11946|><|audio_code_7647|><|audio_code_9718|><|audio_code_21820|><|audio_code_19482|><|audio_code_22074|><|audio_code_13874|><|audio_code_59164|><|audio_code_30012|><|audio_code_6915|><|audio_code_32540|><|audio_code_13035|><|audio_code_25351|><|audio_code_50013|><|audio_code_47861|><|audio_code_2246|><|audio_code_42270|><|audio_code_28877|><|audio_code_59067|><|audio_code_63783|><|audio_code_11566|><|audio_code_10070|><|audio_code_19492|><|audio_code_32927|><|audio_code_35847|><|audio_code_35847|><|audio_code_62151|><|audio_code_33807|><|im_end|>
+2026-11-20 22:45:36.361 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 6.03s. Generated 150 audio codes
+2026-11-20 22:45:36.383 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-20 22:45:36.384 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-20 22:45:36.384 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-20 22:45:36.385 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-20 22:45:36.611 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-20 22:45:36.649 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5374 MB)
+2026-11-20 22:45:50.115 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 13.2627s (RSS: 5374 -> 5072 MB, delta: -302 MB)
+2026-11-20 22:45:50.115 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-20 22:45:50.790 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 5081 MB)
+2026-11-20 22:45:51.194 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1891s (RSS: 5081 -> 5725 MB, delta: +644 MB)
+2026-11-20 22:45:51.196 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-20 22:45:51.198 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-20 22:45:51.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-20 22:45:51.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-20 22:45:51.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An energetic synth-pop track driven by a punchy electronic drum machine and a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening verse over a driving synth bassline. The chorus expands with layered, harmonized vocals, creating a fuller, more anthemic feel before transitioning into an instrumental section that reprises the main synth hook, solidifying its dance-pop and electropop character.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: E♭ minor
+- duration: 30 seconds
+<|endoftext|>
+
+2026-11-20 22:45:51.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-20 22:45:51.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+en
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight<|endoftext|>
+2026-11-20 22:45:51.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-20 22:45:51.599 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5706 MB)
+2026-11-20 22:45:51.946 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1400s (RSS: 5706 -> 5063 MB, delta: -644 MB)
+2026-11-20 22:45:51.951 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 5063 MB)
+2026-11-20 22:45:52.360 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1888s (RSS: 5063 -> 5707 MB, delta: +644 MB)
+2026-11-20 22:45:52.470 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-20 22:45:52.470 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading text_encoder to cuda (RSS: 5707 MB)
+2026-11-20 22:46:47.235 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded text_encoder to cuda in 54.5542s (RSS: 5707 -> 4009 MB, delta: -1698 MB)
+2026-11-20 22:46:47.260 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-20 22:46:47.260 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading text_encoder to CPU (RSS: 4009 MB)
+2026-11-20 22:46:47.918 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded text_encoder to CPU in 0.4275s (RSS: 4009 -> 5146 MB, delta: +1137 MB)
+2026-11-20 22:46:47.919 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-20 22:46:48.184 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-20 22:46:48.231 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-20 22:46:48.932 | WARNING  | acestep.models.common.dcw_loader:_try_import:39 - DCW is enabled but 'pytorch_wavelets' is not installed. Install with `pip install pytorch_wavelets PyWavelets` to use Differential Correction in Wavelet domain. Falling back to no-op for this generation.
+2026-11-20 22:46:49.370 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-20 22:46:49.474 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 750, 64]), dtype=torch.bfloat16
+2026-11-20 22:46:49.475 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.030777454376220703, 'diffusion_time_cost': 1.1549603939056396, 'diffusion_per_step_time_cost': 0.14437004923820496, 'total_time_cost': 1.1857378482818604, 'offload_time_cost': 68.76231789588928}
+2026-11-20 22:46:49.552 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-20 22:46:49.553 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5257 MB)
+2026-11-20 22:46:49.923 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1549s (RSS: 5257 -> 4613 MB, delta: -644 MB)
+2026-11-20 22:46:49.924 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=4.80GB, max=5.94GB
+2026-11-20 22:46:49.924 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 2.56 GB
+2026-11-20 22:46:49.924 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-20 22:46:49.924 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:108 - [_get_auto_decode_chunk_size] Effective free VRAM: 2.56 GB
+2026-11-20 22:46:49.924 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:131 - [_should_offload_wav_to_cpu] Effective free VRAM: 2.56 GB
+2026-11-20 22:46:49.924 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=128, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 750])
+2026-11-20 22:46:49.924 | WARNING  | acestep.core.generation.handler.vae_decode_chunks:_tiled_decode_inner:39 - [tiled_decode] Reduced overlap from 64 to 32 for chunk_size=128
+2026-11-20 22:46:51.271 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=4.96GB, max=5.94GB
+2026-11-20 22:46:51.304 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4702 MB)
+2026-11-20 22:46:51.722 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.2037s (RSS: 4702 -> 5345 MB, delta: +643 MB)
+2026-11-20 22:46:51.928 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-20 22:46:51.928 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-20 22:46:52.144 | INFO     | acestep.inference:generate_music:1028 - [Normalization] Audio 0 BEFORE: Peak=1.0000, Target=-1.0dB
+2026-11-20 22:46:52.169 | INFO     | acestep.inference:generate_music:1033 - [Normalization] Audio 0 AFTER: Peak=0.8913
+Using precomputed LM hints
+Using precomputed LM hints
+{"run": -1, "warmup": true, "wall_s": 122.7023, "time_costs": {"lm_phase1_time": 40.7132, "lm_phase2_time": 6.0261, "lm_total_time": 46.7393, "dit_encoder_time_cost": 0.0308, "dit_diffusion_time_cost": 1.155, "dit_diffusion_per_step_time_cost": 0.1444, "dit_total_time_cost": 3.561, "dit_offload_time_cost": 69.1209, "dit_vae_decode_time_cost": 2.3753, "pipeline_total_time": 50.3003}, "peak_alloc_gb": 5.936, "peak_reserved_gb": 5.977, "codes_md5": "f090a69f00", "n_codes": 150, "wav_md5": "4932c0008a"}
+2026-11-20 22:46:52.247 | INFO     | acestep.inference:generate_music:686 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-20 22:46:52.247 | INFO     | acestep.inference:generate_music:744 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-20 22:46:52.247 | INFO     | acestep.llm_inference:generate_with_stop_condition:1371 - Phase 1: Generating CoT metadata...
+2026-11-20 22:46:52.249 | INFO     | acestep.llm_inference:generate_with_stop_condition:1377 - generate_with_stop_condition: formatted_prompt=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+
+2026-11-20 22:46:52.249 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 22:46:52.532 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2821s
+2026-11-20 22:46:54.074 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 22:46:54.789 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.7150s
+2026-11-20 22:46:54.790 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening
+  verse over a driving synth bassline. The chorus expands with layered, harmonized
+  vocals, creating a fuller, more anthemic feel before transitioning into an instrumental
+  section that reprises the main synth hook, solidifying its dance-pop and electropop
+  character.
+duration: 30
+keyscale: E♭ minor
+language: en
+timesignature: 4
+<|im_end|>
+2026-11-20 22:46:54.790 | INFO     | acestep.llm_inference:generate_with_stop_condition:1422 - Phase 1 completed in 2.54s. Generated metadata: ['bpm', 'caption', 'duration', 'keyscale', 'language', 'timesignature']
+2026-11-20 22:46:54.790 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-20 22:46:54.792 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening
+  verse over a driving synth bassline. The chorus expands with layered, harmonized
+  vocals, creating a fuller, more anthemic feel before transitioning into an instrumental
+  section that reprises the main synth hook, solidifying its dance-pop and electropop
+  character.
+duration: 30
+keyscale: E♭ minor
+language: en
+timesignature: 4
+</think>
+
+
+2026-11-20 22:46:54.793 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 22:46:55.072 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2791s
+2026-11-20 22:46:55.073 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+2026-11-20 22:46:57.457 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 22:46:58.188 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.7315s
+2026-11-20 22:46:58.189 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_55724|><|audio_code_36165|><|audio_code_1600|><|audio_code_26364|><|audio_code_23843|><|audio_code_26243|><|audio_code_19991|><|audio_code_51774|><|audio_code_27758|><|audio_code_52249|><|audio_code_37948|><|audio_code_2189|><|audio_code_27848|><|audio_code_25336|><|audio_code_246|><|audio_code_12881|><|audio_code_48321|><|audio_code_3382|><|audio_code_40477|><|audio_code_27652|><|audio_code_7226|><|audio_code_18982|><|audio_code_63686|><|audio_code_22334|><|audio_code_34851|><|audio_code_10885|><|audio_code_29831|><|audio_code_30221|><|audio_code_62187|><|audio_code_52469|><|audio_code_24103|><|audio_code_10822|><|audio_code_39985|><|audio_code_23582|><|audio_code_13382|><|audio_code_52982|><|audio_code_48164|><|audio_code_22564|><|audio_code_10503|><|audio_code_38915|><|audio_code_46605|><|audio_code_2229|><|audio_code_47839|><|audio_code_16069|><|audio_code_43520|><|audio_code_12351|><|audio_code_12606|><|audio_code_9999|><|audio_code_44701|><|audio_code_19491|><|audio_code_49605|><|audio_code_32991|><|audio_code_51770|><|audio_code_7190|><|audio_code_61976|><|audio_code_31102|><|audio_code_11202|><|audio_code_46687|><|audio_code_63374|><|audio_code_56057|><|audio_code_16152|><|audio_code_49888|><|audio_code_63994|><|audio_code_16338|><|audio_code_48626|><|audio_code_441|><|audio_code_16345|><|audio_code_51177|><|audio_code_897|><|audio_code_29139|><|audio_code_61418|><|audio_code_13697|><|audio_code_16338|><|audio_code_59345|><|audio_code_28147|><|audio_code_18839|><|audio_code_55820|><|audio_code_40499|><|audio_code_11290|><|audio_code_20127|><|audio_code_27647|><|audio_code_31631|><|audio_code_54072|><|audio_code_27591|><|audio_code_665|><|audio_code_21072|><|audio_code_12171|><|audio_code_53690|><|audio_code_16272|><|audio_code_60913|><|audio_code_28199|><|audio_code_17471|><|audio_code_30217|><|audio_code_56879|><|audio_code_12671|><|audio_code_24401|><|audio_code_8796|><|audio_code_49153|><|audio_code_55947|><|audio_code_49590|><|audio_code_60271|><|audio_code_40108|><|audio_code_11786|><|audio_code_40976|><|audio_code_12345|><|audio_code_18716|><|audio_code_18683|><|audio_code_12554|><|audio_code_49561|><|audio_code_33666|><|audio_code_62892|><|audio_code_53579|><|audio_code_28483|><|audio_code_37230|><|audio_code_2663|><|audio_code_51270|><|audio_code_40048|><|audio_code_95|><|audio_code_41422|><|audio_code_2371|><|audio_code_52315|><|audio_code_9238|><|audio_code_11946|><|audio_code_7647|><|audio_code_9718|><|audio_code_21820|><|audio_code_19482|><|audio_code_22074|><|audio_code_13874|><|audio_code_59164|><|audio_code_30012|><|audio_code_6915|><|audio_code_32540|><|audio_code_13035|><|audio_code_25351|><|audio_code_50013|><|audio_code_47861|><|audio_code_2246|><|audio_code_42270|><|audio_code_28877|><|audio_code_59067|><|audio_code_63783|><|audio_code_11566|><|audio_code_10070|><|audio_code_19492|><|audio_code_32927|><|audio_code_35847|><|audio_code_35847|><|audio_code_62151|><|audio_code_33807|><|im_end|>
+2026-11-20 22:46:58.189 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 3.40s. Generated 150 audio codes
+2026-11-20 22:46:58.190 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-20 22:46:58.190 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-20 22:46:58.190 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-20 22:46:58.192 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-20 22:46:58.403 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-20 22:46:58.427 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5369 MB)
+2026-11-20 22:46:58.785 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1415s (RSS: 5369 -> 4725 MB, delta: -644 MB)
+2026-11-20 22:46:58.785 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-20 22:46:58.791 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4726 MB)
+2026-11-20 22:46:59.195 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1915s (RSS: 4726 -> 5369 MB, delta: +644 MB)
+2026-11-20 22:46:59.197 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-20 22:46:59.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-20 22:46:59.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-20 22:46:59.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-20 22:46:59.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An energetic synth-pop track driven by a punchy electronic drum machine and a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening verse over a driving synth bassline. The chorus expands with layered, harmonized vocals, creating a fuller, more anthemic feel before transitioning into an instrumental section that reprises the main synth hook, solidifying its dance-pop and electropop character.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: E♭ minor
+- duration: 30 seconds
+<|endoftext|>
+
+2026-11-20 22:46:59.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-20 22:46:59.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+en
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight<|endoftext|>
+2026-11-20 22:46:59.199 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-20 22:46:59.208 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5347 MB)
+2026-11-20 22:46:59.556 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1407s (RSS: 5347 -> 4704 MB, delta: -644 MB)
+2026-11-20 22:46:59.556 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4704 MB)
+2026-11-20 22:46:59.961 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1901s (RSS: 4704 -> 5347 MB, delta: +644 MB)
+2026-11-20 22:46:59.962 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-20 22:46:59.962 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading text_encoder to cuda (RSS: 5347 MB)
+2026-11-20 22:47:00.420 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded text_encoder to cuda in 0.2529s (RSS: 5347 -> 4211 MB, delta: -1137 MB)
+2026-11-20 22:47:00.431 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-20 22:47:00.431 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading text_encoder to CPU (RSS: 4211 MB)
+2026-11-20 22:47:01.093 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded text_encoder to CPU in 0.4333s (RSS: 4211 -> 5348 MB, delta: +1137 MB)
+2026-11-20 22:47:01.093 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-20 22:47:01.115 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-20 22:47:01.135 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-20 22:47:01.659 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-20 22:47:01.660 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 750, 64]), dtype=torch.bfloat16
+2026-11-20 22:47:01.660 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.02046489715576172, 'diffusion_time_cost': 0.5235152244567871, 'diffusion_per_step_time_cost': 0.06543940305709839, 'total_time_cost': 0.5439801216125488, 'offload_time_cost': 1.349951982498169}
+2026-11-20 22:47:01.686 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-20 22:47:01.686 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5348 MB)
+2026-11-20 22:47:02.034 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1400s (RSS: 5348 -> 4704 MB, delta: -644 MB)
+2026-11-20 22:47:02.035 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=4.96GB, max=6.11GB
+2026-11-20 22:47:02.035 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 2.40 GB
+2026-11-20 22:47:02.035 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-20 22:47:02.035 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:108 - [_get_auto_decode_chunk_size] Effective free VRAM: 2.40 GB
+2026-11-20 22:47:02.036 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:131 - [_should_offload_wav_to_cpu] Effective free VRAM: 2.40 GB
+2026-11-20 22:47:02.036 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=128, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 750])
+2026-11-20 22:47:02.036 | WARNING  | acestep.core.generation.handler.vae_decode_chunks:_tiled_decode_inner:39 - [tiled_decode] Reduced overlap from 64 to 32 for chunk_size=128
+2026-11-20 22:47:02.954 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=4.96GB, max=6.11GB
+2026-11-20 22:47:02.959 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4716 MB)
+2026-11-20 22:47:03.359 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1870s (RSS: 4716 -> 5359 MB, delta: +643 MB)
+2026-11-20 22:47:03.569 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-20 22:47:03.570 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-20 22:47:03.780 | INFO     | acestep.inference:generate_music:1028 - [Normalization] Audio 0 BEFORE: Peak=1.0000, Target=-1.0dB
+2026-11-20 22:47:03.785 | INFO     | acestep.inference:generate_music:1033 - [Normalization] Audio 0 AFTER: Peak=0.8913
+Using precomputed LM hints
+Using precomputed LM hints
+{"run": 0, "warmup": false, "wall_s": 11.5386, "time_costs": {"lm_phase1_time": 2.5426, "lm_phase2_time": 3.399, "lm_total_time": 5.9416, "dit_encoder_time_cost": 0.0205, "dit_diffusion_time_cost": 0.5235, "dit_diffusion_per_step_time_cost": 0.0654, "dit_total_time_cost": 2.4275, "dit_offload_time_cost": 1.6769, "dit_vae_decode_time_cost": 1.8835, "pipeline_total_time": 8.3691}, "peak_alloc_gb": 6.105, "peak_reserved_gb": 6.168, "codes_md5": "f090a69f00", "n_codes": 150, "wav_md5": "4932c0008a"}
+2026-11-20 22:47:04.262 | INFO     | acestep.inference:generate_music:686 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-20 22:47:04.262 | INFO     | acestep.inference:generate_music:744 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-20 22:47:04.262 | INFO     | acestep.llm_inference:generate_with_stop_condition:1371 - Phase 1: Generating CoT metadata...
+2026-11-20 22:47:04.267 | INFO     | acestep.llm_inference:generate_with_stop_condition:1377 - generate_with_stop_condition: formatted_prompt=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+
+2026-11-20 22:47:04.267 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 22:47:04.546 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2790s
+2026-11-20 22:47:06.106 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 22:47:06.802 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.6962s
+2026-11-20 22:47:06.802 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening
+  verse over a driving synth bassline. The chorus expands with layered, harmonized
+  vocals, creating a fuller, more anthemic feel before transitioning into an instrumental
+  section that reprises the main synth hook, solidifying its dance-pop and electropop
+  character.
+duration: 30
+keyscale: E♭ minor
+language: en
+timesignature: 4
+<|im_end|>
+2026-11-20 22:47:06.803 | INFO     | acestep.llm_inference:generate_with_stop_condition:1422 - Phase 1 completed in 2.54s. Generated metadata: ['bpm', 'caption', 'duration', 'keyscale', 'language', 'timesignature']
+2026-11-20 22:47:06.803 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-20 22:47:06.804 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening
+  verse over a driving synth bassline. The chorus expands with layered, harmonized
+  vocals, creating a fuller, more anthemic feel before transitioning into an instrumental
+  section that reprises the main synth hook, solidifying its dance-pop and electropop
+  character.
+duration: 30
+keyscale: E♭ minor
+language: en
+timesignature: 4
+</think>
+
+
+2026-11-20 22:47:06.805 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 22:47:07.090 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2845s
+2026-11-20 22:47:07.091 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+2026-11-20 22:47:09.497 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 22:47:10.206 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.7088s
+2026-11-20 22:47:10.207 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_55724|><|audio_code_36165|><|audio_code_1600|><|audio_code_26364|><|audio_code_23843|><|audio_code_26243|><|audio_code_19991|><|audio_code_51774|><|audio_code_27758|><|audio_code_52249|><|audio_code_37948|><|audio_code_2189|><|audio_code_27848|><|audio_code_25336|><|audio_code_246|><|audio_code_12881|><|audio_code_48321|><|audio_code_3382|><|audio_code_40477|><|audio_code_27652|><|audio_code_7226|><|audio_code_18982|><|audio_code_63686|><|audio_code_22334|><|audio_code_34851|><|audio_code_10885|><|audio_code_29831|><|audio_code_30221|><|audio_code_62187|><|audio_code_52469|><|audio_code_24103|><|audio_code_10822|><|audio_code_39985|><|audio_code_23582|><|audio_code_13382|><|audio_code_52982|><|audio_code_48164|><|audio_code_22564|><|audio_code_10503|><|audio_code_38915|><|audio_code_46605|><|audio_code_2229|><|audio_code_47839|><|audio_code_16069|><|audio_code_43520|><|audio_code_12351|><|audio_code_12606|><|audio_code_9999|><|audio_code_44701|><|audio_code_19491|><|audio_code_49605|><|audio_code_32991|><|audio_code_51770|><|audio_code_7190|><|audio_code_61976|><|audio_code_31102|><|audio_code_11202|><|audio_code_46687|><|audio_code_63374|><|audio_code_56057|><|audio_code_16152|><|audio_code_49888|><|audio_code_63994|><|audio_code_16338|><|audio_code_48626|><|audio_code_441|><|audio_code_16345|><|audio_code_51177|><|audio_code_897|><|audio_code_29139|><|audio_code_61418|><|audio_code_13697|><|audio_code_16338|><|audio_code_59345|><|audio_code_28147|><|audio_code_18839|><|audio_code_55820|><|audio_code_40499|><|audio_code_11290|><|audio_code_20127|><|audio_code_27647|><|audio_code_31631|><|audio_code_54072|><|audio_code_27591|><|audio_code_665|><|audio_code_21072|><|audio_code_12171|><|audio_code_53690|><|audio_code_16272|><|audio_code_60913|><|audio_code_28199|><|audio_code_17471|><|audio_code_30217|><|audio_code_56879|><|audio_code_12671|><|audio_code_24401|><|audio_code_8796|><|audio_code_49153|><|audio_code_55947|><|audio_code_49590|><|audio_code_60271|><|audio_code_40108|><|audio_code_11786|><|audio_code_40976|><|audio_code_12345|><|audio_code_18716|><|audio_code_18683|><|audio_code_12554|><|audio_code_49561|><|audio_code_33666|><|audio_code_62892|><|audio_code_53579|><|audio_code_28483|><|audio_code_37230|><|audio_code_2663|><|audio_code_51270|><|audio_code_40048|><|audio_code_95|><|audio_code_41422|><|audio_code_2371|><|audio_code_52315|><|audio_code_9238|><|audio_code_11946|><|audio_code_7647|><|audio_code_9718|><|audio_code_21820|><|audio_code_19482|><|audio_code_22074|><|audio_code_13874|><|audio_code_59164|><|audio_code_30012|><|audio_code_6915|><|audio_code_32540|><|audio_code_13035|><|audio_code_25351|><|audio_code_50013|><|audio_code_47861|><|audio_code_2246|><|audio_code_42270|><|audio_code_28877|><|audio_code_59067|><|audio_code_63783|><|audio_code_11566|><|audio_code_10070|><|audio_code_19492|><|audio_code_32927|><|audio_code_35847|><|audio_code_35847|><|audio_code_62151|><|audio_code_33807|><|im_end|>
+2026-11-20 22:47:10.207 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 3.40s. Generated 150 audio codes
+2026-11-20 22:47:10.207 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-20 22:47:10.207 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-20 22:47:10.207 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-20 22:47:10.208 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-20 22:47:10.417 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-20 22:47:10.423 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5371 MB)
+2026-11-20 22:47:10.775 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1398s (RSS: 5371 -> 4727 MB, delta: -644 MB)
+2026-11-20 22:47:10.775 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-20 22:47:10.779 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4727 MB)
+2026-11-20 22:47:11.189 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1917s (RSS: 4727 -> 5371 MB, delta: +644 MB)
+2026-11-20 22:47:11.191 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-20 22:47:11.193 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-20 22:47:11.193 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-20 22:47:11.193 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-20 22:47:11.193 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An energetic synth-pop track driven by a punchy electronic drum machine and a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening verse over a driving synth bassline. The chorus expands with layered, harmonized vocals, creating a fuller, more anthemic feel before transitioning into an instrumental section that reprises the main synth hook, solidifying its dance-pop and electropop character.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: E♭ minor
+- duration: 30 seconds
+<|endoftext|>
+
+2026-11-20 22:47:11.193 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-20 22:47:11.193 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+en
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight<|endoftext|>
+2026-11-20 22:47:11.193 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-20 22:47:11.202 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5349 MB)
+2026-11-20 22:47:11.548 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1399s (RSS: 5349 -> 4705 MB, delta: -644 MB)
+2026-11-20 22:47:11.548 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4705 MB)
+2026-11-20 22:47:11.946 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1873s (RSS: 4705 -> 5349 MB, delta: +644 MB)
+2026-11-20 22:47:11.947 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-20 22:47:11.947 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading text_encoder to cuda (RSS: 5349 MB)
+2026-11-20 22:47:12.403 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded text_encoder to cuda in 0.2512s (RSS: 5349 -> 4212 MB, delta: -1137 MB)
+2026-11-20 22:47:12.414 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-20 22:47:12.414 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading text_encoder to CPU (RSS: 4212 MB)
+2026-11-20 22:47:13.066 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded text_encoder to CPU in 0.4247s (RSS: 4212 -> 5349 MB, delta: +1137 MB)
+2026-11-20 22:47:13.066 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-20 22:47:13.087 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-20 22:47:13.108 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-20 22:47:13.612 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-20 22:47:13.613 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 750, 64]), dtype=torch.bfloat16
+2026-11-20 22:47:13.613 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.020769357681274414, 'diffusion_time_cost': 0.5040254592895508, 'diffusion_per_step_time_cost': 0.06300318241119385, 'total_time_cost': 0.5247948169708252, 'offload_time_cost': 1.3347351551055908}
+2026-11-20 22:47:13.639 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-20 22:47:13.640 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5349 MB)
+2026-11-20 22:47:13.987 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1399s (RSS: 5349 -> 4706 MB, delta: -644 MB)
+2026-11-20 22:47:13.988 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=4.96GB, max=6.11GB
+2026-11-20 22:47:13.988 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 2.40 GB
+2026-11-20 22:47:13.988 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-20 22:47:13.988 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:108 - [_get_auto_decode_chunk_size] Effective free VRAM: 2.40 GB
+2026-11-20 22:47:13.989 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:131 - [_should_offload_wav_to_cpu] Effective free VRAM: 2.40 GB
+2026-11-20 22:47:13.989 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=128, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 750])
+2026-11-20 22:47:13.989 | WARNING  | acestep.core.generation.handler.vae_decode_chunks:_tiled_decode_inner:39 - [tiled_decode] Reduced overlap from 64 to 32 for chunk_size=128
+2026-11-20 22:47:14.900 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=4.96GB, max=6.11GB
+2026-11-20 22:47:14.905 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4717 MB)
+2026-11-20 22:47:15.308 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1865s (RSS: 4717 -> 5360 MB, delta: +643 MB)
+2026-11-20 22:47:15.514 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-20 22:47:15.514 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-20 22:47:15.726 | INFO     | acestep.inference:generate_music:1028 - [Normalization] Audio 0 BEFORE: Peak=1.0000, Target=-1.0dB
+2026-11-20 22:47:15.731 | INFO     | acestep.inference:generate_music:1033 - [Normalization] Audio 0 AFTER: Peak=0.8913
+Using precomputed LM hints
+Using precomputed LM hints
+{"run": 1, "warmup": false, "wall_s": 11.4703, "time_costs": {"lm_phase1_time": 2.5402, "lm_phase2_time": 3.4041, "lm_total_time": 5.9443, "dit_encoder_time_cost": 0.0208, "dit_diffusion_time_cost": 0.504, "dit_diffusion_per_step_time_cost": 0.063, "dit_total_time_cost": 2.3993, "dit_offload_time_cost": 1.6612, "dit_vae_decode_time_cost": 1.8745, "pipeline_total_time": 8.3435}, "peak_alloc_gb": 6.107, "peak_reserved_gb": 6.145, "codes_md5": "f090a69f00", "n_codes": 150, "wav_md5": "4932c0008a"}
+2026-11-20 22:47:15.772 | INFO     | acestep.inference:generate_music:686 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-20 22:47:15.773 | INFO     | acestep.inference:generate_music:744 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-20 22:47:15.773 | INFO     | acestep.llm_inference:generate_with_stop_condition:1371 - Phase 1: Generating CoT metadata...
+2026-11-20 22:47:15.779 | INFO     | acestep.llm_inference:generate_with_stop_condition:1377 - generate_with_stop_condition: formatted_prompt=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+
+2026-11-20 22:47:15.780 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 22:47:16.071 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2911s
+2026-11-20 22:47:17.851 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 22:47:18.547 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.6963s
+2026-11-20 22:47:18.547 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening
+  verse over a driving synth bassline. The chorus expands with layered, harmonized
+  vocals, creating a fuller, more anthemic feel before transitioning into an instrumental
+  section that reprises the main synth hook, solidifying its dance-pop and electropop
+  character.
+duration: 30
+keyscale: E♭ minor
+language: en
+timesignature: 4
+<|im_end|>
+2026-11-20 22:47:18.548 | INFO     | acestep.llm_inference:generate_with_stop_condition:1422 - Phase 1 completed in 2.77s. Generated metadata: ['bpm', 'caption', 'duration', 'keyscale', 'language', 'timesignature']
+2026-11-20 22:47:18.548 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-20 22:47:18.553 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening
+  verse over a driving synth bassline. The chorus expands with layered, harmonized
+  vocals, creating a fuller, more anthemic feel before transitioning into an instrumental
+  section that reprises the main synth hook, solidifying its dance-pop and electropop
+  character.
+duration: 30
+keyscale: E♭ minor
+language: en
+timesignature: 4
+</think>
+
+
+2026-11-20 22:47:18.554 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 22:47:18.845 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2910s
+2026-11-20 22:47:18.850 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+2026-11-20 22:47:21.842 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 22:47:22.545 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.7026s
+2026-11-20 22:47:22.545 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_55724|><|audio_code_36165|><|audio_code_1600|><|audio_code_26364|><|audio_code_23843|><|audio_code_26243|><|audio_code_19991|><|audio_code_51774|><|audio_code_27758|><|audio_code_52249|><|audio_code_37948|><|audio_code_2189|><|audio_code_27848|><|audio_code_25336|><|audio_code_246|><|audio_code_12881|><|audio_code_48321|><|audio_code_3382|><|audio_code_40477|><|audio_code_27652|><|audio_code_7226|><|audio_code_18982|><|audio_code_63686|><|audio_code_22334|><|audio_code_34851|><|audio_code_10885|><|audio_code_29831|><|audio_code_30221|><|audio_code_62187|><|audio_code_52469|><|audio_code_24103|><|audio_code_10822|><|audio_code_39985|><|audio_code_23582|><|audio_code_13382|><|audio_code_52982|><|audio_code_48164|><|audio_code_22564|><|audio_code_10503|><|audio_code_38915|><|audio_code_46605|><|audio_code_2229|><|audio_code_47839|><|audio_code_16069|><|audio_code_43520|><|audio_code_12351|><|audio_code_12606|><|audio_code_9999|><|audio_code_44701|><|audio_code_19491|><|audio_code_49605|><|audio_code_32991|><|audio_code_51770|><|audio_code_7190|><|audio_code_61976|><|audio_code_31102|><|audio_code_11202|><|audio_code_46687|><|audio_code_63374|><|audio_code_56057|><|audio_code_16152|><|audio_code_49888|><|audio_code_63994|><|audio_code_16338|><|audio_code_48626|><|audio_code_441|><|audio_code_16345|><|audio_code_51177|><|audio_code_897|><|audio_code_29139|><|audio_code_61418|><|audio_code_13697|><|audio_code_16338|><|audio_code_59345|><|audio_code_28147|><|audio_code_18839|><|audio_code_55820|><|audio_code_40499|><|audio_code_11290|><|audio_code_20127|><|audio_code_27647|><|audio_code_31631|><|audio_code_54072|><|audio_code_27591|><|audio_code_665|><|audio_code_21072|><|audio_code_12171|><|audio_code_53690|><|audio_code_16272|><|audio_code_60913|><|audio_code_28199|><|audio_code_17471|><|audio_code_30217|><|audio_code_56879|><|audio_code_12671|><|audio_code_24401|><|audio_code_8796|><|audio_code_49153|><|audio_code_55947|><|audio_code_49590|><|audio_code_60271|><|audio_code_40108|><|audio_code_11786|><|audio_code_40976|><|audio_code_12345|><|audio_code_18716|><|audio_code_18683|><|audio_code_12554|><|audio_code_49561|><|audio_code_33666|><|audio_code_62892|><|audio_code_53579|><|audio_code_28483|><|audio_code_37230|><|audio_code_2663|><|audio_code_51270|><|audio_code_40048|><|audio_code_95|><|audio_code_41422|><|audio_code_2371|><|audio_code_52315|><|audio_code_9238|><|audio_code_11946|><|audio_code_7647|><|audio_code_9718|><|audio_code_21820|><|audio_code_19482|><|audio_code_22074|><|audio_code_13874|><|audio_code_59164|><|audio_code_30012|><|audio_code_6915|><|audio_code_32540|><|audio_code_13035|><|audio_code_25351|><|audio_code_50013|><|audio_code_47861|><|audio_code_2246|><|audio_code_42270|><|audio_code_28877|><|audio_code_59067|><|audio_code_63783|><|audio_code_11566|><|audio_code_10070|><|audio_code_19492|><|audio_code_32927|><|audio_code_35847|><|audio_code_35847|><|audio_code_62151|><|audio_code_33807|><|im_end|>
+2026-11-20 22:47:22.545 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 4.00s. Generated 150 audio codes
+2026-11-20 22:47:22.546 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-20 22:47:22.546 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-20 22:47:22.546 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-20 22:47:22.547 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-20 22:47:22.756 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-20 22:47:22.762 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5372 MB)
+2026-11-20 22:47:23.114 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1453s (RSS: 5372 -> 4728 MB, delta: -644 MB)
+2026-11-20 22:47:23.114 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-20 22:47:23.118 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4728 MB)
+2026-11-20 22:47:23.526 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1954s (RSS: 4728 -> 5371 MB, delta: +643 MB)
+2026-11-20 22:47:23.528 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-20 22:47:23.531 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-20 22:47:23.531 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-20 22:47:23.531 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-20 22:47:23.531 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An energetic synth-pop track driven by a punchy electronic drum machine and a bright, catchy arpeggiated synth lead. A clean female vocal delivers the opening verse over a driving synth bassline. The chorus expands with layered, harmonized vocals, creating a fuller, more anthemic feel before transitioning into an instrumental section that reprises the main synth hook, solidifying its dance-pop and electropop character.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: E♭ minor
+- duration: 30 seconds
+<|endoftext|>
+
+2026-11-20 22:47:23.531 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-20 22:47:23.531 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+en
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight<|endoftext|>
+2026-11-20 22:47:23.531 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-20 22:47:23.540 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5349 MB)
+2026-11-20 22:47:23.898 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1516s (RSS: 5349 -> 4706 MB, delta: -644 MB)
+2026-11-20 22:47:23.898 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4706 MB)
+2026-11-20 22:47:24.298 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1917s (RSS: 4706 -> 5349 MB, delta: +644 MB)
+2026-11-20 22:47:24.298 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-20 22:47:24.298 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading text_encoder to cuda (RSS: 5349 MB)
+2026-11-20 22:47:24.770 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded text_encoder to cuda in 0.2580s (RSS: 5349 -> 4212 MB, delta: -1137 MB)
+2026-11-20 22:47:24.784 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-20 22:47:24.784 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading text_encoder to CPU (RSS: 4212 MB)
+2026-11-20 22:47:25.440 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded text_encoder to CPU in 0.4231s (RSS: 4212 -> 5349 MB, delta: +1137 MB)
+2026-11-20 22:47:25.440 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-20 22:47:25.461 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-20 22:47:25.482 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-20 22:47:25.988 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-20 22:47:25.991 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 750, 64]), dtype=torch.bfloat16
+2026-11-20 22:47:25.991 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.020663022994995117, 'diffusion_time_cost': 0.5050086975097656, 'diffusion_per_step_time_cost': 0.0631260871887207, 'total_time_cost': 0.5256717205047607, 'offload_time_cost': 1.3651998043060303}
+2026-11-20 22:47:26.015 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-20 22:47:26.015 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5350 MB)
+2026-11-20 22:47:26.370 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1462s (RSS: 5350 -> 4706 MB, delta: -644 MB)
+2026-11-20 22:47:26.371 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=4.96GB, max=6.11GB
+2026-11-20 22:47:26.371 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 2.40 GB
+2026-11-20 22:47:26.371 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-20 22:47:26.372 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:108 - [_get_auto_decode_chunk_size] Effective free VRAM: 2.40 GB
+2026-11-20 22:47:26.372 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:131 - [_should_offload_wav_to_cpu] Effective free VRAM: 2.40 GB
+2026-11-20 22:47:26.372 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=128, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 750])
+2026-11-20 22:47:26.372 | WARNING  | acestep.core.generation.handler.vae_decode_chunks:_tiled_decode_inner:39 - [tiled_decode] Reduced overlap from 64 to 32 for chunk_size=128
+2026-11-20 22:47:27.288 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=4.96GB, max=6.11GB
+2026-11-20 22:47:27.293 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4718 MB)
+2026-11-20 22:47:27.699 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1968s (RSS: 4718 -> 5361 MB, delta: +643 MB)
+2026-11-20 22:47:27.910 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-20 22:47:27.911 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-20 22:47:28.120 | INFO     | acestep.inference:generate_music:1028 - [Normalization] Audio 0 BEFORE: Peak=1.0000, Target=-1.0dB
+2026-11-20 22:47:28.125 | INFO     | acestep.inference:generate_music:1033 - [Normalization] Audio 0 AFTER: Peak=0.8913
+Using precomputed LM hints
+Using precomputed LM hints
+{"run": 2, "warmup": false, "wall_s": 12.3538, "time_costs": {"lm_phase1_time": 2.7748, "lm_phase2_time": 3.9974, "lm_total_time": 6.7722, "dit_encoder_time_cost": 0.0207, "dit_diffusion_time_cost": 0.505, "dit_diffusion_per_step_time_cost": 0.0631, "dit_total_time_cost": 2.4207, "dit_offload_time_cost": 1.7082, "dit_vae_decode_time_cost": 1.895, "pipeline_total_time": 9.1929}, "peak_alloc_gb": 6.108, "peak_reserved_gb": 6.166, "codes_md5": "f090a69f00", "n_codes": 150, "wav_md5": "4932c0008a"}
+SUMMARY {"wall_median_s": 11.539, "wall_min_s": 11.47, "wall_max_s": 12.354, "wall_cv": 0.034, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.063, "dit_diffusion_time_cost": 0.505, "dit_encoder_time_cost": 0.021, "dit_offload_time_cost": 1.677, "dit_total_time_cost": 2.421, "dit_vae_decode_time_cost": 1.883, "lm_phase1_time": 2.543, "lm_phase2_time": 3.404, "lm_total_time": 5.944, "pipeline_total_time": 8.369}, "peak_alloc_gb_max": 6.108, "peak_reserved_gb_max": 6.168, "cold_start_s": {"dit_init": 2.47, "lm_init": 55.43, "warmup_run": 122.7023}}

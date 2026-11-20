@@ -1,0 +1,68 @@
+         3244867 function calls (2816163 primitive calls) in 12.354 seconds
+
+   Ordered by: cumulative time
+   List reduced from 1084 to 60 due to restriction <60>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+6833/6780    0.002    0.000    4.415    0.001 {built-in method builtins.next}
+     8116    0.012    0.000    3.658    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/modeling_layers.py:60(__call__)
+        1    0.000    0.000    3.442    3.442 /home/qiao/anaconda3/envs/py312/lib/python3.12/threading.py:1155(_wait_for_tstate_lock)
+15792/7896    0.036    0.000    3.320    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/utils/deprecation.py:120(wrapped_func)
+     7896    0.099    0.000    3.302    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:245(forward)
+73029/72727    3.277    0.000    3.277    0.000 {method 'to' of 'torch._C.TensorBase' objects}
+2495/2483    0.001    0.000    3.276    0.001 /home/qiao/anaconda3/envs/py312/lib/python3.12/contextlib.py:141(__exit__)
+  299/282    0.001    0.000    3.270    0.012 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/utils/_contextlib.py:120(decorate_context)
+        1    0.000    0.000    3.231    3.231 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/generate_music_execute.py:77(_service_target)
+        1    0.000    0.000    3.231    3.231 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/service_generate.py:20(service_generate)
+        1    0.000    0.000    3.231    3.231 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/service_generate_execute.py:146(_execute_service_generate_diffusion)
+       14    0.000    0.000    3.191    0.228 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:1251(to)
+  4558/14    0.200    0.000    3.191    0.228 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:930(_apply)
+     4684    0.002    0.000    2.912    0.001 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:1358(convert)
+        1    0.000    0.000    2.775    2.775 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py:2362(generate_from_formatted_prompt)
+        1    0.000    0.000    2.775    2.775 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py:1145(_run_pt)
+        1    0.000    0.000    2.768    2.768 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py:985(_run_pt_single)
+       13    2.705    0.208    2.705    0.208 {built-in method gc.collect}
+        1    0.000    0.000    2.683    2.683 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/conditioning_embed.py:81(preprocess_batch)
+       14    0.000    0.000    2.412    0.172 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/init_service_offload_context.py:12(_load_model_context)
+        8    0.000    0.000    2.190    0.274 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/modeling_utils.py:4278(to)
+2495/2483    0.001    0.000    2.135    0.001 /home/qiao/anaconda3/envs/py312/lib/python3.12/contextlib.py:132(__enter__)
+     7896    0.129    0.000    2.095    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:187(forward)
+        1    0.000    0.000    2.071    2.071 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py:2522(_generate_with_constrained_decoding)
+      6/1    0.003    0.001    2.071    2.071 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/autograd/grad_mode.py:293(__exit__)
+        1    0.000    0.000    2.028    2.028 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/conditioning_embed.py:76(infer_lyric_embeddings)
+        1    0.001    0.001    2.027    2.027 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/conditioning_embed.py:71(infer_text_embeddings)
+        4    0.000    0.000    1.982    0.496 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py:4098(_load_model_context)
+     1208    0.011    0.000    1.935    0.002 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_functorch/pyfunctorch.py:71(level)
+        8    0.001    0.000    1.708    0.213 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/init_service_memory_transfer.py:69(_recursive_to_device)
+      130    0.001    0.000    1.483    0.011 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py:467(_forward_pass)
+125513/130    0.080    0.000    1.482    0.011 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:1772(_wrapped_call_impl)
+125513/130    0.142    0.000    1.482    0.011 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:1780(_call_impl)
+  136/130    0.001    0.000    1.481    0.011 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/utils/generic.py:912(wrapper)
+      130    0.001    0.000    1.481    0.011 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:443(forward)
+  131/130    0.002    0.000    1.474    0.011 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/utils/generic.py:961(wrapper)
+  132/130    0.010    0.000    1.471    0.011 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:354(forward)
+    33168    0.547    0.000    1.402    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:59(forward)
+        8    0.002    0.000    1.275    0.159 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/init_service_memory_basic.py:221(_release_system_memory)
+        6    0.000    0.000    1.005    0.168 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/diffusers/models/modeling_utils.py:1404(to)
+        1    0.000    0.000    0.906    0.906 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/vae_decode.py:16(tiled_decode)
+        1    0.000    0.000    0.906    0.906 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/vae_decode_chunks.py:13(_tiled_decode_inner)
+        1    0.002    0.002    0.906    0.906 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/vae_decode_chunks.py:118(_tiled_decode_offload_cpu)
+       24    0.858    0.036    0.858    0.036 {method 'cpu' of 'torch._C.TensorBase' objects}
+        1    0.001    0.001    0.782    0.782 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/conditioning_batch.py:21(_prepare_batch)
+        1    0.000    0.000    0.770    0.770 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/core/generation/handler/conditioning_target.py:35(_prepare_target_latents_and_wavs)
+  302/151    0.001    0.000    0.615    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/autograd/function.py:567(apply)
+  755/151    0.002    0.000    0.615    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_functorch/autograd_function.py:36(__call__)
+  604/151    0.003    0.000    0.614    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_ops.py:501(__call__)
+  604/151    0.001    0.000    0.614    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_ops.py:354(dispatch)
+  604/151    0.001    0.000    0.613    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_functorch/pyfunctorch.py:306(dispatch_functorch)
+  604/151    0.008    0.000    0.612    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_functorch/pyfunctorch.py:138(process)
+  604/151    0.011    0.000    0.612    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_functorch/autograd_function.py:276(custom_function_call_vmap)
+  604/151    0.033    0.000    0.612    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_functorch/autograd_function.py:378(custom_function_call_vmap_generate_rule)
+    57593    0.031    0.000    0.552    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/linear.py:130(forward)
+        1    0.001    0.001    0.526    0.526 /home/qiao/.cache/huggingface/modules/transformers_modules/acestep_hyphen_v15_hyphen_turbo/modeling_acestep_v15_turbo.py:1852(generate_audio)
+    57593    0.504    0.000    0.504    0.000 {built-in method torch._C._nn.linear}
+     8116    0.211    0.000    0.441    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:93(apply_rotary_pos_emb)
+     8308    0.046    0.000    0.392    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/integrations/sdpa_attention.py:48(sdpa_attention_forward)
+     8116    0.061    0.000    0.382    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:81(forward)
+
+

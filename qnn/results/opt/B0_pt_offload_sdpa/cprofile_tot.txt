@@ -1,0 +1,48 @@
+         3244867 function calls (2816163 primitive calls) in 12.354 seconds
+
+   Ordered by: internal time
+   List reduced from 1084 to 40 due to restriction <40>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+73029/72727    3.277    0.000    3.277    0.000 {method 'to' of 'torch._C.TensorBase' objects}
+       13    2.705    0.208    2.705    0.208 {built-in method gc.collect}
+       24    0.858    0.036    0.858    0.036 {method 'cpu' of 'torch._C.TensorBase' objects}
+    33168    0.547    0.000    1.402    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:59(forward)
+    57593    0.504    0.000    0.504    0.000 {built-in method torch._C._nn.linear}
+      309    0.261    0.001    0.261    0.001 {method 'item' of 'torch._C.TensorBase' objects}
+      150    0.260    0.002    0.260    0.002 {method 'nonzero' of 'torch._C.TensorBase' objects}
+     8308    0.220    0.000    0.220    0.000 {built-in method torch._C._nn.scaled_dot_product_attention}
+     8116    0.211    0.000    0.441    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:93(apply_rotary_pos_emb)
+  4558/14    0.200    0.000    3.191    0.228 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:930(_apply)
+    33168    0.198    0.000    0.198    0.000 {method 'mean' of 'torch._C.TensorBase' objects}
+    32971    0.163    0.000    0.163    0.000 {built-in method torch.cat}
+    33600    0.155    0.000    0.155    0.000 {method 'pow' of 'torch._C.TensorBase' objects}
+      130    0.155    0.001    0.228    0.002 /home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/constrained_logits_processor.py:1743(_process_single_sequence)
+    33168    0.147    0.000    0.147    0.000 {built-in method torch.rsqrt}
+125513/130    0.142    0.000    1.482    0.011 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:1780(_call_impl)
+    16232    0.133    0.000    0.219    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:86(rotate_half)
+     7896    0.129    0.000    2.095    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:187(forward)
+     7896    0.099    0.000    3.302    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:245(forward)
+       18    0.084    0.005    0.084    0.005 {built-in method torch._C._cuda_emptyCache}
+125513/130    0.080    0.000    1.482    0.011 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:1772(_wrapped_call_impl)
+   278302    0.073    0.000    0.073    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/module.py:1952(__getattr__)
+    18470    0.067    0.000    0.067    0.000 {method 'reshape' of 'torch._C.TensorBase' objects}
+     8116    0.061    0.000    0.382    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py:81(forward)
+      269    0.060    0.000    0.060    0.000 {built-in method torch.tensor}
+55568/10872    0.057    0.000    0.081    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/utils/_pytree.py:1275(unflatten)
+57984/19630    0.052    0.000    0.162    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/utils/_pytree.py:1429(helper)
+     8308    0.046    0.000    0.392    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/integrations/sdpa_attention.py:48(sdpa_attention_forward)
+     45/3    0.040    0.001    0.000    0.000 {method 'acquire' of '_thread.lock' objects}
+15792/7896    0.036    0.000    3.320    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/utils/deprecation.py:120(wrapped_func)
+     8148    0.036    0.000    0.036    0.000 {built-in method torch._C._nn.silu}
+    24592    0.033    0.000    0.033    0.000 {method 'view' of 'torch._C.TensorBase' objects}
+  604/151    0.033    0.000    0.612    0.004 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_functorch/autograd_function.py:378(custom_function_call_vmap_generate_rule)
+   125822    0.033    0.000    0.033    0.000 {built-in method torch._C._get_tracing_state}
+      604    0.031    0.000    0.033    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/_ops.py:560(key_extractor)
+    57593    0.031    0.000    0.552    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/linear.py:130(forward)
+37405/19363    0.031    0.000    0.035    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/configuration_utils.py:204(__getattribute__)
+     9280    0.030    0.000    0.099    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/integrations/sdpa_attention.py:18(repeat_kv)
+    88939    0.030    0.000    0.047    0.000 /home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/utils/_pytree.py:694(is_namedtuple_class)
+    33225    0.028    0.000    0.028    0.000 {method 'transpose' of 'torch._C.TensorBase' objects}
+
+
