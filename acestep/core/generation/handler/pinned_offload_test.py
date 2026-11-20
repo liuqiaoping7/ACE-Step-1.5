@@ -72,6 +72,10 @@ class PinnedOffloadTests(unittest.TestCase):
         self.assertEqual(self.net.lin.weight.dtype, torch.bfloat16)
         self.assertTrue(torch.equal(self.net.lin.weight, self.ref["lin.weight"].to(torch.bfloat16)))
 
+    def test_cpu_target_is_not_supported(self):
+        self.assertFalse(po.supports(self.net, "cpu"))
+        self.assertTrue(po.supports(self.net, "cuda"))
+
     def test_disabled_by_env(self):
         os.environ["ACESTEP_PINNED_OFFLOAD"] = "0"
         try:

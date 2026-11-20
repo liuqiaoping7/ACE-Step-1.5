@@ -44,7 +44,7 @@ class InitServiceOffloadContextMixin:
         start_time = time.time()
         load_dtype = self._get_vae_dtype() if model_name == "vae" else self.dtype
         # Fast path: pinned host masters, async H2D, no D2H on offload.
-        use_pinned = pinned_offload.supports(model)
+        use_pinned = pinned_offload.supports(model, self.device)
         if use_pinned:
             pinned_offload.load_to_device(model, self.device, load_dtype)
         else:
@@ -116,7 +116,7 @@ class InitServiceOffloadContextMixin:
             except StopIteration:
                 continue
         for part in to_load:
-            if pinned_offload.supports(part):
+            if pinned_offload.supports(part, self.device):
                 pinned_offload.load_to_device(part, self.device, self.dtype)
             else:
                 self._recursive_to_device(part, self.device, self.dtype)
@@ -124,7 +124,7 @@ class InitServiceOffloadContextMixin:
             yield
         finally:
             for part in to_load:
-                if pinned_offload.supports(part):
+                if pinned_offload.supports(part, self.device):
                     pinned_offload.offload_to_cpu(part)
                 else:
                     self._recursive_to_device(part, "cpu")

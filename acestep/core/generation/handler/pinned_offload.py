@@ -57,9 +57,11 @@ def _plain(t: torch.Tensor) -> bool:
     return type(data) is torch.Tensor
 
 
-def supports(module: nn.Module) -> bool:
-    """Whether the fast path can handle *module* (plain tensors only)."""
+def supports(module: nn.Module, device=None) -> bool:
+    """Whether the fast path can handle *module* (plain tensors, CUDA target only)."""
     if not pinned_offload_enabled():
+        return False
+    if device is not None and torch.device(device).type != "cuda":
         return False
     return all(_plain(t) for _, _, _, t in _iter_slots(module))
 

@@ -4131,7 +4131,7 @@ class LLMHandler:
         logger.info(f"Loading LLM to {self.device}")
         start_time = time.time()
         from acestep.core.generation.handler import pinned_offload
-        use_pinned = pinned_offload.supports(model)
+        use_pinned = pinned_offload.supports(model, self.device)
         if use_pinned:
             pinned_offload.load_to_device(model, self.device, self.dtype)
         elif hasattr(model, "to"):
