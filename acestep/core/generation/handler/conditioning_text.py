@@ -106,7 +106,7 @@ class ConditioningTextMixin:
                 global_cap = (global_captions[i] if global_captions and i < len(global_captions) else "") or ""
                 instr_lower = instruction.lower()
                 is_chunk_mode = "a segment" in instr_lower
-                chunk_mode_i = (chunk_mask_modes[i] if chunk_mask_modes and i < len(chunk_mask_modes) else "auto")
+                chunk_mode_i = (chunk_mask_modes[i] if chunk_mask_modes and i < len(chunk_mask_modes) else "explicit")
                 mask_control_str = "Mask Control: false" if chunk_mode_i == "auto" else "Mask Control: true"
                 if is_chunk_mode:
                     actual_caption = f"Local: {local_cap}\n{mask_control_str}"

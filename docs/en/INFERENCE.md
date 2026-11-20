@@ -193,7 +193,7 @@ class GenerationParams:
     
     repainting_start: float = 0.0
     repainting_end: float = -1
-    chunk_mask_mode: str = "auto"
+    chunk_mask_mode: str = "explicit"
     audio_cover_strength: float = 1.0
     
     # 5Hz Language Model Parameters
@@ -389,7 +389,7 @@ class FormatSampleResult:
 | `audio_codes` | `str` | `""` | Pre-extracted 5Hz audio semantic codes as a string. Advanced use only. |
 | `repainting_start` | `float` | `0.0` | Repainting start time in seconds (for repaint/lego tasks). |
 | `repainting_end` | `float` | `-1` | Repainting end time in seconds. Use `-1` for end of audio. |
-| `chunk_mask_mode` | `str` | `"auto"` | Chunk-mask control mode. Use `"explicit"` to pass the 0/1 mask derived from `repainting_start`/`repainting_end`; `"auto"` uses automatic chunk control. |
+| `chunk_mask_mode` | `str` | `"explicit"` | Chunk-mask control mode. `"explicit"` passes the 0/1 mask derived from `repainting_start`/`repainting_end` (all 1 for full-song tasks); `"auto"` fills the mask with 2.0 so the model decides. |
 | `audio_cover_strength` | `float` | `1.0` | Strength of audio cover/codes influence (0.0-1.0). Set smaller (0.2) for style transfer tasks. |
 
 ### 5Hz Language Model Parameters

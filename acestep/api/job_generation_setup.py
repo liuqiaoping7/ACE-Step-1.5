@@ -191,7 +191,7 @@ def build_generation_setup(
         timesteps=parsed_timesteps,
         repainting_start=req.repainting_start,
         repainting_end=req.repainting_end if req.repainting_end else -1,
-        chunk_mask_mode=getattr(req, "chunk_mask_mode", "auto"),
+        chunk_mask_mode=getattr(req, "chunk_mask_mode", "explicit"),
         repaint_latent_crossfade_frames=getattr(
             req, "repaint_latent_crossfade_frames", 10,
         ),

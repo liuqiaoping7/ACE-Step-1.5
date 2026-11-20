@@ -67,7 +67,7 @@ def build_generate_music_request(
         reference_audio_path=reference_audio,
         src_audio_path=src_audio,
         task_type=parser.str("task_type", "text2music"),
-        chunk_mask_mode=parser.str("chunk_mask_mode", "auto"),
+        chunk_mask_mode=parser.str("chunk_mask_mode", "explicit"),
         repaint_latent_crossfade_frames=parser.int(
             "repaint_latent_crossfade_frames", 10,
         ),

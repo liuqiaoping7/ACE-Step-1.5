@@ -72,6 +72,11 @@ class ConditioningMaskMixin:
 
         chunk_masks_tensor = torch.stack(chunk_masks)
         if chunk_mask_modes:
+            # "auto" rows carry the value 2.0, which a bool tensor cannot hold
+            # (2.0 would silently become True == 1.0).  Promote to float first;
+            # downstream consumers cast to the model dtype anyway.
+            if any(mode == "auto" for mode in chunk_mask_modes):
+                chunk_masks_tensor = chunk_masks_tensor.float()
             for i, mode in enumerate(chunk_mask_modes):
                 if mode == "auto":
                     chunk_masks_tensor[i] = 2.0

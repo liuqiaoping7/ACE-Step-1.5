@@ -233,7 +233,7 @@ class GenerateMusicMixin:
         timesteps: Optional[List[float]] = None,
         latent_shift: float = 0.0,
         latent_rescale: float = 1.0,
-        chunk_mask_mode: str = "auto",
+        chunk_mask_mode: str = "explicit",
         repaint_latent_crossfade_frames: int = 10,
         repaint_wav_crossfade_sec: float = 0.0,
         repaint_mode: str = "balanced",

@@ -62,7 +62,7 @@ class GenerateMusicRequest(BaseModel):
         description="User-provided audio semantic codes string for code-control generation. When non-empty, skips LM code generation.",
     )
     task_type: str = "text2music"
-    chunk_mask_mode: Literal["explicit", "auto"] = "auto"
+    chunk_mask_mode: Literal["explicit", "auto"] = "explicit"
     repaint_latent_crossfade_frames: int = Field(
         default=10,
         description="Latent-level boundary blend width in frames (25Hz, 10~0.4s)",

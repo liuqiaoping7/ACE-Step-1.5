@@ -171,7 +171,10 @@ class GenerationParams:
 
     repainting_start: float = 0.0
     repainting_end: float = -1
-    chunk_mask_mode: str = "auto"  # "explicit" = 0/1 mask from repaint range; "auto" = all 2.0 (model decides)
+    # "explicit" = 0/1 mask from the repaint range (all 1 when no range); "auto" = all 2.0 (model decides).
+    # Default is "explicit": "auto" never reached the model before (bool mask clamped 2.0 to 1.0), and an
+    # A/B on turbo showed 2.0 lowers LM-code adherence and lyric PMI, so explicit keeps prior outputs.
+    chunk_mask_mode: str = "explicit"
     repaint_latent_crossfade_frames: int = 10  # latent-level boundary blend width (25Hz frames, 10≈0.4s)
     repaint_wav_crossfade_sec: float = 0.0  # waveform-level splice crossfade (seconds, 0=hard cut)
     repaint_mode: str = "balanced"  # "conservative", "balanced", or "aggressive"

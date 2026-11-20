@@ -236,7 +236,7 @@ class GenerateMusicRequestMixin:
         audio_code_string: Union[str, List[str]] = "",
         repainting_start: float = 0.0,
         repainting_end: Optional[float] = None,
-        chunk_mask_mode: str = "auto",
+        chunk_mask_mode: str = "explicit",
     ) -> Dict[str, Any]:
         """Prepare service inputs (batch text, repaint spans, and optional code hints)."""
         captions_batch, instructions_batch, lyrics_batch, vocal_languages_batch, metas_batch = self.prepare_batch_data(

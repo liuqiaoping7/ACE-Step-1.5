@@ -24,9 +24,9 @@ def resolve_chunk_mask_mode(task_type: str) -> str:
         task_type: Resolved backend task type from the Gradio mode.
 
     Returns:
-        ``explicit`` for Repaint so its selected interval reaches model
-        conditioning; otherwise ``auto`` to preserve existing behavior.
+        Always ``explicit``: Repaint/Lego intervals reach model conditioning and
+        full-song tasks get an all-ones mask (identical to the historical
+        output, because ``auto``'s 2.0 used to be clamped to 1.0 by a bool
+        tensor).  ``auto`` (2.0) remains available through the API.
     """
-    if task_type == "repaint":
-        return "explicit"
-    return "auto"
+    return "explicit"

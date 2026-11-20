@@ -28,11 +28,11 @@ class GenerationTaskTypeTests(unittest.TestCase):
         """Repaint should forward its selected interval to model conditioning."""
         self.assertEqual(resolve_chunk_mask_mode("repaint"), "explicit")
 
-    def test_non_repaint_tasks_keep_auto_chunk_mask(self):
-        """The Repaint fix should not change masking for other UI tasks."""
+    def test_all_tasks_use_explicit_chunk_mask(self):
+        """All UI tasks use explicit masks; "auto" (2.0) is opt-in via the API only."""
         for task_type in ("text2music", "cover", "cover-nofsq", "lego", "extract", "complete"):
             with self.subTest(task_type=task_type):
-                self.assertEqual(resolve_chunk_mask_mode(task_type), "auto")
+                self.assertEqual(resolve_chunk_mask_mode(task_type), "explicit")
 
 
 if __name__ == "__main__":

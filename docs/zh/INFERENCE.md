@@ -193,7 +193,7 @@ class GenerationParams:
     
     repainting_start: float = 0.0
     repainting_end: float = -1
-    chunk_mask_mode: str = "auto"
+    chunk_mask_mode: str = "explicit"
     audio_cover_strength: float = 1.0
     
     # 5Hz 语言模型参数
@@ -379,7 +379,7 @@ class FormatSampleResult:
 | `audio_codes` | `str` | `""` | 预提取的 5Hz 音频语义代码字符串。仅供高级使用。|
 | `repainting_start` | `float` | `0.0` | 重绘开始时间（秒）（用于 repaint/lego 任务）。|
 | `repainting_end` | `float` | `-1` | 重绘结束时间（秒）。使用 `-1` 表示音频末尾。|
-| `chunk_mask_mode` | `str` | `"auto"` | 分块掩码控制模式。使用 `"explicit"` 将根据 `repainting_start`/`repainting_end` 生成的 0/1 掩码传给模型；`"auto"` 使用自动分块控制。|
+| `chunk_mask_mode` | `str` | `"explicit"` | 分块掩码控制模式。`"explicit"` 将根据 `repainting_start`/`repainting_end` 生成的 0/1 掩码传给模型（整曲任务为全 1）；`"auto"` 将掩码填为 2.0，由模型自行决定。|
 | `audio_cover_strength` | `float` | `1.0` | 音频 cover/代码影响强度（0.0-1.0）。风格迁移任务设置较小值（0.2）。|
 
 ### 5Hz 语言模型参数

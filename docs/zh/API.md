@@ -247,7 +247,7 @@ API 支持大多数参数的 **snake_case** 和 **camelCase** 命名。例如：
 | `instruction` | string | auto | 编辑指令（如未提供则根据 task_type 自动生成）|
 | `repainting_start` | float | `0.0` | 重绘开始时间（秒）|
 | `repainting_end` | float | null | 重绘结束时间（秒），-1 表示音频末尾 |
-| `chunk_mask_mode` | string | `"auto"` | 分块掩码控制：`"explicit"` 使用重绘时间范围生成 0/1 掩码；`"auto"` 使用自动分块控制。|
+| `chunk_mask_mode` | string | `"explicit"` | 分块掩码控制：`"explicit"` 使用重绘时间范围生成 0/1 掩码（整曲任务为全 1）；`"auto"` 将掩码填为 2.0，由模型自行决定。|
 | `audio_cover_strength` | float | `1.0` | 翻唱强度（0.0-1.0）。风格迁移使用较小值（0.2）|
 
 #### 方法 B：文件上传（multipart/form-data）

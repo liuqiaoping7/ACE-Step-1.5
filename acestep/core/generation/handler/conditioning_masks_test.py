@@ -254,5 +254,50 @@ class ConditioningMaskLegoBehaviorTests(unittest.TestCase):
         )
 
 
+
+class ConditioningMaskChunkModeTests(unittest.TestCase):
+    """Verify chunk_mask_mode values survive into the returned mask tensor."""
+
+    def _build_modes(self, modes, repaint=False):
+        host = _make_host()
+        n = len(modes)
+        kwargs = {}
+        if repaint:
+            kwargs = dict(repainting_start=[0.0] * n, repainting_end=[1.0] * n)
+        silence = torch.zeros(100, 16)
+        return host._build_chunk_masks_and_src_latents(
+            batch_size=n,
+            max_latent_length=100,
+            instructions=["x"] * n,
+            audio_code_hints=[None] * n,
+            target_wavs=torch.ones(n, 2, 48000),
+            target_latents=torch.ones(n, 100, 16),
+            repainting_start=kwargs.get("repainting_start"),
+            repainting_end=kwargs.get("repainting_end"),
+            silence_latent_tiled=silence,
+            chunk_mask_modes=modes,
+        )
+
+    def test_auto_mode_yields_value_two(self):
+        """'auto' rows must carry 2.0, not be clamped to True/1.0 by a bool tensor."""
+        chunk_masks, *_ = self._build_modes(["auto"])
+        self.assertTrue(chunk_masks.is_floating_point())
+        self.assertTrue(torch.all(chunk_masks[0] == 2.0))
+
+    def test_explicit_mode_keeps_binary_repaint_mask(self):
+        """'explicit' rows keep the 0/1 repaint interval alongside an 'auto' row."""
+        chunk_masks, *_ = self._build_modes(["explicit", "auto"], repaint=True)
+        end = int(1.0 * 48000 // 1920)
+        self.assertTrue(torch.all(chunk_masks[0, :end] == 1.0))
+        self.assertTrue(torch.all(chunk_masks[0, end:] == 0.0))
+        self.assertTrue(torch.all(chunk_masks[1] == 2.0))
+
+    def test_explicit_only_keeps_bool_dtype(self):
+        """Without any 'auto' row the mask stays boolean (previous behaviour)."""
+        chunk_masks, *_ = self._build_modes(["explicit"])
+        self.assertEqual(chunk_masks.dtype, torch.bool)
+        self.assertTrue(torch.all(chunk_masks[0]))
+
+
 if __name__ == "__main__":
     unittest.main()
