@@ -53,9 +53,18 @@ class AudioCodesMixin:
         if len(code_ids) == 0:
             return None
 
-        with self._load_model_context("model"):
-            quantizer = self.model.tokenizer.quantizer
-            detokenizer = self.model.detokenizer
+        # The same code string is decoded twice per generation (target latents and
+        # precomputed LM hints); memoise the most recent result.
+        quantizer = self.model.tokenizer.quantizer
+        detokenizer = self.model.detokenizer
+        cache_key = (code_str, str(self.device), self.dtype, id(detokenizer))
+        cached = getattr(self, "_codes_hint_cache", None)
+        if cached is not None and cached[0] == cache_key:
+            return cached[1].clone()
+
+        # Only the FSQ quantizer and the detokenizer are needed (~0.2 GB); with
+        # DiT offload enabled, loading the whole model would upload ~4.5 GB.
+        with self._load_model_parts_context([quantizer, detokenizer]):
             indices = torch.tensor(code_ids, device=self.device, dtype=torch.long)
             indices = indices.unsqueeze(0).unsqueeze(-1)
 
@@ -63,7 +72,8 @@ class AudioCodesMixin:
             if quantized.dtype != self.dtype:
                 quantized = quantized.to(self.dtype)
             lm_hints_25hz = detokenizer(quantized)
-            return lm_hints_25hz
+        self._codes_hint_cache = (cache_key, lm_hints_25hz)
+        return lm_hints_25hz.clone()
 
     def convert_src_audio_to_codes(self, audio_file) -> str:
         """Convert uploaded source audio into serialized audio code tokens."""

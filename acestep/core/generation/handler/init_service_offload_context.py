@@ -96,3 +96,35 @@ class InitServiceOffloadContextMixin:
                 f"[_load_model_context] Offloaded {model_name} to CPU in {offload_time:.4f}s "
                 f"(RSS: {rss_before:.0f} -> {rss_after:.0f} MB, delta: {rss_after - rss_before:+.0f} MB)"
             )
+
+    @contextmanager
+    def _load_model_parts_context(self, parts):
+        """Temporarily load only the given submodules of ``self.model`` to the device.
+
+        Used when a small part of the DiT checkpoint is needed (e.g. the FSQ
+        quantizer + detokenizer, ~0.2 GB) so the full 4.5 GB model is not
+        uploaded.  A no-op unless the DiT itself is offloaded to CPU.
+        """
+        if not (self.offload_to_cpu and self.offload_dit_to_cpu):
+            yield
+            return
+        to_load = []
+        for part in parts:
+            try:
+                if next(part.parameters()).device.type == "cpu":
+                    to_load.append(part)
+            except StopIteration:
+                continue
+        for part in to_load:
+            if pinned_offload.supports(part):
+                pinned_offload.load_to_device(part, self.device, self.dtype)
+            else:
+                self._recursive_to_device(part, self.device, self.dtype)
+        try:
+            yield
+        finally:
+            for part in to_load:
+                if pinned_offload.supports(part):
+                    pinned_offload.offload_to_cpu(part)
+                else:
+                    self._recursive_to_device(part, "cpu")

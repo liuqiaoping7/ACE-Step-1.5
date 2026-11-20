@@ -62,6 +62,7 @@ def main():
     ap.add_argument("--duration", type=float, default=30)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--cprofile", action="store_true", help="cProfile the last measured run")
+    ap.add_argument("--nsys-range", action="store_true", help="cudaProfilerStart/Stop around the last run (nsys --capture-range=cudaProfilerApi)")
     args = ap.parse_args()
     out_dir = os.path.join(ROOT, "qnn", "results", "opt", args.tag)
     os.makedirs(out_dir, exist_ok=True)
@@ -100,9 +101,15 @@ def main():
         prof = None
         if args.cprofile and i == args.runs:
             import cProfile; prof = cProfile.Profile(); prof.enable()
+        nsys_on = args.nsys_range and i == args.runs
+        if nsys_on:
+            torch.cuda.cudart().cudaProfilerStart()
         t = time.perf_counter()
-        res = generate_music(h, llm, params, cfg, save_dir=None)
+        with torch.cuda.nvtx.range(f"generate_music_run{i}"):
+            res = generate_music(h, llm, params, cfg, save_dir=None)
         torch.cuda.synchronize()
+        if nsys_on:
+            torch.cuda.cudart().cudaProfilerStop()
         wall = time.perf_counter() - t
         if prof is not None:
             prof.disable()
