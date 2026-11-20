@@ -62,6 +62,7 @@ def main():
     ap.add_argument("--duration", type=float, default=30)
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--cprofile", action="store_true", help="cProfile the last measured run")
+    ap.add_argument("--phases", action="store_true", help="synchronised wall time per pipeline function (last run)")
     ap.add_argument("--nsys-range", action="store_true", help="cudaProfilerStart/Stop around the last run (nsys --capture-range=cudaProfilerApi)")
     args = ap.parse_args()
     out_dir = os.path.join(ROOT, "qnn", "results", "opt", args.tag)
@@ -86,6 +87,44 @@ def main():
         t_lm_init = time.perf_counter() - t1
 
     use_lm = llm is not None
+    PH = {}
+
+    def wrap(obj, attr, name):
+        if obj is None or not hasattr(obj, attr):
+            return
+        fn = getattr(obj, attr)
+        import functools
+
+        @functools.wraps(fn)  # keep the signature: inference.py filters kwargs via inspect.signature
+        def w(*a, **k):
+            torch.cuda.synchronize(); t_ = time.perf_counter()
+            try:
+                return fn(*a, **k)
+            finally:
+                torch.cuda.synchronize()
+                d = PH.setdefault(name, [0, 0.0]); d[0] += 1; d[1] += time.perf_counter() - t_
+        setattr(obj, attr, w)
+
+    if args.phases:
+        import acestep.inference as inf_mod
+        for obj, attr, name in [
+            (llm, "generate_with_stop_condition", "LM.generate_with_stop_condition"),
+            (h, "generate_music", "H.generate_music(DiT total)"),
+            (h, "_prepare_generate_music_service_inputs", "H.prepare_service_inputs"),
+            (h, "service_generate", "H.service_generate"),
+            (h, "_prepare_batch", "H._prepare_batch"),
+            (h, "_prepare_target_latents_and_wavs", "H.prepare_target_latents"),
+            (h, "_decode_audio_codes_to_latents", "H.decode_codes"),
+            (h, "preprocess_batch", "H.preprocess_batch"),
+            (h, "infer_text_embeddings", "H.text_encoder"),
+            (h, "infer_refer_latent", "H.refer_latent"),
+            (h.model, "prepare_condition", "M.prepare_condition"),
+            (h.model, "generate_audio", "M.generate_audio"),
+            (h, "_decode_generate_music_pred_latents", "H.vae_decode_total"),
+            (h, "tiled_decode", "H.tiled_decode"),
+            (h, "_build_generate_music_success_payload", "H.build_payload"),
+        ]:
+            wrap(obj, attr, name)
     params = GenerationParams(task_type="text2music", caption=CAPTION, lyrics=LYRICS, duration=args.duration,
                               inference_steps=8, shift=3.0, seed=args.seed, thinking=use_lm,
                               use_cot_metas=use_lm, use_cot_caption=use_lm, use_cot_language=use_lm,
@@ -131,6 +170,11 @@ def main():
              "wav_md5": hashlib.md5(a["tensor"].float().cpu().numpy().tobytes()).hexdigest()[:10]}
         runs.append(r)
         print(json.dumps(r), flush=True)
+        if args.phases and i == args.runs:
+            with open(os.path.join(out_dir, "phases.json"), "w") as f:
+                json.dump({k: {"calls": v[0], "s": round(v[1], 4)} for k, v in PH.items()}, f, indent=1)
+            print("PHASES", json.dumps({k: round(v[1], 3) for k, v in PH.items()}), flush=True)
+        PH.clear()
         if i == 1:
             save_wav(os.path.join(out_dir, "run0.wav"), a["tensor"])
             torch.save(a["tensor"].float().cpu(), os.path.join(out_dir, "run0_wav.pt"))

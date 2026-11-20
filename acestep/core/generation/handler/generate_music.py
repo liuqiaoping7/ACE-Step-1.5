@@ -397,7 +397,11 @@ class GenerateMusicMixin:
                 chunk_mask_mode=chunk_mask_mode,
             )
             if torch.cuda.is_available():
-                gc.collect()
+                # Collect reference cycles so the VRAM pre-flight sees accurate
+                # free memory.  In CPU-offload mode the pre-flight is skipped and a
+                # full GC (~0.2 s with large models resident) buys nothing.
+                if not getattr(self, "offload_to_cpu", False) or os.environ.get("ACESTEP_OFFLOAD_GC", "0") == "1":
+                    gc.collect()
                 torch.cuda.empty_cache()
                 skip_preflight = os.environ.get(
                     "ACESTEP_SKIP_VRAM_PREFLIGHT", "",
@@ -514,7 +518,8 @@ class GenerateMusicMixin:
             for _k in _gpu_keys:
                 outputs.pop(_k, None)
             del outputs, pred_wavs, pred_latents_cpu
-            gc.collect()
+            if os.environ.get("ACESTEP_OFFLOAD_GC", "0") == "1":
+                gc.collect()
             self._empty_cache()
             return result
         except Exception as exc:
