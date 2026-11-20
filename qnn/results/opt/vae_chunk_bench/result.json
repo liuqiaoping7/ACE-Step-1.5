@@ -1,0 +1,49 @@
+{
+ "chunk128_ov64->32_cpu(current)": {
+  "s": 0.8888,
+  "peak_gb": 0.322,
+  "maxabs_vs_ref": 0.0
+ },
+ "chunk128_ov64_gpu": {
+  "s": 0.8846,
+  "peak_gb": 0.331,
+  "maxabs_vs_ref": 0.0,
+  "meanabs_vs_ref": 0.0
+ },
+ "chunk256_ov64_cpu": {
+  "s": 0.8634,
+  "peak_gb": 0.647,
+  "maxabs_vs_ref": 0.04102,
+  "meanabs_vs_ref": 0.00016
+ },
+ "chunk256_ov64_gpu": {
+  "s": 0.8589,
+  "peak_gb": 0.651,
+  "maxabs_vs_ref": 0.04102,
+  "meanabs_vs_ref": 0.00016
+ },
+ "chunk384_ov64_gpu": {
+  "s": 0.6225,
+  "peak_gb": 0.969,
+  "maxabs_vs_ref": 0.04285,
+  "meanabs_vs_ref": 0.000333
+ },
+ "chunk512_ov64_gpu": {
+  "s": 0.5508,
+  "peak_gb": 1.129,
+  "maxabs_vs_ref": 0.05469,
+  "meanabs_vs_ref": 0.001116
+ },
+ "chunk768_ov64_gpu": {
+  "s": 0.4728,
+  "peak_gb": 1.891,
+  "maxabs_vs_ref": 0.11182,
+  "meanabs_vs_ref": 0.001114
+ },
+ "full_untiled": {
+  "s": 0.4722,
+  "peak_gb": 1.89,
+  "maxabs_vs_ref": 0.06885,
+  "meanabs_vs_ref": 0.001111
+ }
+}

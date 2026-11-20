@@ -73,6 +73,12 @@ class VaeDecodeMixin:
                 chunk_size = min(chunk_size, _mps_chunk)
                 overlap = min(overlap, _mps_overlap)
 
+        # Large decode windows let cuDNN pick non-deterministic conv algorithms
+        # (measured run-to-run max diff 0.074 on a 750-frame window); the
+        # deterministic algorithms are equally fast here, so pin them for the
+        # VAE decode only and restore the global flag afterwards.
+        prev_det = torch.backends.cudnn.deterministic
+        torch.backends.cudnn.deterministic = True
         try:
             return self._tiled_decode_inner(latents, chunk_size, overlap, offload_wav_to_cpu)
         except (NotImplementedError, RuntimeError) as exc:
@@ -83,6 +89,8 @@ class VaeDecodeMixin:
                 f"falling back to CPU VAE decode..."
             )
             return self._tiled_decode_cpu_fallback(latents)
+        finally:
+            torch.backends.cudnn.deterministic = prev_det
 
     def _tiled_decode_cpu_fallback(self, latents):
         """Last-resort CPU VAE decode when MPS fails unexpectedly."""

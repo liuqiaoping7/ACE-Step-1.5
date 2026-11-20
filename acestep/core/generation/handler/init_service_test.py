@@ -135,9 +135,29 @@ class InitServiceMixinTests(unittest.TestCase):
             "get_effective_free_vram_gb",
             return_value=24.0,
         ) as free_mock:
-            self.assertEqual(MEMORY_UTILS_MODULE.MemoryUtilsMixin._get_auto_decode_chunk_size(host), 512)
+            # Memory-derived window, capped by the CUDA maximum (3072 frames).
+            self.assertEqual(MEMORY_UTILS_MODULE.MemoryUtilsMixin._get_auto_decode_chunk_size(host), 3072)
 
         free_mock.assert_called_once_with(1)
+
+    def _chunk_for_free_gb(self, free_gb):
+        host = types.SimpleNamespace(
+            device="cuda:0",
+            VAE_DECODE_MAX_CHUNK_SIZE=512,
+            _get_effective_mps_memory_gb=lambda: None,
+            _get_system_memory_gb=lambda: None,
+        )
+        with patch.object(MEMORY_UTILS_MODULE, "get_effective_free_vram_gb", return_value=free_gb):
+            return MEMORY_UTILS_MODULE.MemoryUtilsMixin._get_auto_decode_chunk_size(host)
+
+    def test_get_auto_decode_chunk_size_fits_30s_song_on_8gb_after_dit_offload(self):
+        """~5 GB free (8 GB card, DiT offloaded) decodes 750 frames in one window."""
+        self.assertGreaterEqual(self._chunk_for_free_gb(5.0), 750)
+
+    def test_get_auto_decode_chunk_size_floor_when_memory_is_tight(self):
+        """Very little free VRAM still yields the 128-frame minimum."""
+        self.assertEqual(self._chunk_for_free_gb(0.3), 128)
+        self.assertEqual(self._chunk_for_free_gb(0.0), 128)
 
     def test_vram_guard_reduce_batch_uses_cuda_device_index(self):
         """It queries VRAM against the requested CUDA device when reducing batch size."""

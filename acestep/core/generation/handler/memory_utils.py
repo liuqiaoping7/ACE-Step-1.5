@@ -77,6 +77,11 @@ class MemoryUtilsMixin:
         return system_gb * 0.75
 
     VAE_DECODE_MAX_CHUNK_SIZE = 512
+    # CUDA: chunk size is derived from free VRAM (see _get_auto_decode_chunk_size).
+    VAE_DECODE_MAX_CHUNK_SIZE_CUDA = 3072
+    # Measured Oobleck decode activation peak: 1.89 GiB for 750 latent frames in bf16
+    # (RTX 4060), i.e. ~2.52 MiB per frame per 2-byte element.
+    VAE_DECODE_GB_PER_FRAME_BF16 = 1.89 / 750
 
     def _get_auto_decode_chunk_size(self) -> int:
         """Choose a conservative VAE decode chunk size based on available memory."""
@@ -106,13 +111,21 @@ class MemoryUtilsMixin:
             except Exception:
                 free_gb = 0
             logger.debug(f"[_get_auto_decode_chunk_size] Effective free VRAM: {free_gb:.2f} GB")
-            if free_gb >= 24.0:
-                return min(512, max_chunk)
-            if free_gb >= 16.0:
-                return min(384, max_chunk)
-            if free_gb >= 12.0:
-                return min(256, max_chunk)
-            return min(128, max_chunk)
+            # Size the window from the memory actually available instead of fixed
+            # tiers: decoding cost is proportional to decoded frames, and small
+            # windows waste up to 50% on the overlap (128-frame windows keep only
+            # 64).  When DiT is offloaded an 8 GB card has ~5 GB free, enough to
+            # decode a 30 s song (750 frames) in one pass (0.88 s -> 0.47 s).
+            try:
+                elem = torch.empty(0, dtype=self._get_vae_dtype()).element_size()
+            except Exception:
+                elem = 2
+            per_frame_gb = self.VAE_DECODE_GB_PER_FRAME_BF16 * elem / 2 if hasattr(
+                self, "VAE_DECODE_GB_PER_FRAME_BF16") else (1.89 / 750) * elem / 2
+            budget_gb = max(0.0, free_gb - 0.5) * 0.8
+            frames = int(budget_gb / per_frame_gb)
+            cap = getattr(self, "VAE_DECODE_MAX_CHUNK_SIZE_CUDA", 3072)
+            return max(128, min(cap, frames))
         return min(256, max_chunk)
 
     def _should_offload_wav_to_cpu(self) -> bool:
