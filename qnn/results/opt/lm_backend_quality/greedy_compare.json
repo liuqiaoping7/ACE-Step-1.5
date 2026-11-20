@@ -1,0 +1,90 @@
+[
+ {
+  "prompt": 0,
+  "fixed_meta_identical_prefix": 0,
+  "fixed_meta_n": 150,
+  "fixed_meta_exact_match": 0.033,
+  "fixed_meta_per_dim_match": 0.271,
+  "duration_pt_vs_vllm": [
+   30,
+   32
+  ],
+  "same_metadata": {
+   "bpm": true,
+   "keyscale": true,
+   "timesignature": true,
+   "duration": false,
+   "language": true,
+   "caption": false
+  },
+  "codes_identical_prefix": 0,
+  "codes_exact_match": 0.02,
+  "per_dim_match": 0.264
+ },
+ {
+  "prompt": 1,
+  "fixed_meta_identical_prefix": 10,
+  "fixed_meta_n": 150,
+  "fixed_meta_exact_match": 0.113,
+  "fixed_meta_per_dim_match": 0.38,
+  "duration_pt_vs_vllm": [
+   100,
+   130
+  ],
+  "same_metadata": {
+   "bpm": true,
+   "keyscale": true,
+   "timesignature": true,
+   "duration": false,
+   "language": true,
+   "caption": false
+  },
+  "codes_identical_prefix": 0,
+  "codes_exact_match": 0.007,
+  "per_dim_match": 0.211
+ },
+ {
+  "prompt": 2,
+  "fixed_meta_identical_prefix": 1,
+  "fixed_meta_n": 150,
+  "fixed_meta_exact_match": 0.047,
+  "fixed_meta_per_dim_match": 0.527,
+  "duration_pt_vs_vllm": [
+   180,
+   135
+  ],
+  "same_metadata": {
+   "bpm": true,
+   "keyscale": false,
+   "timesignature": true,
+   "duration": false,
+   "language": true,
+   "caption": false
+  },
+  "codes_identical_prefix": 0,
+  "codes_exact_match": 0.0,
+  "per_dim_match": 0.183
+ },
+ {
+  "prompt": 3,
+  "fixed_meta_identical_prefix": 0,
+  "fixed_meta_n": 150,
+  "fixed_meta_exact_match": 0.027,
+  "fixed_meta_per_dim_match": 0.227,
+  "duration_pt_vs_vllm": [
+   60,
+   60
+  ],
+  "same_metadata": {
+   "bpm": true,
+   "keyscale": true,
+   "timesignature": true,
+   "duration": true,
+   "language": true,
+   "caption": false
+  },
+  "codes_identical_prefix": 0,
+  "codes_exact_match": 0.0,
+  "per_dim_match": 0.213
+ }
+]
