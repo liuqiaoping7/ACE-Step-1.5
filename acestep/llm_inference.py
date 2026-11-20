@@ -4130,7 +4130,11 @@ class LLMHandler:
         # Load to GPU
         logger.info(f"Loading LLM to {self.device}")
         start_time = time.time()
-        if hasattr(model, "to"):
+        from acestep.core.generation.handler import pinned_offload
+        use_pinned = pinned_offload.supports(model)
+        if use_pinned:
+            pinned_offload.load_to_device(model, self.device, self.dtype)
+        elif hasattr(model, "to"):
             model.to(self.device).to(self.dtype)
         load_time = time.time() - start_time
         logger.info(f"Loaded LLM to {self.device} in {load_time:.4f}s")
@@ -4141,7 +4145,9 @@ class LLMHandler:
             # Offload to CPU
             logger.info(f"Offloading LLM to CPU")
             start_time = time.time()
-            if hasattr(model, "to"):
+            if use_pinned:
+                pinned_offload.offload_to_cpu(model)
+            elif hasattr(model, "to"):
                 model.to("cpu")
             # Clear accelerator cache after offloading (full GC is slow and
             # unnecessary for refcounted tensor storages; opt-in for debugging)
