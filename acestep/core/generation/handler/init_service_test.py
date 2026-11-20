@@ -135,8 +135,8 @@ class InitServiceMixinTests(unittest.TestCase):
             "get_effective_free_vram_gb",
             return_value=24.0,
         ) as free_mock:
-            # Memory-derived window, capped by the CUDA maximum (3072 frames).
-            self.assertEqual(MEMORY_UTILS_MODULE.MemoryUtilsMixin._get_auto_decode_chunk_size(host), 3072)
+            # Memory-derived window, capped by the CUDA maximum (1024 frames).
+            self.assertEqual(MEMORY_UTILS_MODULE.MemoryUtilsMixin._get_auto_decode_chunk_size(host), 1024)
 
         free_mock.assert_called_once_with(1)
 

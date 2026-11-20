@@ -1,0 +1,44 @@
+{
+ "128": {
+  "peak_gb": 0.48,
+  "gb_per_frame_MiB": 3.842,
+  "s": 13.732,
+  "reserved_gb": 1.137
+ },
+ "256": {
+  "peak_gb": 0.645,
+  "gb_per_frame_MiB": 2.582,
+  "s": 0.107,
+  "reserved_gb": 1.877
+ },
+ "384": {
+  "peak_gb": 0.967,
+  "gb_per_frame_MiB": 2.579,
+  "s": 0.156,
+  "reserved_gb": 2.578
+ },
+ "512": {
+  "peak_gb": 1.29,
+  "gb_per_frame_MiB": 2.579,
+  "s": 0.206,
+  "reserved_gb": 3.312
+ },
+ "768": {
+  "peak_gb": 1.934,
+  "gb_per_frame_MiB": 2.578,
+  "s": 0.297,
+  "reserved_gb": 4.686
+ },
+ "1024": {
+  "peak_gb": 2.579,
+  "gb_per_frame_MiB": 2.579,
+  "s": 0.395,
+  "reserved_gb": 6.062
+ },
+ "1280": {
+  "peak_gb": 3.223,
+  "gb_per_frame_MiB": 2.578,
+  "s": 0.552,
+  "reserved_gb": 6.295
+ }
+}

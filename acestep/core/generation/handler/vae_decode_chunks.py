@@ -10,6 +10,26 @@ from tqdm import tqdm
 class VaeDecodeChunksMixin:
     """Implement chunked decode strategies for GPU and CPU-offload modes."""
 
+    _MIN_GPU_DECODE_CHUNK = 128
+
+    def _retry_smaller_or_cpu(self, latents, chunk_size, overlap, offload_wav_to_cpu, what):
+        """On CUDA OOM, halve the window and retry on GPU before falling back to CPU.
+
+        A full-song CPU decode runs in fp32 and needs many GB of host RAM for long
+        songs (a 120 s song pushed a 15.8 GB host into swap), so it is the last
+        resort.  Fragmentation in the caching allocator can make a window that
+        fits by the numbers fail; a smaller window almost always fits.
+        """
+        self._empty_cache()
+        if chunk_size > self._MIN_GPU_DECODE_CHUNK:
+            smaller = max(self._MIN_GPU_DECODE_CHUNK, chunk_size // 2)
+            logger.warning(
+                f"[tiled_decode] OOM during {what} with chunk_size={chunk_size}; retrying on GPU with {smaller}"
+            )
+            return self._tiled_decode_inner(latents, smaller, overlap, offload_wav_to_cpu)
+        logger.warning(f"[tiled_decode] OOM during {what} at the minimum chunk_size; falling back to CPU VAE decode")
+        return self._decode_on_cpu(latents)
+
     def _tiled_decode_inner(self, latents, chunk_size, overlap, offload_wav_to_cpu):
         """Run tiled decode with adaptive overlap and OOM fallbacks."""
         bsz, _channels, latent_frames = latents.shape
@@ -48,9 +68,7 @@ class VaeDecodeChunksMixin:
                 del decoder_output
                 return result
             except torch.cuda.OutOfMemoryError:
-                logger.warning("[tiled_decode] OOM on direct decode, falling back to CPU VAE decode")
-                self._empty_cache()
-                return self._decode_on_cpu(latents)
+                return self._retry_smaller_or_cpu(latents, chunk_size, overlap, offload_wav_to_cpu, "direct decode")
 
         stride = chunk_size - 2 * overlap
         if stride <= 0:
@@ -62,12 +80,7 @@ class VaeDecodeChunksMixin:
             try:
                 return self._tiled_decode_offload_cpu(latents, bsz, latent_frames, stride, overlap, num_steps)
             except torch.cuda.OutOfMemoryError:
-                logger.warning(
-                    f"[tiled_decode] OOM during offload_cpu decode with chunk_size={chunk_size}, "
-                    "falling back to CPU VAE decode"
-                )
-                self._empty_cache()
-                return self._decode_on_cpu(latents)
+                return self._retry_smaller_or_cpu(latents, chunk_size, overlap, offload_wav_to_cpu, "offload_cpu decode")
 
         try:
             return self._tiled_decode_gpu(latents, stride, overlap, num_steps)

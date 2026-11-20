@@ -78,10 +78,14 @@ class MemoryUtilsMixin:
 
     VAE_DECODE_MAX_CHUNK_SIZE = 512
     # CUDA: chunk size is derived from free VRAM (see _get_auto_decode_chunk_size).
-    VAE_DECODE_MAX_CHUNK_SIZE_CUDA = 3072
-    # Measured Oobleck decode activation peak: 1.89 GiB for 750 latent frames in bf16
-    # (RTX 4060), i.e. ~2.52 MiB per frame per 2-byte element.
-    VAE_DECODE_GB_PER_FRAME_BF16 = 1.89 / 750
+    # Capped at 1024 frames: per-frame decode cost is flat from ~256 frames on, and
+    # beyond 1024 the only gain is less overlap (87.5% -> 90% useful frames), while
+    # very large windows OOM on fragmented allocator pools (seen at 1352 frames on
+    # an 8 GB card for a 120 s song).
+    VAE_DECODE_MAX_CHUNK_SIZE_CUDA = 1024
+    # Measured Oobleck decode peak (allocated): 2.58 MiB per latent frame in bf16,
+    # linear from 256 to 1280 frames (qnn/results/opt/vae_mem_curve).
+    VAE_DECODE_GB_PER_FRAME_BF16 = 2.58 / 1024
 
     def _get_auto_decode_chunk_size(self) -> int:
         """Choose a conservative VAE decode chunk size based on available memory."""
@@ -120,11 +124,12 @@ class MemoryUtilsMixin:
                 elem = torch.empty(0, dtype=self._get_vae_dtype()).element_size()
             except Exception:
                 elem = 2
-            per_frame_gb = self.VAE_DECODE_GB_PER_FRAME_BF16 * elem / 2 if hasattr(
-                self, "VAE_DECODE_GB_PER_FRAME_BF16") else (1.89 / 750) * elem / 2
-            budget_gb = max(0.0, free_gb - 0.5) * 0.8
+            per_frame_gb = getattr(self, "VAE_DECODE_GB_PER_FRAME_BF16", 2.58 / 1024) * elem / 2
+            # "effective free" counts the allocator's cached blocks, which may be
+            # fragmented; keep a 40% margin on top of the 0.5 GB reserve.
+            budget_gb = max(0.0, free_gb - 0.5) * 0.6
             frames = int(budget_gb / per_frame_gb)
-            cap = getattr(self, "VAE_DECODE_MAX_CHUNK_SIZE_CUDA", 3072)
+            cap = getattr(self, "VAE_DECODE_MAX_CHUNK_SIZE_CUDA", 1024)
             return max(128, min(cap, frames))
         return min(256, max_chunk)
 
