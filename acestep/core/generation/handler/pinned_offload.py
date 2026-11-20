@@ -30,6 +30,7 @@ disable globally.
 from __future__ import annotations
 
 import os
+import weakref
 from typing import Iterator, List, Optional, Tuple
 
 import torch
@@ -40,6 +41,35 @@ _VERSION = "_acestep_loaded_version"
 _BUF_MASTERS = "_acestep_pinned_buffer_masters"
 _BUF_VERSIONS = "_acestep_pinned_buffer_versions"
 _PREFETCH = "_acestep_prefetch"
+
+
+def _pin_exact(t: torch.Tensor) -> torch.Tensor:
+    """Page-lock *t* in place with ``cudaHostRegister`` (exact size, no copy).
+
+    ``Tensor.pin_memory()`` copies into PyTorch's caching host allocator, which
+    rounds every block up to a power of two (measured: 5.88 GiB of masters held
+    7.35 GiB) and briefly keeps both the pageable and the pinned copy alive
+    (peak RSS 12.9 GB on a 15.8 GB host during the first generation).
+    Registering the existing storage avoids both.  Falls back to
+    ``pin_memory()`` if registration is unavailable or fails (e.g. read-only
+    mmap pages, overlapping ranges).  ``ACESTEP_PIN_REGISTER=0`` disables it.
+    """
+    if t.is_pinned():
+        return t
+    nbytes = t.numel() * t.element_size()
+    if (nbytes == 0 or os.environ.get("ACESTEP_PIN_REGISTER", "1") == "0" or not t.is_contiguous()
+            or t.untyped_storage().nbytes() != nbytes):
+        return t.pin_memory()
+    try:
+        cudart = torch.cuda.cudart()
+        err = cudart.cudaHostRegister(t.data_ptr(), nbytes, 0)
+        if int(err) != 0:
+            return t.pin_memory()
+    except Exception:
+        return t.pin_memory()
+    ptr = t.data_ptr()
+    weakref.finalize(t, lambda p=ptr: torch.cuda.cudart().cudaHostUnregister(p))
+    return t
 
 
 def pinned_offload_enabled() -> bool:
@@ -145,10 +175,10 @@ def _load_slots(module: nn.Module, device, dtype: Optional[torch.dtype]) -> List
         if m is None or m.data_ptr() != data.data_ptr():
             if dtype is not None and data.is_floating_point() and data.dtype != dtype:
                 data = data.to(dtype)
-            m = data if data.is_pinned() else data.pin_memory()
+            m = _pin_exact(data)
             _set_master(owner, kind, name, t, m)
         elif dtype is not None and m.is_floating_point() and m.dtype != dtype:
-            m = m.to(dtype).pin_memory()
+            m = _pin_exact(m.to(dtype))
             _set_master(owner, kind, name, t, m)
         gpu = m.to(device, non_blocking=True)
         tracked = _install(owner, kind, name, t, gpu)
@@ -207,7 +237,7 @@ def offload_to_cpu(module: nn.Module) -> None:
             m = _get_master(owner, kind, name, t)
             loaded_version = _loaded_version(owner, kind, name, t)
             if m is None or m.shape != data.shape or m.dtype != data.dtype:
-                m = torch.empty(data.shape, dtype=data.dtype, pin_memory=True)
+                m = _pin_exact(torch.empty(data.shape, dtype=data.dtype))
                 m.copy_(data)
                 _set_master(owner, kind, name, t, m)
             elif loaded_version is None or loaded_version != _version_of(t):

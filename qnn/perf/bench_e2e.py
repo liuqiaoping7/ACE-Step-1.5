@@ -41,6 +41,15 @@ def git_rev():
         return "unknown"
 
 
+def host_mem_gb():
+    out = {}
+    for line in open("/proc/self/status"):
+        k = line.split(":")[0]
+        if k in ("VmRSS", "VmHWM", "VmSwap"):
+            out[k] = round(int(line.split()[1]) / 2**20, 2)
+    return out
+
+
 def save_wav(path, t):
     x = t.float().clamp(-1, 1).cpu().numpy().T
     with wave.open(path, "wb") as w:
@@ -166,6 +175,7 @@ def main():
         r = {"run": i - 1, "warmup": i == 0, "wall_s": round(wall, 4), "time_costs": tc,
              "peak_alloc_gb": round(torch.cuda.max_memory_allocated() / 2**30, 3),
              "peak_reserved_gb": round(torch.cuda.max_memory_reserved() / 2**30, 3),
+             "host_gb": host_mem_gb(),
              "codes_md5": hashlib.md5(codes.encode()).hexdigest()[:10], "n_codes": codes.count("<|audio_code_"),
              "wav_md5": hashlib.md5(a["tensor"].float().cpu().numpy().tobytes()).hexdigest()[:10]}
         runs.append(r)
@@ -190,6 +200,8 @@ def main():
         "time_costs_median": {k: round(statistics.median(r["time_costs"].get(k, 0) for r in meas), 3) for k in keys},
         "peak_alloc_gb_max": max(r["peak_alloc_gb"] for r in meas),
         "peak_reserved_gb_max": max(r["peak_reserved_gb"] for r in meas),
+        "host_rss_peak_gb": max(r["host_gb"].get("VmHWM", 0) for r in runs),
+        "host_swap_gb_max": max(r["host_gb"].get("VmSwap", 0) for r in runs),
         "cold_start_s": {"dit_init": round(t_dit_init, 2), "lm_init": round(t_lm_init, 2),
                          "warmup_run": runs[0]["wall_s"]},
     }
