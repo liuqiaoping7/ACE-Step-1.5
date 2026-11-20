@@ -1,0 +1,2048 @@
+{
+ "wall_s": 12.12,
+ "time_costs": {
+  "lm_phase1_time": 2.5924017429351807,
+  "lm_phase2_time": 3.2677090167999268,
+  "lm_total_time": 5.860110759735107,
+  "dit_encoder_time_cost": 0.023427963256835938,
+  "dit_diffusion_time_cost": 0.671363353729248,
+  "dit_diffusion_per_step_time_cost": 0.083920419216156,
+  "dit_total_time_cost": 2.5876224040985107,
+  "dit_offload_time_cost": 1.833885669708252,
+  "dit_vae_decode_time_cost": 1.8928310871124268,
+  "pipeline_total_time": 8.447733163833618
+ },
+ "lm_calls": {
+  "prefill_shapes": [
+   [
+    1,
+    86
+   ],
+   [
+    2,
+    193
+   ]
+  ],
+  "decode_steps": 255
+ },
+ "lm_metadata": {
+  "bpm": 100,
+  "caption": "An energetic synth-pop track driven by a punchy, retro-sounding drum machine and a bright, arpeggiated synth lead. A powerful female vocal, treated with a touch of reverb, soars over the vibrant electronic arrangement. The track maintains a high-energy, danceable groove throughout its short duration.",
+  "duration": 30,
+  "keyscale": "E♭ minor",
+  "language": "en",
+  "timesignature": "4"
+ },
+ "final_audio": {
+  "tensor": {
+   "shape": [
+    2,
+    1440000
+   ],
+   "dtype": "float32",
+   "mean": 0.0009,
+   "std": 0.138,
+   "min": -0.8029,
+   "max": 0.8913
+  },
+  "sample_rate": 48000,
+  "path": "/home/qiao/Documents/github/QNN/ACE-Step-1.5/qnn/outputs/dataflow/633dac34-f2cb-c934-867d-3265b727bff8.wav"
+ },
+ "audio_codes_head": "<|audio_code_30597|><|audio_code_43466|><|audio_code_32953|><|audio_code_30468|><|audio_code_52402|><|audio_code_30450|><|audio_code_33067|><|audio_code_26354|><|audio_code_16962|><|audio_code_30661|><|audio_code_52604|><|audio_code_22766|><|audio_code_50603|><|audio_code_57721|><|audio_code_15528|><|audio_code_28420|><|audio_code_52402|><|audio_code_30400|><|audio_code_20164|><|audio_code_63355|>",
+ "n_audio_codes": 150,
+ "records": {
+  "LM.prompt_phase1(cot)": {
+   "calls": 1,
+   "ms_total": 44.07,
+   "samples": [
+    {
+     "in": null,
+     "kwargs": null,
+     "out": "<str len=388>"
+    }
+   ]
+  },
+  "LM.parse_lm_output": {
+   "calls": 2,
+   "ms_total": 0.41,
+   "samples": [
+    {
+     "in": null,
+     "kwargs": null,
+     "out": [
+      {},
+      "str"
+     ]
+    },
+    {
+     "in": null,
+     "kwargs": null,
+     "out": [
+      {},
+      "str"
+     ]
+    }
+   ]
+  },
+  "LM.prompt_phase2(codes)": {
+   "calls": 2,
+   "ms_total": 2.83,
+   "samples": [
+    {
+     "in": null,
+     "kwargs": null,
+     "out": "<str len=794>"
+    },
+    {
+     "in": null,
+     "kwargs": null,
+     "out": "<str len=189>"
+    }
+   ]
+  },
+  "FSQ.get_output_from_indices": {
+   "calls": 2,
+   "ms_total": 148.52,
+   "samples": [
+    {
+     "in": [
+      {
+       "shape": [
+        1,
+        150,
+        1
+       ],
+       "dtype": "int64",
+       "min": 1346,
+       "max": 63355
+      }
+     ],
+     "kwargs": null,
+     "out": {
+      "shape": [
+       1,
+       150,
+       2048
+      ],
+      "dtype": "bfloat16",
+      "mean": -0.0001,
+      "std": 0.0232,
+      "min": -0.1689,
+      "max": 0.1631
+     }
+    },
+    {
+     "in": [
+      {
+       "shape": [
+        1,
+        150,
+        1
+       ],
+       "dtype": "int64",
+       "min": 1346,
+       "max": 63355
+      }
+     ],
+     "kwargs": null,
+     "out": {
+      "shape": [
+       1,
+       150,
+       2048
+      ],
+      "dtype": "bfloat16",
+      "mean": -0.0001,
+      "std": 0.0232,
+      "min": -0.1689,
+      "max": 0.1631
+     }
+    }
+   ]
+  },
+  "Detok.detokenizer": {
+   "calls": 2,
+   "ms_total": 18.79,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         150,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.0001,
+        "std": 0.0232,
+        "min": -0.1689,
+        "max": 0.1631
+       }
+      ]
+     },
+     "out": {
+      "shape": [
+       1,
+       750,
+       64
+      ],
+      "dtype": "bfloat16",
+      "mean": -0.2119,
+      "std": 1.3087,
+      "min": -5.8125,
+      "max": 6.8125
+     }
+    }
+   ]
+  },
+  "H.decode_codes_to_25Hz_hints": {
+   "calls": 2,
+   "ms_total": 168.72,
+   "samples": [
+    {
+     "in": null,
+     "kwargs": null,
+     "out": {
+      "shape": [
+       1,
+       750,
+       64
+      ],
+      "dtype": "bfloat16",
+      "mean": -0.2119,
+      "std": 1.3087,
+      "min": -5.8125,
+      "max": 6.8125
+     }
+    },
+    {
+     "in": null,
+     "kwargs": null,
+     "out": {
+      "shape": [
+       1,
+       750,
+       64
+      ],
+      "dtype": "bfloat16",
+      "mean": -0.2119,
+      "std": 1.3087,
+      "min": -5.8125,
+      "max": 6.8125
+     }
+    }
+   ]
+  },
+  "H.infer_refer_latent": {
+   "calls": 1,
+   "ms_total": 0.36,
+   "samples": [
+    {
+     "in": null,
+     "kwargs": null,
+     "out": [
+      {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2053,
+       "std": 0.9638,
+       "min": -6.7188,
+       "max": 1.6172
+      },
+      {
+       "shape": [
+        1
+       ],
+       "dtype": "int64",
+       "min": 0,
+       "max": 0
+      }
+     ]
+    }
+   ]
+  },
+  "TextEncoder(Qwen3-Embedding)": {
+   "calls": 1,
+   "ms_total": 12.25,
+   "samples": [
+    {
+     "in": {
+      "args": [],
+      "input_ids": {
+       "shape": [
+        1,
+        118
+       ],
+       "dtype": "int64",
+       "min": 2,
+       "max": 151643
+      }
+     },
+     "out": {
+      "last_hidden_state": {
+       "shape": [
+        1,
+        118,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0224,
+       "std": 3.4784,
+       "min": -43.0,
+       "max": 34.5
+      }
+     }
+    }
+   ]
+  },
+  "H.infer_text_embeddings": {
+   "calls": 1,
+   "ms_total": 12.5,
+   "samples": [
+    {
+     "in": [
+      {
+       "shape": [
+        1,
+        118
+       ],
+       "dtype": "int64",
+       "min": 2,
+       "max": 151643
+      }
+     ],
+     "kwargs": null,
+     "out": {
+      "shape": [
+       1,
+       118,
+       1024
+      ],
+      "dtype": "bfloat16",
+      "mean": 0.0224,
+      "std": 3.4784,
+      "min": -43.0,
+      "max": 34.5
+     }
+    }
+   ]
+  },
+  "H.infer_lyric_embeddings": {
+   "calls": 1,
+   "ms_total": 0.06,
+   "samples": [
+    {
+     "in": [
+      {
+       "shape": [
+        1,
+        45
+       ],
+       "dtype": "int64",
+       "min": 2,
+       "max": 151643
+      }
+     ],
+     "kwargs": null,
+     "out": {
+      "shape": [
+       1,
+       45,
+       1024
+      ],
+      "dtype": "bfloat16",
+      "mean": -0.0001,
+      "std": 0.0289,
+      "min": -0.123,
+      "max": 0.1162
+     }
+    }
+   ]
+  },
+  "H.preprocess_batch(batch->tensors)": {
+   "calls": 1,
+   "ms_total": 2077.24,
+   "samples": [
+    {
+     "in": null,
+     "kwargs": null,
+     "out": [
+      [
+       "str"
+      ],
+      {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      },
+      {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      },
+      {
+       "shape": [
+        1,
+        118,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0224,
+       "std": 3.4784,
+       "min": -43.0,
+       "max": 34.5
+      },
+      {
+       "shape": [
+        1,
+        118
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      }
+     ]
+    }
+   ]
+  },
+  "Cond.text_projector": {
+   "calls": 2,
+   "ms_total": 0.42,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         118,
+         1024
+        ],
+        "dtype": "bfloat16",
+        "mean": 0.0224,
+        "std": 3.4784,
+        "min": -43.0,
+        "max": 34.5
+       }
+      ]
+     },
+     "out": {
+      "shape": [
+       1,
+       118,
+       2048
+      ],
+      "dtype": "bfloat16",
+      "mean": 0.0348,
+      "std": 4.4332,
+      "min": -61.75,
+      "max": 57.0
+     }
+    }
+   ]
+  },
+  "Cond.lyric_encoder.embed_tokens(Linear)": {
+   "calls": 2,
+   "ms_total": 0.31,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         45,
+         1024
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.0001,
+        "std": 0.0289,
+        "min": -0.123,
+        "max": 0.1162
+       }
+      ]
+     },
+     "out": {
+      "shape": [
+       1,
+       45,
+       2048
+      ],
+      "dtype": "bfloat16",
+      "mean": 0.0007,
+      "std": 0.1172,
+      "min": -5.7188,
+      "max": 4.5
+     }
+    }
+   ]
+  },
+  "Cond.lyric_encoder": {
+   "calls": 2,
+   "ms_total": 11.53,
+   "samples": [
+    {
+     "in": {
+      "args": [],
+      "inputs_embeds": {
+       "shape": [
+        1,
+        45,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0001,
+       "std": 0.0289,
+       "min": -0.123,
+       "max": 0.1162
+      },
+      "attention_mask": {
+       "shape": [
+        1,
+        45
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      }
+     },
+     "out": {
+      "last_hidden_state": {
+       "shape": [
+        1,
+        45,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0002,
+       "std": 0.1864,
+       "min": -5.625,
+       "max": 4.2812
+      }
+     }
+    }
+   ]
+  },
+  "Cond.timbre_encoder": {
+   "calls": 2,
+   "ms_total": 34.41,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         750,
+         64
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.2053,
+        "std": 0.9638,
+        "min": -6.7188,
+        "max": 1.6172
+       },
+       {
+        "shape": [
+         1
+        ],
+        "dtype": "int64",
+        "min": 0,
+        "max": 0
+       }
+      ]
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        1,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0085,
+       "std": 0.6101,
+       "min": -11.5625,
+       "max": 4.1562
+      },
+      {
+       "shape": [
+        1,
+        1
+       ],
+       "dtype": "int64",
+       "min": 1,
+       "max": 1
+      }
+     ]
+    }
+   ]
+  },
+  "Cond.encoder(total)": {
+   "calls": 2,
+   "ms_total": 48.5,
+   "samples": [
+    {
+     "in": {
+      "args": [],
+      "text_hidden_states": {
+       "shape": [
+        1,
+        118,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0224,
+       "std": 3.4784,
+       "min": -43.0,
+       "max": 34.5
+      },
+      "text_attention_mask": {
+       "shape": [
+        1,
+        118
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "lyric_hidden_states": {
+       "shape": [
+        1,
+        45,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0001,
+       "std": 0.0289,
+       "min": -0.123,
+       "max": 0.1162
+      },
+      "lyric_attention_mask": {
+       "shape": [
+        1,
+        45
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "refer_audio_acoustic_hidden_states_packed": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2053,
+       "std": 0.9638,
+       "min": -6.7188,
+       "max": 1.6172
+      },
+      "refer_audio_order_mask": {
+       "shape": [
+        1
+       ],
+       "dtype": "int64",
+       "min": 0,
+       "max": 0
+      }
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        164,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0251,
+       "std": 3.762,
+       "min": -61.75,
+       "max": 57.0
+      },
+      {
+       "shape": [
+        1,
+        164
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      }
+     ]
+    }
+   ]
+  },
+  "M.prepare_condition": {
+   "calls": 2,
+   "ms_total": 48.99,
+   "samples": [
+    {
+     "in": null,
+     "kwargs": {
+      "text_hidden_states": {
+       "shape": [
+        1,
+        118,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0224,
+       "std": 3.4784,
+       "min": -43.0,
+       "max": 34.5
+      },
+      "text_attention_mask": {
+       "shape": [
+        1,
+        118
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "lyric_hidden_states": {
+       "shape": [
+        1,
+        45,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0001,
+       "std": 0.0289,
+       "min": -0.123,
+       "max": 0.1162
+      },
+      "lyric_attention_mask": {
+       "shape": [
+        1,
+        45
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "refer_audio_acoustic_hidden_states_packed": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2053,
+       "std": 0.9638,
+       "min": -6.7188,
+       "max": 1.6172
+      },
+      "refer_audio_order_mask": {
+       "shape": [
+        1
+       ],
+       "dtype": "int64",
+       "min": 0,
+       "max": 0
+      },
+      "hidden_states": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      },
+      "attention_mask": {
+       "shape": [
+        1,
+        750
+       ],
+       "dtype": "bfloat16",
+       "mean": 1.0,
+       "std": 0.0,
+       "min": 1.0,
+       "max": 1.0
+      },
+      "silence_latent": {
+       "shape": [
+        1,
+        15000,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2052,
+       "std": 0.9635,
+       "min": -6.7188,
+       "max": 1.6172
+      },
+      "src_latents": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      },
+      "chunk_masks": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "is_covers": {
+       "shape": [
+        1
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "precomputed_lm_hints_25Hz": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      }
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        164,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0251,
+       "std": 3.762,
+       "min": -61.75,
+       "max": 57.0
+      },
+      {
+       "shape": [
+        1,
+        164
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      {
+       "shape": [
+        1,
+        750,
+        128
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.394,
+       "std": 1.1061,
+       "min": -5.8125,
+       "max": 6.8125
+      }
+     ]
+    },
+    {
+     "in": null,
+     "kwargs": {
+      "text_hidden_states": {
+       "shape": [
+        1,
+        118,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0224,
+       "std": 3.4784,
+       "min": -43.0,
+       "max": 34.5
+      },
+      "text_attention_mask": {
+       "shape": [
+        1,
+        118
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "lyric_hidden_states": {
+       "shape": [
+        1,
+        45,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0001,
+       "std": 0.0289,
+       "min": -0.123,
+       "max": 0.1162
+      },
+      "lyric_attention_mask": {
+       "shape": [
+        1,
+        45
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "refer_audio_acoustic_hidden_states_packed": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2053,
+       "std": 0.9638,
+       "min": -6.7188,
+       "max": 1.6172
+      },
+      "refer_audio_order_mask": {
+       "shape": [
+        1
+       ],
+       "dtype": "int64",
+       "min": 0,
+       "max": 0
+      },
+      "hidden_states": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      },
+      "attention_mask": {
+       "shape": [
+        1,
+        750
+       ],
+       "dtype": "bfloat16",
+       "mean": 1.0,
+       "std": 0.0,
+       "min": 1.0,
+       "max": 1.0
+      },
+      "silence_latent": {
+       "shape": [
+        1,
+        15000,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2052,
+       "std": 0.9635,
+       "min": -6.7188,
+       "max": 1.6172
+      },
+      "src_latents": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      },
+      "chunk_masks": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "is_covers": {
+       "shape": [
+        1
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "precomputed_lm_hints_25Hz": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      }
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        164,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0251,
+       "std": 3.762,
+       "min": -61.75,
+       "max": 57.0
+      },
+      {
+       "shape": [
+        1,
+        164
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      {
+       "shape": [
+        1,
+        750,
+        128
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.394,
+       "std": 1.1061,
+       "min": -5.8125,
+       "max": 6.8125
+      }
+     ]
+    }
+   ]
+  },
+  "DiT.time_embed(t)": {
+   "calls": 8,
+   "ms_total": 3.77,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1
+        ],
+        "dtype": "bfloat16",
+        "mean": 1.0,
+        "std": 0,
+        "min": 1.0,
+        "max": 1.0
+       }
+      ]
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0099,
+       "std": 0.0407,
+       "min": -0.1982,
+       "max": 0.167
+      },
+      {
+       "shape": [
+        1,
+        6,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.1102,
+       "std": 0.2044,
+       "min": -2.5,
+       "max": 1.7188
+      }
+     ]
+    }
+   ]
+  },
+  "DiT.time_embed_r(t-r)": {
+   "calls": 8,
+   "ms_total": 3.29,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1
+        ],
+        "dtype": "bfloat16",
+        "mean": 0.0,
+        "std": 0,
+        "min": 0.0,
+        "max": 0.0
+       }
+      ]
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0154,
+       "std": 0.1101,
+       "min": -0.9062,
+       "max": 0.6797
+      },
+      {
+       "shape": [
+        1,
+        6,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 2.4011,
+       "std": 4.5373,
+       "min": -21.25,
+       "max": 21.375
+      }
+     ]
+    }
+   ]
+  },
+  "DiT.proj_in(Conv1d patch2)": {
+   "calls": 8,
+   "ms_total": 90.83,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         750,
+         192
+        ],
+        "dtype": "bfloat16",
+        "mean": 0.2601,
+        "std": 1.0873,
+        "min": -5.8125,
+        "max": 6.8125
+       }
+      ]
+     },
+     "out": {
+      "shape": [
+       1,
+       375,
+       2048
+      ],
+      "dtype": "bfloat16",
+      "mean": -0.09,
+      "std": 2.3047,
+      "min": -41.5,
+      "max": 25.625
+     }
+    }
+   ]
+  },
+  "DiT.condition_embedder": {
+   "calls": 8,
+   "ms_total": 1.56,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         164,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": 0.0251,
+        "std": 3.762,
+        "min": -61.75,
+        "max": 57.0
+       }
+      ]
+     },
+     "out": {
+      "shape": [
+       1,
+       164,
+       2048
+      ],
+      "dtype": "bfloat16",
+      "mean": -0.0478,
+      "std": 11.1767,
+      "min": -278.0,
+      "max": 223.0
+     }
+    }
+   ]
+  },
+  "DiT.layers[0].self_attn": {
+   "calls": 8,
+   "ms_total": 9.04,
+   "samples": [
+    {
+     "in": {
+      "args": [],
+      "hidden_states": {
+       "shape": [
+        1,
+        375,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0069,
+       "std": 0.6044,
+       "min": -11.625,
+       "max": 9.5625
+      },
+      "attention_mask": {
+       "shape": [
+        1,
+        1,
+        375,
+        375
+       ],
+       "dtype": "bfloat16",
+       "mean": -Infinity,
+       "std": Infinity,
+       "min": -3.3895313892515355e+38,
+       "max": 0.0
+      },
+      "position_ids": {
+       "shape": [
+        1,
+        375
+       ],
+       "dtype": "int64",
+       "min": 0,
+       "max": 374
+      }
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        375,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0004,
+       "std": 1.4154,
+       "min": -18.0,
+       "max": 16.625
+      }
+     ]
+    }
+   ]
+  },
+  "DiT.layers[0].cross_attn": {
+   "calls": 8,
+   "ms_total": 6.47,
+   "samples": [
+    {
+     "in": {
+      "args": [],
+      "hidden_states": {
+       "shape": [
+        1,
+        375,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0094,
+       "std": 0.3293,
+       "min": -13.625,
+       "max": 2.2812
+      },
+      "encoder_hidden_states": {
+       "shape": [
+        1,
+        164,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0478,
+       "std": 11.1767,
+       "min": -278.0,
+       "max": 223.0
+      },
+      "attention_mask": {
+       "shape": [
+        1,
+        1,
+        375,
+        164
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0,
+       "std": 0.0,
+       "min": 0.0,
+       "max": 0.0
+      }
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        375,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0032,
+       "std": 0.3004,
+       "min": -9.25,
+       "max": 11.125
+      }
+     ]
+    }
+   ]
+  },
+  "DiT.layers[0].mlp": {
+   "calls": 8,
+   "ms_total": 11.87,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         375,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.006,
+        "std": 0.4816,
+        "min": -4.4062,
+        "max": 4.4688
+       }
+      ]
+     },
+     "out": {
+      "shape": [
+       1,
+       375,
+       2048
+      ],
+      "dtype": "bfloat16",
+      "mean": 0.1246,
+      "std": 23.319,
+      "min": -384.0,
+      "max": 396.0
+     }
+    }
+   ]
+  },
+  "DiT.layers[0](sliding)": {
+   "calls": 8,
+   "ms_total": 36.97,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         375,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.09,
+        "std": 2.3047,
+        "min": -41.5,
+        "max": 25.625
+       },
+       {
+        "shape": [
+         1,
+         6,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": 2.5113,
+        "std": 4.726,
+        "min": -23.75,
+        "max": 23.125
+       },
+       {
+        "shape": [
+         1,
+         1,
+         375,
+         375
+        ],
+        "dtype": "bfloat16",
+        "mean": -Infinity,
+        "std": Infinity,
+        "min": -3.3895313892515355e+38,
+        "max": 0.0
+       },
+       {
+        "shape": [
+         1,
+         375
+        ],
+        "dtype": "int64",
+        "min": 0,
+        "max": 374
+       },
+       {
+        "shape": [
+         375
+        ],
+        "dtype": "int64",
+        "min": 0,
+        "max": 374
+       },
+       {
+        "shape": [
+         1,
+         164,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.0478,
+        "std": 11.1767,
+        "min": -278.0,
+        "max": 223.0
+       }
+      ]
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        375,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.7772,
+       "std": 50.1186,
+       "min": -2688.0,
+       "max": 720.0
+      }
+     ]
+    }
+   ]
+  },
+  "DiT.layers[1](full)": {
+   "calls": 8,
+   "ms_total": 26.22,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         375,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.7772,
+        "std": 50.1186,
+        "min": -2688.0,
+        "max": 720.0
+       },
+       {
+        "shape": [
+         1,
+         6,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": 2.5113,
+        "std": 4.726,
+        "min": -23.75,
+        "max": 23.125
+       },
+       {
+        "shape": [
+         1,
+         1,
+         375,
+         375
+        ],
+        "dtype": "bfloat16",
+        "mean": 0.0,
+        "std": 0.0,
+        "min": 0.0,
+        "max": 0.0
+       },
+       {
+        "shape": [
+         1,
+         375
+        ],
+        "dtype": "int64",
+        "min": 0,
+        "max": 374
+       },
+       {
+        "shape": [
+         375
+        ],
+        "dtype": "int64",
+        "min": 0,
+        "max": 374
+       },
+       {
+        "shape": [
+         1,
+         164,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.0478,
+        "std": 11.1767,
+        "min": -278.0,
+        "max": 223.0
+       }
+      ]
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        375,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.9772,
+       "std": 53.3587,
+       "min": -2048.0,
+       "max": 724.0
+      }
+     ]
+    }
+   ]
+  },
+  "DiT.proj_out(ConvT1d)": {
+   "calls": 8,
+   "ms_total": 5.43,
+   "samples": [
+    {
+     "in": {
+      "args": [
+       {
+        "shape": [
+         1,
+         375,
+         2048
+        ],
+        "dtype": "bfloat16",
+        "mean": -0.0017,
+        "std": 0.2687,
+        "min": -3.4062,
+        "max": 4.125
+       }
+      ]
+     },
+     "out": {
+      "shape": [
+       1,
+       750,
+       64
+      ],
+      "dtype": "bfloat16",
+      "mean": 0.0271,
+      "std": 1.0299,
+      "min": -4.4375,
+      "max": 7.625
+     }
+    }
+   ]
+  },
+  "DiT(per step)": {
+   "calls": 8,
+   "ms_total": 668.43,
+   "samples": [
+    {
+     "in": {
+      "args": [],
+      "hidden_states": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0078,
+       "std": 0.9961,
+       "min": -4.4062,
+       "max": 3.9375
+      },
+      "timestep": {
+       "shape": [
+        1
+       ],
+       "dtype": "bfloat16",
+       "mean": 1.0,
+       "std": 0,
+       "min": 1.0,
+       "max": 1.0
+      },
+      "timestep_r": {
+       "shape": [
+        1
+       ],
+       "dtype": "bfloat16",
+       "mean": 1.0,
+       "std": 0,
+       "min": 1.0,
+       "max": 1.0
+      },
+      "attention_mask": {
+       "shape": [
+        1,
+        750
+       ],
+       "dtype": "bfloat16",
+       "mean": 1.0,
+       "std": 0.0,
+       "min": 1.0,
+       "max": 1.0
+      },
+      "encoder_hidden_states": {
+       "shape": [
+        1,
+        164,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0251,
+       "std": 3.762,
+       "min": -61.75,
+       "max": 57.0
+      },
+      "encoder_attention_mask": {
+       "shape": [
+        1,
+        164
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "context_latents": {
+       "shape": [
+        1,
+        750,
+        128
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.394,
+       "std": 1.1061,
+       "min": -5.8125,
+       "max": 6.8125
+      }
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0271,
+       "std": 1.0299,
+       "min": -4.4375,
+       "max": 7.625
+      },
+      "EncoderDecoderCache"
+     ]
+    },
+    {
+     "in": {
+      "args": [],
+      "hidden_states": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0091,
+       "std": 0.9675,
+       "min": -4.2812,
+       "max": 3.9062
+      },
+      "timestep": {
+       "shape": [
+        1
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.9531,
+       "std": 0,
+       "min": 0.9531,
+       "max": 0.9531
+      },
+      "timestep_r": {
+       "shape": [
+        1
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.9531,
+       "std": 0,
+       "min": 0.9531,
+       "max": 0.9531
+      },
+      "attention_mask": {
+       "shape": [
+        1,
+        750
+       ],
+       "dtype": "bfloat16",
+       "mean": 1.0,
+       "std": 0.0,
+       "min": 1.0,
+       "max": 1.0
+      },
+      "encoder_hidden_states": {
+       "shape": [
+        1,
+        164,
+        2048
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0251,
+       "std": 3.762,
+       "min": -61.75,
+       "max": 57.0
+      },
+      "encoder_attention_mask": {
+       "shape": [
+        1,
+        164
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "context_latents": {
+       "shape": [
+        1,
+        750,
+        128
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.394,
+       "std": 1.1061,
+       "min": -5.8125,
+       "max": 6.8125
+      }
+     },
+     "out": [
+      {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0467,
+       "std": 1.0185,
+       "min": -4.5312,
+       "max": 7.3125
+      },
+      "EncoderDecoderCache"
+     ]
+    }
+   ]
+  },
+  "M.generate_audio": {
+   "calls": 1,
+   "ms_total": 694.87,
+   "samples": [
+    {
+     "in": null,
+     "kwargs": {
+      "text_hidden_states": {
+       "shape": [
+        1,
+        118,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0224,
+       "std": 3.4784,
+       "min": -43.0,
+       "max": 34.5
+      },
+      "text_attention_mask": {
+       "shape": [
+        1,
+        118
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "lyric_hidden_states": {
+       "shape": [
+        1,
+        45,
+        1024
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0001,
+       "std": 0.0289,
+       "min": -0.123,
+       "max": 0.1162
+      },
+      "lyric_attention_mask": {
+       "shape": [
+        1,
+        45
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "refer_audio_acoustic_hidden_states_packed": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2053,
+       "std": 0.9638,
+       "min": -6.7188,
+       "max": 1.6172
+      },
+      "refer_audio_order_mask": {
+       "shape": [
+        1
+       ],
+       "dtype": "int64",
+       "min": 0,
+       "max": 0
+      },
+      "src_latents": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      },
+      "chunk_masks": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "is_covers": {
+       "shape": [
+        1
+       ],
+       "dtype": "bool",
+       "true_frac": 1.0
+      },
+      "silence_latent": {
+       "shape": [
+        1,
+        15000,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2052,
+       "std": 0.9635,
+       "min": -6.7188,
+       "max": 1.6172
+      },
+      "precomputed_lm_hints_25Hz": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.2119,
+       "std": 1.3087,
+       "min": -5.8125,
+       "max": 6.8125
+      }
+     },
+     "out": {
+      "target_latents": {
+       "shape": [
+        1,
+        750,
+        64
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0746,
+       "std": 1.068,
+       "min": -6.875,
+       "max": 4.5
+      }
+     }
+    }
+   ]
+  },
+  "VAE.decode(per tile)": {
+   "calls": 12,
+   "ms_total": 917.89,
+   "samples": [
+    {
+     "in": [
+      {
+       "shape": [
+        1,
+        64,
+        96
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.03,
+       "std": 1.0321,
+       "min": -6.4375,
+       "max": 3.7812
+      }
+     ],
+     "kwargs": null,
+     "out": {
+      "sample": {
+       "shape": [
+        1,
+        2,
+        184320
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0014,
+       "std": 0.1415,
+       "min": -0.8398,
+       "max": 0.8203
+      }
+     }
+    },
+    {
+     "in": [
+      {
+       "shape": [
+        1,
+        64,
+        128
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0318,
+       "std": 1.0311,
+       "min": -4.0,
+       "max": 4.3438
+      }
+     ],
+     "kwargs": null,
+     "out": {
+      "sample": {
+       "shape": [
+        1,
+        2,
+        245760
+       ],
+       "dtype": "bfloat16",
+       "mean": 0.0014,
+       "std": 0.1346,
+       "min": -0.8008,
+       "max": 0.8438
+      }
+     }
+    }
+   ]
+  },
+  "H.tiled_decode": {
+   "calls": 1,
+   "ms_total": 926.9,
+   "samples": [
+    {
+     "in": [
+      {
+       "shape": [
+        1,
+        64,
+        750
+       ],
+       "dtype": "bfloat16",
+       "mean": -0.0746,
+       "std": 1.068,
+       "min": -6.875,
+       "max": 4.5
+      }
+     ],
+     "kwargs": null,
+     "out": {
+      "shape": [
+       1,
+       2,
+       1440000
+      ],
+      "dtype": "bfloat16",
+      "mean": 0.001,
+      "std": 0.1463,
+      "min": -0.8516,
+      "max": 0.9453
+     }
+    }
+   ]
+  }
+ },
+ "texts": {
+  "LM.prompt_phase1(cot)": [
+   "<|im_start|>system\n# Instruction\nGenerate audio semantic tokens based on the given conditions:\n\n<|im_end|>\n<|im_start|>user\n# Caption\nAn upbeat synth-pop song with punchy drums, bright synth leads and a female vocal\n\n# Lyric\n[Verse]\nCity lights are calling me\nNeon rivers in the street\n[Chorus]\nWe are dancing in the night\nHold me close and hold me tight\n<|im_end|>\n<|im_start|>assistant\n"
+  ],
+  "LM.parse_lm_output": [
+   "({'bpm': 100, 'caption': 'An energetic synth-pop track driven by a punchy, retro-sounding drum machine and a bright, arpeggiated synth lead. A powerful female vocal, treated with a touch of reverb, soars over the vibrant electronic arrangement. The track maintains a high-energy, danceable groove throughout its short duration.', 'duration': 30, 'keyscale': 'E♭ minor', 'language': 'en', 'timesignature': '4'}, '')",
+   "({}, '<|audio_code_30597|><|audio_code_43466|><|audio_code_32953|><|audio_code_30468|><|audio_code_52402|><|audio_code_30450|><|audio_code_33067|><|audio_code_26354|><|audio_code_16962|><|audio_code_30661|><|audio_code_52604|><|audio_code_22766|><|audio_code_50603|><|audio_code_57721|><|audio_code_15528|><|audio_code_28420|><|audio_code_52402|><|audio_code_30400|><|audio_code_20164|><|audio_code_63355|><|audio_code_34490|><|audio_code_28100|><|audio_code_57785|><|audio_code_31969|><|audio_code_22892|><|audio_code_1346|><|audio_code_32385|><|audio_code_33077|><|audio_code_52274|><|audio_code_32506|><|audio_code_33012|><|audio_code_51832|><|audio_code_35442|><|audio_code_18308|><|audio_code_52099|><|audio_code_18189|><|audio_code_38195|><|audio_code_57210|><|audio_code_32426|><|audio_code_30468|><|audio_code_52475|><|audio_code_30904|><|audio_code_30452|><|audio_code_54522|><|audio_code_17130|><|audio_code_15300|><|audio_code_52034|><|audio_code_16357|><|audio_code_26945|><|audio_code_36854|><|audio_code_36782|><|audio_code_33731|><|audio_code_55256|><|audio_code_18272|><|audio_code_35368|><|audio_code_3123|><|audio_code_37114|><|audio_code_15799|><|audio_code_60095|><|audio_code_33117|><|audio_code_27659|><|audio_code_56832|><|audio_code_33919|><|audio_code_28102|><|audio_code_47486|><|audio_code_49706|><|audio_code_17993|><|audio_code_56900|><|audio_code_32547|><|audio_code_20420|><|audio_code_54714|><|audio_code_29923|><|audio_code_51176|><|audio_code_58878|><|audio_code_17391|><|audio_code_11602|><|audio_code_52520|><|audio_code_44352|><|audio_code_20168|><|audio_code_51713|><|audio_code_32811|><|audio_code_26054|><|audio_code_54527|><|audio_code_22847|><|audio_code_23470|><|audio_code_52282|><|audio_code_33526|><|audio_code_28102|><|audio_code_52165|><|audio_code_34354|><|audio_code_15684|><|audio_code_52604|><|audio_code_34316|><|audio_code_22540|><|audio_code_55099|><|audio_code_9247|><|audio_code_14991|><|audio_code_55237|><|audio_code_44584|><|audio_code_22658|><|audio_code_54320|><|audio_code_63096|><|audio_code_30312|><|audio_code_48698|><|audio_code_37426|><|audio_code_18180|><|audio_code_42241|><|audio_code_20127|><|audio_code_14879|><|audio_code_6679|><|audio_code_32800|><|audio_code_19969|><|audio_code_39944|><|audio_code_21560|><|audio_code_14896|><|audio_code_51720|><|audio_code_9272|><|audio_code_28100|><|audio_code_57786|><|audio_code_28450|><|audio_code_12591|><|audio_code_38989|><|audio_code_32310|><|audio_code_19591|><|audio_code_53768|><|audio_code_32107|><|audio_code_17412|><|audio_code_51720|><|audio_code_31876|><|audio_code_25868|><|audio_code_54084|><|audio_code_6815|><|audio_code_24582|><|audio_code_57085|><|audio_code_6155|><|audio_code_32962|><|audio_code_52092|><|audio_code_37921|><|audio_code_21051|><|audio_code_5691|><|audio_code_37897|><|audio_code_20108|><|audio_code_54321|><|audio_code_37411|><|audio_code_25323|><|audio_code_32927|><|audio_code_35847|><|audio_code_30375|><|audio_code_35855|><|audio_code_35847|>')"
+  ],
+  "LM.prompt_phase2(codes)": [
+   "<|im_start|>system\n# Instruction\nGenerate audio semantic tokens based on the given conditions:\n\n<|im_end|>\n<|im_start|>user\n# Caption\nAn upbeat synth-pop song with punchy drums, bright synth leads and a female vocal\n\n# Lyric\n[Verse]\nCity lights are calling me\nNeon rivers in the street\n[Chorus]\nWe are dancing in the night\nHold me close and hold me tight\n<|im_end|>\n<|im_start|>assistant\n<think>\nbpm: 100\ncaption: An energetic synth-pop track driven by a punchy, retro-sounding drum machine\n  and a bright, arpeggiated synth lead. A powerful female vocal, treated with a touch\n  of reverb, soars over the vibrant electronic arrangement. The track maintains a\n  high-energy, danceable groove throughout its short duration.\nduration: 30\nkeyscale: E♭ minor\nlanguage: en\ntimesignature: 4\n</think>\n\n",
+   "<|im_start|>system\n# Instruction\nGenerate audio semantic tokens based on the given conditions:\n\n<|im_end|>\n<|im_start|>user\nNO USER INPUT<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+  ],
+  "DiT.text_tokenizer_inputs": [
+   {
+    "text": "# Instruction\nGenerate audio semantic tokens based on the given conditions:\n\n# Caption\nAn energetic synth-pop track driven by a punchy, retro-sounding drum machine and a bright, arpeggiated synth lead. A powerful female vocal, treated with a touch of reverb, soars over the vibrant electronic arrangement. The track maintains a high-energy, danceable groove throughout its short duration.\n\n# Metas\n- bpm: 100\n- timesignature: 4\n- keyscale: E♭ minor\n- duration: 30 seconds\n<|endoftext|>\n",
+    "n_tokens": 118
+   },
+   {
+    "text": "# Languages\nunknown\n\n# Lyric\n[Verse]\nCity lights are calling me\nNeon rivers in the street\n[Chorus]\nWe are dancing in the night\nHold me close and hold me tight<|endoftext|>",
+    "n_tokens": 45
+   }
+  ]
+ }
+}
