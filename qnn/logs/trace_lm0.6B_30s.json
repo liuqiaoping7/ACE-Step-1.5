@@ -1,0 +1,139 @@
+{
+ "LM prefill input_ids": {
+  "calls": 2,
+  "total_ms": 0,
+  "first": {
+   "ms": 0,
+   "in": "(1, 71):int64",
+   "out": ""
+  }
+ },
+ "audio_detokenizer": {
+  "calls": 2,
+  "total_ms": 16.8,
+  "first": {
+   "ms": 8.47,
+   "in": {
+    "args": [
+     "(1, 150, 2048):bfloat16"
+    ]
+   },
+   "out": "(1, 750, 64):bfloat16"
+  }
+ },
+ "text_encoder(Qwen3-Embedding-0.6B)": {
+  "calls": 1,
+  "total_ms": 12.3,
+  "first": {
+   "ms": 12.3,
+   "in": {
+    "input_ids": "(1, 129):int64"
+   },
+   "out": "(1, 129, 1024):bfloat16"
+  }
+ },
+ "  lyric_encoder": {
+  "calls": 2,
+  "total_ms": 10.5,
+  "first": {
+   "ms": 5.44,
+   "in": {
+    "inputs_embeds": "(1, 30, 1024):bfloat16",
+    "attention_mask": "(1, 30):bool"
+   },
+   "out": "(1, 30, 2048):bfloat16"
+  }
+ },
+ "  timbre_encoder": {
+  "calls": 2,
+  "total_ms": 30.6,
+  "first": {
+   "ms": 15.35,
+   "in": {
+    "args": [
+     "(1, 750, 64):bfloat16",
+     "(1,):int64"
+    ]
+   },
+   "out": [
+    "(1, 1, 2048):bfloat16",
+    "(1, 1):int64"
+   ]
+  }
+ },
+ "condition_encoder": {
+  "calls": 2,
+  "total_ms": 41.7,
+  "first": {
+   "ms": 21.16,
+   "in": {
+    "text_hidden_states": "(1, 129, 1024):bfloat16",
+    "text_attention_mask": "(1, 129):bool",
+    "lyric_hidden_states": "(1, 30, 1024):bfloat16",
+    "lyric_attention_mask": "(1, 30):bool",
+    "refer_audio_acoustic_hidden_states_packed": "(1, 750, 64):bfloat16",
+    "refer_audio_order_mask": "(1,):int64"
+   },
+   "out": [
+    "(1, 160, 2048):bfloat16",
+    "(1, 160):bool"
+   ]
+  }
+ },
+ "DiT decoder (per step)": {
+  "calls": 8,
+  "total_ms": 527.5,
+  "first": {
+   "ms": 72.85,
+   "in": {
+    "hidden_states": "(1, 750, 64):bfloat16",
+    "timestep": "(1,):bfloat16",
+    "timestep_r": "(1,):bfloat16",
+    "attention_mask": "(1, 750):bfloat16",
+    "encoder_hidden_states": "(1, 160, 2048):bfloat16",
+    "encoder_attention_mask": "(1, 160):bool",
+    "context_latents": "(1, 750, 128):bfloat16"
+   },
+   "out": [
+    "(1, 750, 64):bfloat16",
+    "EncoderDecoderCache"
+   ]
+  }
+ },
+ "VAE decode (per tile)": {
+  "calls": 12,
+  "total_ms": 903.4,
+  "first": {
+   "ms": 60.7,
+   "in": [
+    "(1, 64, 96):bfloat16"
+   ],
+   "out": "(1, 2, 184320):bfloat16"
+  }
+ },
+ "_wall_s": 11.301,
+ "_lm_forward_calls": {
+  "prefill": 2,
+  "decode": 268
+ },
+ "_lm_metadata": {
+  "bpm": 100,
+  "caption": "An energetic synth-pop intro kicks off with a driving four-on-the-floor drum machine beat and a bright, catchy lead synth melody. A clear male vocal enters with a pop sensibility, layered over a pulsing synth bassline and shimmering arpeggiated synthesizers. The track then abruptly cuts to a brief, atmospheric breakdown featuring a sustained synth pad before ending suddenly.",
+  "duration": 30,
+  "keyscale": "B major",
+  "language": "en",
+  "timesignature": "4"
+ },
+ "_time_costs": {
+  "lm_phase1_time": 2.41434907913208,
+  "lm_phase2_time": 3.3080203533172607,
+  "lm_total_time": 5.722369432449341,
+  "dit_encoder_time_cost": 0.02064061164855957,
+  "dit_diffusion_time_cost": 0.5287165641784668,
+  "dit_diffusion_per_step_time_cost": 0.06608957052230835,
+  "dit_total_time_cost": 2.4111785888671875,
+  "dit_offload_time_cost": 1.61354398727417,
+  "dit_vae_decode_time_cost": 1.8618214130401611,
+  "pipeline_total_time": 8.133548021316528
+ }
+}
