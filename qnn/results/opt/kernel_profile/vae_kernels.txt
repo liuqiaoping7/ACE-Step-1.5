@@ -1,0 +1,25 @@
+    84.28 ms    72  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, 
+    83.07 ms    51  void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<c10::BFloat16>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_ad
+    61.57 ms    10  sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x128x64_stage3_warpsize2x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn
+    42.95 ms    36  void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::CUDAFunctor_add<c10::BFloat16> >(at::TensorIteratorBase&, a
+    39.05 ms    36  void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::pow_tensor_scalar_kernel_impl<c10::BFloat16, c10::BFloat16>(at::T
+    38.43 ms    36  void at::native::vectorized_elementwise_kernel<4, at::native::sin_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#4}
+    37.61 ms     5  void cutlass__5x_cudnn::Kernel<cutlass_tensorop_bf16_s16816fprop_optimized_bf16_128x128_32x3_nhwc_align8>(cutlass_tensorop_bf16_s16816fprop_optimized_
+    26.14 ms    44  void cudnn::engines_precompiled::nchwToNhwcKernel<__nv_bfloat16, __nv_bfloat16, float, false, true, (cudnnKernelDataType_t)0>(cudnn::engines_precompil
+    22.92 ms    25  void cudnn::engines_precompiled::nhwcToNchwKernel<__nv_bfloat16, __nv_bfloat16, float, true, false, (cudnnKernelDataType_t)0>(cudnn::engines_precompil
+    18.95 ms    12  ampere_bf16_s1688gemm_bf16_128x128_ldg8_f2f_stages_32x1_nn
+     8.18 ms     2  void cutlass__5x_cudnn::Kernel<cutlass_tensorop_bf16_s16816dgrad_optimized_bf16_128x128_32x4_nhwc_align8>(cutlass_tensorop_bf16_s16816dgrad_optimized_
+     6.66 ms     2  void cutlass__5x_cudnn::Kernel<cutlass_tensorop_bf16_s16816dgrad_optimized_bf16_128x128_32x3_nhwc_align8>(cutlass_tensorop_bf16_s16816dgrad_optimized_
+     3.36 ms     1  sm80_xmma_fprop_implicit_gemm_indexed_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize256x32x32_stage4_warpsize4x1x1_g1_tensor16x8x16_execute_kernel__5x_cu
+     2.53 ms     1  sm80_xmma_dgrad_implicit_gemm_indexed_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize128x64x64_stage3_warpsize2x2x1_g1_tensor16x8x16_strided_execute_kerne
+     1.75 ms     3  sm80_xmma_fprop_implicit_gemm_bf16bf16_bf16f32_f32_nhwckrsc_nhwc_tilesize256x128x32_stage3_warpsize4x2x1_g1_tensor16x8x16_execute_kernel__5x_cudnn
+     1.68 ms    36  void at::native::(anonymous namespace)::weight_norm_fwd_first_dim_kernel<c10::BFloat16, float>(c10::BFloat16*, float*, c10::BFloat16 const*, c10::BFlo
+     0.13 ms    72  void at::native::vectorized_elementwise_kernel<4, at::native::exp_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#4}
+     0.04 ms    36  void at::native::vectorized_elementwise_kernel<4, at::native::reciprocal_kernel_cuda(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{lamb
+     0.04 ms    36  void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctorOnSelf_add<c10::BFloat16>, std::array<char*, 2ul> >(int, at::native::CUDAFunc
+     0.01 ms     1  void tensorTransformGeneric<__nv_bfloat16, __nv_bfloat16, float, true, false, false, (cudnnKernelDataType_t)0>(cudnnTensorTransformStruct, tensorTrans
+     0.01 ms     1  void xmma__5x_cudnn::implicit_gemm::strided_dgrad_indexed::kernel_helper_stage_3<xmma__5x_cudnn::implicit_gemm::strided_dgrad_indexed::Params_pre_hopp
+     0.01 ms     4  Memset (Device)
+     0.00 ms     1  void xmma__5x_cudnn::implicit_gemm::strided_dgrad_indexed::kernel_helper_stage_1<xmma__5x_cudnn::implicit_gemm::strided_dgrad_indexed::Params_pre_hopp
+     0.00 ms     1  void xmma__5x_cudnn::implicit_gemm::strided_dgrad_indexed::kernel_helper_stage_0<xmma__5x_cudnn::implicit_gemm::strided_dgrad_indexed::Params_pre_hopp
+     0.00 ms     1  void xmma__5x_cudnn::implicit_gemm::strided_dgrad_indexed::kernel_helper_stage_2<xmma__5x_cudnn::implicit_gemm::strided_dgrad_indexed::Params_pre_hopp

@@ -4,6 +4,7 @@ import os
 from typing import Optional
 
 import torch
+from loguru import logger
 
 
 class InitServiceLoaderComponentsMixin:
@@ -62,6 +63,15 @@ class InitServiceLoaderComponentsMixin:
         if compile_model:
             self._ensure_len_for_compile(self.vae, "vae")
             self.vae = torch.compile(self.vae)
+        elif str(device).startswith("cuda"):
+            # Fuse the Snake activations (5 element-wise kernels -> 1 Triton
+            # kernel); they dominate VAE decode time.  Skipped under
+            # torch.compile, which fuses them itself.
+            from acestep.models.common.fused_snake import patch_vae_snake
+
+            n_patched = patch_vae_snake(self.vae)
+            if n_patched:
+                logger.info(f"[initialize_service] Fused Snake activation enabled for {n_patched} VAE modules")
 
         return vae_checkpoint_path
 

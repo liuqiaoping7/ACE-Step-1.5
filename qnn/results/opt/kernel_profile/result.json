@@ -1,0 +1,31 @@
+{
+ "gemm_TFLOPS_and_bw": {
+  "4096x4096x4096": 29.7,
+  "375x2048x6144": 28.7,
+  "375x6144x2048": 28.6,
+  "750x2048x2048": 28.7,
+  "copy_GBps": 251.1
+ },
+ "dit_step_ms": 64.98,
+ "dit_step_achieved_TFLOPS_linear_only": 17.4,
+ "dit_step_kernels": {
+  "total_ms": 61.7,
+  "by_category_ms": {
+   "gemm": 48.7,
+   "elementwise/other": 8.82,
+   "copy/cat": 2.98,
+   "reduce/norm": 1.07,
+   "conv": 0.12
+  }
+ },
+ "vae_full_decode_ms": 466.5,
+ "vae_kernels": {
+  "total_ms": 479.38,
+  "by_category_ms": {
+   "elementwise/other": 288.01,
+   "gemm": 140.63,
+   "conv": 49.07,
+   "reduce/norm": 1.68
+  }
+ }
+}
