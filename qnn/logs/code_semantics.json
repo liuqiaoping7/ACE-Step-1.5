@@ -1,0 +1,94 @@
+{
+ "S1_metas": {
+  "bpm": 100,
+  "keyscale": "E♭ major",
+  "timesignature": "4",
+  "language": "en",
+  "duration": 30
+ },
+ "S2_metas": {
+  "bpm": 100,
+  "keyscale": "F# major",
+  "timesignature": "4",
+  "language": "en",
+  "duration": 30
+ },
+ "similarity_to_S1": {
+  "S2_same_prompt_other_codes": {
+   "chroma_frame_cos": 0.513,
+   "key_profile_cos": 0.873,
+   "onset_corr_max": 0.445,
+   "exact": 0.0,
+   "per_dim_mean": 0.259
+  },
+  "cover_piano_same_codes": {
+   "chroma_frame_cos": 0.836,
+   "key_profile_cos": 0.987,
+   "onset_corr_max": 0.906,
+   "exact": 0.107,
+   "per_dim_mean": 0.607
+  },
+  "cover_metal_same_codes": {
+   "chroma_frame_cos": 0.724,
+   "key_profile_cos": 0.973,
+   "onset_corr_max": 0.611,
+   "exact": 0.067,
+   "per_dim_mean": 0.568
+  },
+  "piano_no_codes_same_metas": {
+   "chroma_frame_cos": 0.44,
+   "key_profile_cos": 0.892,
+   "onset_corr_max": 0.201,
+   "exact": 0.0,
+   "per_dim_mean": 0.259
+  }
+ },
+ "cover_piano_vs_cover_metal": {
+  "chroma_frame_cos": 0.725,
+  "key_profile_cos": 0.97,
+  "onset_corr_max": 0.505
+ },
+ "lm_nll_on_S1_codes": {
+  "full(caption+lyrics+CoT)": {
+   "bits_per_code": 10.04,
+   "bits_first_25": 12.87,
+   "bits_rest": 9.47,
+   "perplexity": 1051.7,
+   "top1_acc": 0.087,
+   "top10_acc": 0.227,
+   "argmax_grid_l1_le1": 0.18,
+   "argmax_grid_l1_mean": 6.36
+  },
+  "no_CoT(caption+lyrics)": {
+   "bits_per_code": 10.56,
+   "bits_first_25": 14.03,
+   "bits_rest": 9.87,
+   "perplexity": 1510.8,
+   "top1_acc": 0.08,
+   "top10_acc": 0.2,
+   "argmax_grid_l1_le1": 0.173,
+   "argmax_grid_l1_mean": 7.03
+  },
+  "uncond(NO USER INPUT)": {
+   "bits_per_code": 11.79,
+   "bits_first_25": 14.57,
+   "bits_rest": 11.23,
+   "perplexity": 3540.1,
+   "top1_acc": 0.087,
+   "top10_acc": 0.153,
+   "argmax_grid_l1_le1": 0.107,
+   "argmax_grid_l1_mean": 8.14
+  },
+  "mismatched(metal caption+CoT of S1)": {
+   "bits_per_code": 10.2,
+   "bits_first_25": 13.39,
+   "bits_rest": 9.56,
+   "perplexity": 1172.4,
+   "top1_acc": 0.093,
+   "top10_acc": 0.207,
+   "argmax_grid_l1_le1": 0.14,
+   "argmax_grid_l1_mean": 6.49
+  },
+  "_uniform_bits": 15.97
+ }
+}
