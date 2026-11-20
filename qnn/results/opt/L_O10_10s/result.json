@@ -1,0 +1,163 @@
+{
+ "meta": {
+  "commit": "41147c2+dirty",
+  "cmd": "qnn/perf/bench_e2e.py --tag L_O10_10s --backend vllm --offload --offload-dit --duration 10 --runs 3",
+  "date": "2026-11-21 03:59:08",
+  "gpu": "NVIDIA GeForce RTX 4060",
+  "torch": "2.10.0+cu128",
+  "python": "3.12.13",
+  "args": {
+   "tag": "L_O10_10s",
+   "lm": "acestep-5Hz-lm-0.6B",
+   "backend": "vllm",
+   "offload": true,
+   "offload_dit": true,
+   "quant": null,
+   "compile": false,
+   "flash": false,
+   "runs": 3,
+   "duration": 10.0,
+   "seed": 42,
+   "cprofile": false,
+   "phases": false,
+   "nsys_range": false
+  }
+ },
+ "summary": {
+  "wall_median_s": 2.215,
+  "wall_min_s": 2.209,
+  "wall_max_s": 2.226,
+  "wall_cv": 0.0032,
+  "time_costs_median": {
+   "dit_diffusion_per_step_time_cost": 0.027,
+   "dit_diffusion_time_cost": 0.214,
+   "dit_encoder_time_cost": 0.02,
+   "dit_offload_time_cost": 0.121,
+   "dit_total_time_cost": 0.39,
+   "dit_vae_decode_time_cost": 0.156,
+   "lm_phase1_time": 0.814,
+   "lm_phase2_time": 0.366,
+   "lm_total_time": 1.179,
+   "pipeline_total_time": 1.57
+  },
+  "peak_alloc_gb_max": 6.774,
+  "peak_reserved_gb_max": 6.922,
+  "host_rss_peak_gb": 8.44,
+  "host_swap_gb_max": 0.0,
+  "cold_start_s": {
+   "dit_init": 32.22,
+   "lm_init": 35.49,
+   "warmup_run": 66.4537
+  }
+ },
+ "runs": [
+  {
+   "run": -1,
+   "warmup": true,
+   "wall_s": 66.4537,
+   "time_costs": {
+    "lm_phase1_time": 1.566,
+    "lm_phase2_time": 0.4327,
+    "lm_total_time": 1.9987,
+    "dit_encoder_time_cost": 0.021,
+    "dit_diffusion_time_cost": 3.6865,
+    "dit_diffusion_per_step_time_cost": 0.4608,
+    "dit_total_time_cost": 4.6363,
+    "dit_offload_time_cost": 53.5692,
+    "dit_vae_decode_time_cost": 0.9287,
+    "pipeline_total_time": 6.6349
+   },
+   "peak_alloc_gb": 6.616,
+   "peak_reserved_gb": 6.723,
+   "host_gb": {
+    "VmHWM": 8.42,
+    "VmRSS": 8.41,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "5df2b23830",
+   "n_codes": 50,
+   "wav_md5": "c1578d9126"
+  },
+  {
+   "run": 0,
+   "warmup": false,
+   "wall_s": 2.2263,
+   "time_costs": {
+    "lm_phase1_time": 0.8156,
+    "lm_phase2_time": 0.366,
+    "lm_total_time": 1.1815,
+    "dit_encoder_time_cost": 0.0198,
+    "dit_diffusion_time_cost": 0.2159,
+    "dit_diffusion_per_step_time_cost": 0.027,
+    "dit_total_time_cost": 0.3916,
+    "dit_offload_time_cost": 0.1459,
+    "dit_vae_decode_time_cost": 0.1558,
+    "pipeline_total_time": 1.5731
+   },
+   "peak_alloc_gb": 6.774,
+   "peak_reserved_gb": 6.912,
+   "host_gb": {
+    "VmHWM": 8.43,
+    "VmRSS": 8.41,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "5df2b23830",
+   "n_codes": 50,
+   "wav_md5": "c1578d9126"
+  },
+  {
+   "run": 1,
+   "warmup": false,
+   "wall_s": 2.2147,
+   "time_costs": {
+    "lm_phase1_time": 0.8135,
+    "lm_phase2_time": 0.3657,
+    "lm_total_time": 1.1792,
+    "dit_encoder_time_cost": 0.0202,
+    "dit_diffusion_time_cost": 0.2143,
+    "dit_diffusion_per_step_time_cost": 0.0268,
+    "dit_total_time_cost": 0.3904,
+    "dit_offload_time_cost": 0.1211,
+    "dit_vae_decode_time_cost": 0.1559,
+    "pipeline_total_time": 1.5696
+   },
+   "peak_alloc_gb": 6.773,
+   "peak_reserved_gb": 6.922,
+   "host_gb": {
+    "VmHWM": 8.44,
+    "VmRSS": 8.42,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "5df2b23830",
+   "n_codes": 50,
+   "wav_md5": "c1578d9126"
+  },
+  {
+   "run": 2,
+   "warmup": false,
+   "wall_s": 2.2094,
+   "time_costs": {
+    "lm_phase1_time": 0.8114,
+    "lm_phase2_time": 0.3651,
+    "lm_total_time": 1.1765,
+    "dit_encoder_time_cost": 0.0196,
+    "dit_diffusion_time_cost": 0.2136,
+    "dit_diffusion_per_step_time_cost": 0.0267,
+    "dit_total_time_cost": 0.3884,
+    "dit_offload_time_cost": 0.1207,
+    "dit_vae_decode_time_cost": 0.1551,
+    "pipeline_total_time": 1.565
+   },
+   "peak_alloc_gb": 6.772,
+   "peak_reserved_gb": 6.914,
+   "host_gb": {
+    "VmHWM": 8.44,
+    "VmRSS": 8.42,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "5df2b23830",
+   "n_codes": 50,
+   "wav_md5": "c1578d9126"
+  }
+ ]
+}

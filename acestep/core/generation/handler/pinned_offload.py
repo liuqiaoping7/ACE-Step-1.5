@@ -165,8 +165,18 @@ def _install(owner: nn.Module, kind: str, name: str, t: torch.Tensor, value: tor
     return value
 
 
-def _load_slots(module: nn.Module, device, dtype: Optional[torch.dtype]) -> List[torch.Tensor]:
+def _load_slots(module: nn.Module, device, dtype: Optional[torch.dtype],
+                copy_stream: Optional["torch.cuda.Stream"] = None) -> List[torch.Tensor]:
+    """Install GPU copies of the CPU-resident slots.
+
+    With *copy_stream*, destinations are allocated on the **current** stream (so the
+    caching allocator returns their blocks to the current stream's pool and later
+    allocations can reuse them) and only the copies run on *copy_stream*.  Allocating
+    on a side stream instead leaves those blocks in a pool the main stream cannot use,
+    which fragmented an 8 GB card into an OOM for a 240 s song.
+    """
     loaded = []
+    pending = []
     for owner, kind, name, t in _iter_slots(module):
         data = t.data if kind == "p" else t
         if data.device.type != "cpu":
@@ -180,10 +190,21 @@ def _load_slots(module: nn.Module, device, dtype: Optional[torch.dtype]) -> List
         elif dtype is not None and m.is_floating_point() and m.dtype != dtype:
             m = _pin_exact(m.to(dtype))
             _set_master(owner, kind, name, t, m)
-        gpu = m.to(device, non_blocking=True)
+        if copy_stream is None:
+            gpu = m.to(device, non_blocking=True)
+        else:
+            gpu = torch.empty(m.shape, dtype=m.dtype, device=device)
+            pending.append((gpu, m))
         tracked = _install(owner, kind, name, t, gpu)
         _record_loaded_version(owner, kind, name, tracked)
         loaded.append(gpu)
+    if pending:
+        # The copy stream must not write into reused blocks before earlier work on
+        # the current stream that touched them has finished.
+        copy_stream.wait_stream(torch.cuda.current_stream(device))
+        with torch.cuda.stream(copy_stream):
+            for gpu, m in pending:
+                gpu.copy_(m, non_blocking=True)
     return loaded
 
 
@@ -199,13 +220,25 @@ def load_to_device(module: nn.Module, device, dtype: Optional[torch.dtype] = Non
 def prefetch_to_device(module: nn.Module, device, dtype: Optional[torch.dtype] = None) -> None:
     """Start an asynchronous H2D load of *module* on a side stream."""
     device = torch.device(device)
-    stream = torch.cuda.Stream(device=device)
-    stream.wait_stream(torch.cuda.current_stream(device))
-    with torch.inference_mode(False), torch.no_grad(), torch.cuda.stream(stream):
-        loaded = _load_slots(module, device, dtype)
+    stream = _copy_stream(device)
+    with torch.inference_mode(False), torch.no_grad():
+        loaded = _load_slots(module, device, dtype, copy_stream=stream)
         event = torch.cuda.Event()
         event.record(stream)
     module.__dict__[_PREFETCH] = (device, event, loaded)
+
+
+_COPY_STREAMS = {}
+
+
+def _copy_stream(device) -> "torch.cuda.Stream":
+    """One long-lived H2D copy stream per device (no per-call stream creation)."""
+    key = (device.type, device.index if device.index is not None else torch.cuda.current_device())
+    s = _COPY_STREAMS.get(key)
+    if s is None:
+        s = torch.cuda.Stream(device=device)
+        _COPY_STREAMS[key] = s
+    return s
 
 
 def is_prefetched(module: nn.Module) -> bool:
@@ -220,9 +253,7 @@ def wait_prefetch(module: nn.Module) -> None:
             continue
         device, event, loaded = pending
         cur = torch.cuda.current_stream(device)
-        cur.wait_event(event)
-        for t in loaded:  # allocated on the side stream, used and freed on the current one
-            t.record_stream(cur)
+        cur.wait_event(event)  # tensors were allocated on this stream; only the copy ran elsewhere
         m.__dict__[_PREFETCH] = None
 
 

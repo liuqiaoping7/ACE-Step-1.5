@@ -274,6 +274,12 @@ class ServiceGenerateExecuteMixin:
                         outputs = self.model.generate_audio(**generate_kwargs)
                 else:
                     logger.info("[service_generate] DiT diffusion via PyTorch ({})...", self.device)
-                    outputs = self.model.generate_audio(**generate_kwargs)
+                    # Reuse the condition computed above (identical inputs) instead of
+                    # encoding twice, and free the condition encoder before sampling.
+                    outputs = self.model.generate_audio(
+                        **generate_kwargs,
+                        precomputed_condition=(encoder_hidden_states, encoder_attention_mask, context_latents),
+                        after_prepare_condition=self._offload_dit_condition_parts,
+                    )
 
         return outputs, encoder_hidden_states, encoder_attention_mask, context_latents

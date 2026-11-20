@@ -1993,22 +1993,32 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
         time_costs = {}
         start_time = time.time()
         total_start_time = start_time
-        encoder_hidden_states, encoder_attention_mask, context_latents = self.prepare_condition(
-            text_hidden_states=text_hidden_states,
-            text_attention_mask=text_attention_mask,
-            lyric_hidden_states=lyric_hidden_states,
-            lyric_attention_mask=lyric_attention_mask,
-            refer_audio_acoustic_hidden_states_packed=refer_audio_acoustic_hidden_states_packed,
-            refer_audio_order_mask=refer_audio_order_mask,
-            hidden_states=src_latents,
-            attention_mask=attention_mask,
-            silence_latent=silence_latent,
-            src_latents=src_latents,
-            chunk_masks=chunk_masks,
-            is_covers=is_covers,
-            precomputed_lm_hints_25Hz=precomputed_lm_hints_25Hz,
-            audio_codes=audio_codes,
-        )
+        # Optional fast paths supplied by the handler:
+        #   precomputed_condition   -- (encoder_hidden_states, encoder_attention_mask, context_latents)
+        #                              already computed with identical inputs; skips a second encode.
+        #   after_prepare_condition -- called once all conditions are built, before the sampling
+        #                              loop (e.g. to offload the condition encoder in DiT-offload mode).
+        _precomputed = kwargs.pop("precomputed_condition", None)
+        _after_prepare = kwargs.pop("after_prepare_condition", None)
+        if _precomputed is not None:
+            encoder_hidden_states, encoder_attention_mask, context_latents = _precomputed
+        else:
+            encoder_hidden_states, encoder_attention_mask, context_latents = self.prepare_condition(
+                text_hidden_states=text_hidden_states,
+                text_attention_mask=text_attention_mask,
+                lyric_hidden_states=lyric_hidden_states,
+                lyric_attention_mask=lyric_attention_mask,
+                refer_audio_acoustic_hidden_states_packed=refer_audio_acoustic_hidden_states_packed,
+                refer_audio_order_mask=refer_audio_order_mask,
+                hidden_states=src_latents,
+                attention_mask=attention_mask,
+                silence_latent=silence_latent,
+                src_latents=src_latents,
+                chunk_masks=chunk_masks,
+                is_covers=is_covers,
+                precomputed_lm_hints_25Hz=precomputed_lm_hints_25Hz,
+                audio_codes=audio_codes,
+            )
         
         encoder_hidden_states_non_cover, encoder_attention_mask_non_cover, context_latents_non_cover = None, None, None
         if audio_cover_strength < 1.0:
@@ -2032,6 +2042,8 @@ class AceStepConditionGenerationModel(AceStepPreTrainedModel):
             audio_codes=None,
         )
         
+        if callable(_after_prepare):
+            _after_prepare()
         end_time = time.time()
         time_costs["encoder_time_cost"] = end_time - start_time
         start_time = end_time

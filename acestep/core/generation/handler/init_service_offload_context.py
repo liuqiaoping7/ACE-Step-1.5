@@ -191,3 +191,25 @@ class InitServiceOffloadContextMixin:
             return  # nothing resident
         pinned_offload.offload_to_cpu(model)
         self._empty_cache()
+
+    def _offload_dit_condition_parts(self) -> None:
+        """Free the DiT parts not needed by the sampling loop (DiT-offload mode only).
+
+        The condition encoder (lyric/timbre, ~1.13 GB) and the audio tokenizer /
+        detokenizer (~0.4 GB) run once in ``prepare_condition``; only ``decoder``
+        is used by the diffusion steps.  With pinned masters the offload is a
+        pointer swap.  This is what lets a 240 s song fit on an 8 GB card next to
+        the resident LM (it OOMed by ~0.1 GB before).
+        """
+        if not (getattr(self, "offload_to_cpu", False) and getattr(self, "offload_dit_to_cpu", False)):
+            return
+        if os.environ.get("ACESTEP_OFFLOAD_DIT_COND_PARTS", "1") == "0":
+            return
+        model = getattr(self, "model", None)
+        if model is None or not pinned_offload.supports(model, self.device):
+            return
+        for name in ("encoder", "tokenizer", "detokenizer"):
+            part = getattr(model, name, None)
+            if part is not None:
+                pinned_offload.offload_to_cpu(part)
+        self._empty_cache()
