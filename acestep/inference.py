@@ -340,6 +340,26 @@ class UnderstandResult:
         return asdict(self)
 
 
+_UNSET_VOCAL_LANGUAGES = ("", "unknown")
+
+
+def _is_unset_vocal_language(value: Optional[str]) -> bool:
+    """Return True when *value* does not pin a vocal language."""
+    return value is None or str(value).strip().lower() in _UNSET_VOCAL_LANGUAGES
+
+
+def _lm_vocal_language(metadata: Dict[str, Any]) -> Optional[str]:
+    """Return the LM-detected vocal language, or None when absent/unknown.
+
+    The LM CoT emits the field as ``language``; ``vocal_language`` is accepted
+    for backward compatibility with callers that pre-normalise the dict.
+    """
+    value = metadata.get("language", metadata.get("vocal_language"))
+    if value is None or _is_unset_vocal_language(value) or str(value).strip().upper() == "N/A":
+        return None
+    return str(value).strip()
+
+
 def _update_metadata_from_lm(
     metadata: Dict[str, Any],
     bpm: Optional[int],
@@ -378,8 +398,9 @@ def _update_metadata_from_lm(
             except (ValueError, TypeError):
                 pass
 
-    if not vocal_language and metadata.get('vocal_language'):
-        vocal_language = metadata.get('vocal_language')
+    lm_language = _lm_vocal_language(metadata)
+    if _is_unset_vocal_language(vocal_language) and lm_language:
+        vocal_language = lm_language
     if not caption and metadata.get('caption'):
         caption = metadata.get('caption')
     if not lyrics and metadata.get('lyrics'):
@@ -814,7 +835,7 @@ def generate_music(
                     params.cot_timesignature = time_signature
                 if (not params.duration or params.duration <= 0) and audio_duration and float(audio_duration) > 0:
                     params.cot_duration = audio_duration
-                if not params.vocal_language:
+                if _is_unset_vocal_language(params.vocal_language):
                     params.cot_vocal_language = vocal_language
                 if not params.caption:
                     params.cot_caption = caption
@@ -824,8 +845,10 @@ def generate_music(
             # set cot caption and language if needed
             if params.use_cot_caption:
                 dit_input_caption = lm_generated_metadata.get("caption", dit_input_caption)
-            if params.use_cot_language:
-                dit_input_vocal_language = lm_generated_metadata.get("vocal_language", dit_input_vocal_language)
+            if params.use_cot_language and _is_unset_vocal_language(dit_input_vocal_language):
+                # A user-specified language always wins; otherwise adopt the
+                # language detected by the LM CoT (field name: ``language``).
+                dit_input_vocal_language = _lm_vocal_language(lm_generated_metadata) or dit_input_vocal_language
 
         # Direct-conditioning tasks: no LM run, so conditioning must come from params (caption + lyrics from GUI).
         if params.task_type in DIRECT_CONDITIONING_TASKS:
