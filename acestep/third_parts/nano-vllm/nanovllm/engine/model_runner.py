@@ -469,12 +469,43 @@ class ModelRunner:
         debug_end("prepare_sample", _t0, prefix="tensor.vllm")
         return temperatures, cfg_scales, top_ks, top_ps, repetition_penalties
 
+    def _logits(self, hidden_states: torch.Tensor, vocab_rows):
+        if vocab_rows is None:
+            return self.model.compute_logits(hidden_states)
+        return self.model.compute_logits_rows(hidden_states, *vocab_rows)
+
+    def _codes_vocab_rows(self, seq):
+        """(start, end, extra) vocab rows needed while a sequence is in the audio-codes phase.
+
+        In ``CODES_GENERATION`` the constrained decoder masks every token except the
+        (contiguous) audio-code range and EOS with -inf, so logits for all other rows
+        are never used.  Returns None when the restriction does not apply.
+        """
+        if self.world_size > 1 or os.environ.get("NANOVLLM_LOGITS_SUBSET", "1") == "0":
+            return None
+        proc = getattr(seq, "logits_processor", None)
+        if proc is None or not getattr(proc, "enabled", False):
+            return None
+        state = getattr(proc, "state", None)
+        if getattr(state, "name", None) != "CODES_GENERATION" or getattr(proc, "non_audio_code_mask", None) is None:
+            return None
+        cached = getattr(proc, "_nanovllm_vocab_rows", None)
+        if cached is None:
+            ids = sorted(getattr(proc, "audio_code_token_ids", ()) or ())
+            eos = getattr(proc, "eos_token_id", None)
+            if not ids or eos is None or ids[-1] - ids[0] + 1 != len(ids):
+                cached = False
+            else:
+                cached = (ids[0], ids[-1] + 1, (int(eos),))
+            proc._nanovllm_vocab_rows = cached
+        return cached or None
+
     @torch.inference_mode()
-    def run_model(self, input_ids: torch.Tensor, positions: torch.Tensor, is_prefill: bool):
+    def run_model(self, input_ids: torch.Tensor, positions: torch.Tensor, is_prefill: bool, vocab_rows=None):
         _t0 = debug_start("run_model", prefix="tensor.vllm")
         if is_prefill or self.enforce_eager or input_ids.size(0) > 512:
             _debug_log(f"run_model: eager mode, is_prefill={is_prefill}, bs={input_ids.size(0)}")
-            out = self.model.compute_logits(self.model(input_ids, positions))
+            out = self._logits(self.model(input_ids, positions), vocab_rows)
             debug_end("run_model", _t0, prefix="tensor.vllm")
             return out
         else:
@@ -539,7 +570,7 @@ class ModelRunner:
             
             _debug_log(f"  executing CUDA graph replay for bs={bs}")
             graph.replay()
-            out = self.model.compute_logits(graph_vars["outputs"][:bs])
+            out = self._logits(graph_vars["outputs"][:bs], vocab_rows)
             debug_end("run_model", _t0, prefix="tensor.vllm")
             return out
 
@@ -571,7 +602,8 @@ class ModelRunner:
                 temperatures = cfg_scales = top_ks = top_ps = repetition_penalties = None
             
             # Run model forward (processes entire batch: cond + uncond)
-            logits_all = self.run_model(input_ids, positions, is_prefill)
+            vocab_rows = self._codes_vocab_rows(cond_seqs[0]) if cond_seqs else None
+            logits_all = self.run_model(input_ids, positions, is_prefill, vocab_rows)
             reset_context()
             
             if self.rank == 0:
@@ -645,7 +677,8 @@ class ModelRunner:
                 temperatures, cfg_scales, top_ks, top_ps, repetition_penalties = sample_params
             else:
                 temperatures = cfg_scales = top_ks = top_ps = repetition_penalties = None
-            logits = self.run_model(input_ids, positions, is_prefill)
+            vocab_rows = self._codes_vocab_rows(seqs[0]) if len(seqs) == 1 else None
+            logits = self.run_model(input_ids, positions, is_prefill, vocab_rows)
             reset_context()
             
             if self.rank == 0:

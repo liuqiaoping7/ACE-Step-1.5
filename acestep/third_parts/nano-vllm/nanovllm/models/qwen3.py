@@ -228,3 +228,25 @@ class Qwen3ForCausalLM(nn.Module):
         hidden_states: torch.Tensor,
     ) -> torch.Tensor:
         return self.lm_head(hidden_states)
+
+    def compute_logits_rows(self, hidden_states: torch.Tensor, row_start: int, row_end: int,
+                            extra_rows: tuple) -> torch.Tensor:
+        """Logits for vocab rows [row_start, row_end) plus ``extra_rows`` only (tp_size == 1).
+
+        Every other entry is 0; callers must mask them (the constrained decoder
+        does, with -inf, in the codes phase).  The row slice is a view of the
+        tied lm_head / embedding weight, so only ~30% of it is read per step.
+        """
+        from nanovllm.utils.context import get_context
+        import torch.nn.functional as F
+
+        context = get_context()
+        x = hidden_states
+        if context.is_prefill:
+            x = x[context.cu_seqlens_q[1:] - 1].contiguous()
+        w = self.lm_head.weight
+        out = x.new_zeros(x.shape[0], w.shape[0])
+        out[:, row_start:row_end] = F.linear(x, w[row_start:row_end])
+        for r in extra_rows:
+            out[:, r] = F.linear(x, w[r:r + 1]).squeeze(-1)
+        return out
