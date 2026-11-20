@@ -1,0 +1,480 @@
+2026-11-20 16:13:15.349 | DEBUG    | acestep.core.generation.handler.init_service_memory_basic:_apply_malloc_mmap_threshold:50 - [memory] Set M_MMAP_THRESHOLD=131072 for immediate OS reclaim of large frees
+2026-11-20 16:13:17.675 | WARNING  | acestep.training.trainer:<module>:40 - bitsandbytes not installed. Using standard AdamW.
+2026-11-20 16:13:17.696 | INFO     | acestep.gpu_config:get_gpu_memory_gb:578 - CUDA GPU detected: NVIDIA GeForce RTX 4060 (7.6 GB)
+2026-11-20 16:13:17.744 | WARNING  | acestep.core.generation.handler.init_service_downloads:_sync_model_code_if_needed:71 - [initialize_service] Model code mismatch detected for 'acestep-v15-turbo': ['modeling_acestep_v15_turbo.py']. Auto-syncing from acestep/models/...
+2026-11-20 16:13:17.756 | DEBUG    | acestep.model_downloader:_sync_model_code_files:131 - [Model Sync] Synced modeling_acestep_v15_turbo.py -> /home/qiao/Documents/github/QNN/ACE-Step-1.5/checkpoints/acestep-v15-turbo/modeling_acestep_v15_turbo.py
+2026-11-20 16:13:17.756 | DEBUG    | acestep.model_downloader:_sync_model_code_files:131 - [Model Sync] Synced configuration_acestep_v15.py -> /home/qiao/Documents/github/QNN/ACE-Step-1.5/checkpoints/acestep-v15-turbo/configuration_acestep_v15.py
+2026-11-20 16:13:17.757 | INFO     | acestep.core.generation.handler.init_service_downloads:_sync_model_code_if_needed:76 - [initialize_service] Model code files synced successfully.
+2026-11-20 16:13:17.837 | INFO     | acestep.core.generation.handler.init_service_loader:_load_main_model_from_checkpoint:174 - [initialize_service] Attempting to load model with attention implementation: flash_attention_2
+2026-11-20 16:13:57.835 | INFO     | acestep.core.generation.handler.init_service_loader:_load_main_model_from_checkpoint:200 - [initialize_service] Keeping main model on cuda (persistent)
+2026-11-20 16:14:26.321 | INFO     | acestep.llm_inference:initialize:609 - loading 5Hz LM tokenizer... it may take 80~90s
+2026-11-20 16:14:38.229 | INFO     | acestep.llm_inference:initialize:613 - 5Hz LM tokenizer loaded successfully in 11.90 seconds
+2026-11-20 16:14:38.229 | INFO     | acestep.llm_inference:initialize:618 - Initializing constrained decoding processor...
+2026-11-20 16:14:38.229 | INFO     | acestep.llm_inference:initialize:624 - Setting constrained decoding max_duration to 480s based on GPU config (tier: tier3)
+2026-11-20 16:14:38.909 | DEBUG    | acestep.constrained_logits_processor:_precompute_audio_code_tokens:577 - Found 1535 audio code tokens with values outside valid range [0, 63999]
+2026-11-20 16:14:40.706 | INFO     | acestep.llm_inference:initialize:632 - Constrained processor initialized in 2.48 seconds
+2026-11-20 16:14:40.706 | INFO     | acestep.gpu_config:get_gpu_memory_gb:578 - CUDA GPU detected: NVIDIA GeForce RTX 4060 (7.6 GB)
+2026-11-20 16:14:42.692 | INFO     | acestep.gpu_config:get_lm_gpu_memory_ratio:1057 - [get_lm_gpu_memory_ratio] model=1.7B, free=2.92GB, current_usage=4.46GB, lm_target=4.70GB, usable_for_lm=0.92GB, ratio=0.708
+2026-11-20 16:14:42.692 | INFO     | acestep.llm_inference:get_gpu_memory_utilization:211 - Adaptive LM memory allocation: model=/home/qiao/Documents/github/QNN/ACE-Step-1.5/checkpoints/acestep-5Hz-lm-1.7B, target=3.4GB, ratio=0.708, total_gpu=7.6GB
+2026-11-20 16:14:42.692 | INFO     | acestep.llm_inference:_initialize_5hz_lm_vllm:824 - Initializing 5Hz LM with model: /home/qiao/Documents/github/QNN/ACE-Step-1.5/checkpoints/acestep-5Hz-lm-1.7B, enforce_eager: False, tensor_parallel_size: 1, max_model_len: 2048, gpu_memory_utilization: 0.708
+`torch_dtype` is deprecated! Use `dtype` instead!
+2026-11-20 16:14:43.874 | INFO     | acestep.llm_inference:initialize:749 - 5Hz LM status message: ❌ Error initializing 5Hz LM: CUDA out of memory. Tried to allocate 48.00 MiB. GPU 0 has a total capacity of 7.60 GiB of which 44.69 MiB is free. Including non-PyTorch memory, this process has 7.45 GiB memory in use. Of the allocated memory 7.30 GiB is allocated by PyTorch, and 48.14 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback:
+Traceback (most recent call last):
+  File "/home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py", line 846, in _initialize_5hz_lm_vllm
+    self.llm = LLM(
+               ^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/engine/llm_engine.py", line 40, in __init__
+    self.model_runner = ModelRunner(config, 0, self.events)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/engine/model_runner.py", line 173, in __init__
+    self.model = Qwen3ForCausalLM(hf_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/models/qwen3.py", line 200, in __init__
+    self.model = Qwen3Model(config)
+                 ^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/models/qwen3.py", line 170, in __init__
+    self.layers = nn.ModuleList([Qwen3DecoderLayer(config) for _ in range(config.num_hidden_layers)])
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/models/qwen3.py", line 138, in __init__
+    self.mlp = Qwen3MLP(
+               ^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/models/qwen3.py", line 100, in __init__
+    self.gate_up_proj = MergedColumnParallelLinear(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/layers/linear.py", line 87, in __init__
+    super().__init__(input_size, sum(output_sizes), bias)
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/layers/linear.py", line 65, in __init__
+    super().__init__(input_size, divide(output_size, tp_size), bias, 0)
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/layers/linear.py", line 27, in __init__
+    self.weight = nn.Parameter(torch.empty(output_size, input_size))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/utils/_device.py", line 109, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 48.00 MiB. GPU 0 has a total capacity of 7.60 GiB of which 44.69 MiB is free. Including non-PyTorch memory, this process has 7.45 GiB memory in use. Of the allocated memory 7.30 GiB is allocated by PyTorch, and 48.14 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+2026-11-20 16:14:43.875 | WARNING  | acestep.llm_inference:initialize:751 - vLLM initialization failed before PyTorch fallback: ❌ Error initializing 5Hz LM: CUDA out of memory. Tried to allocate 48.00 MiB. GPU 0 has a total capacity of 7.60 GiB of which 44.69 MiB is free. Including non-PyTorch memory, this process has 7.45 GiB memory in use. Of the allocated memory 7.30 GiB is allocated by PyTorch, and 48.14 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback:
+Traceback (most recent call last):
+  File "/home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py", line 846, in _initialize_5hz_lm_vllm
+    self.llm = LLM(
+               ^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/engine/llm_engine.py", line 40, in __init__
+    self.model_runner = ModelRunner(config, 0, self.events)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/engine/model_runner.py", line 173, in __init__
+    self.model = Qwen3ForCausalLM(hf_config)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/models/qwen3.py", line 200, in __init__
+    self.model = Qwen3Model(config)
+                 ^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/models/qwen3.py", line 170, in __init__
+    self.layers = nn.ModuleList([Qwen3DecoderLayer(config) for _ in range(config.num_hidden_layers)])
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/models/qwen3.py", line 138, in __init__
+    self.mlp = Qwen3MLP(
+               ^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/models/qwen3.py", line 100, in __init__
+    self.gate_up_proj = MergedColumnParallelLinear(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/layers/linear.py", line 87, in __init__
+    super().__init__(input_size, sum(output_sizes), bias)
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/layers/linear.py", line 65, in __init__
+    super().__init__(input_size, divide(output_size, tp_size), bias, 0)
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/nanovllm/layers/linear.py", line 27, in __init__
+    self.weight = nn.Parameter(torch.empty(output_size, input_size))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/utils/_device.py", line 109, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 48.00 MiB. GPU 0 has a total capacity of 7.60 GiB of which 44.69 MiB is free. Including non-PyTorch memory, this process has 7.45 GiB memory in use. Of the allocated memory 7.30 GiB is allocated by PyTorch, and 48.14 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+2026-11-20 16:14:43.875 | WARNING  | acestep.llm_inference:initialize:760 - Falling back to PyTorch backend
+2026-11-20 16:14:44.125 | INFO     | acestep.inference:generate_music:662 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=False, use_lm=False
+2026-11-20 16:14:44.126 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-20 16:14:44.127 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-20 16:14:44.127 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-20 16:14:44.395 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-20 16:14:44.396 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 4543 MB)
+2026-11-20 16:14:44.781 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1685s (RSS: 4543 -> 3900 MB, delta: -643 MB)
+2026-11-20 16:14:45.018 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 3929 MB)
+2026-11-20 16:14:45.440 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1988s (RSS: 3929 -> 4573 MB, delta: +644 MB)
+2026-11-20 16:14:45.628 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-20 16:14:45.628 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-20 16:14:45.628 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-20 16:14:45.628 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Fill the audio semantic mask based on the given conditions:
+
+# Caption
+An explosive, high-energy J-rock and pop-rock anthem driven by a powerful, punchy drum beat and a thick wall of distorted, chugging rhythm guitars. A passionate male lead vocal, delivered in a mix of Japanese and English, soars over the top with layered harmonies and echoed ad-libs that amplify the song's anthemic quality. The arrangement is dynamic, featuring a blistering, melodic guitar solo and a brief, atmospheric bridge with synth pads that provides a moment of contrast before slamming back into the high-octane chorus. The track concludes with a final, powerful guitar chord and a lingering sense of energy.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: E♭ minor
+- duration: 30 seconds
+<|endoftext|>
+
+2026-11-20 16:14:45.628 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-20 16:14:45.628 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+ja
+
+# Lyric
+[Intro]
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Riff]
+
+[Verse 1]
+Nani ga seigi ka, nani ga koukai ka
+Hakase tsuzukeru, hashirinukeru
+No life's a game, no rules to follow
+Dakedo arata na chikara ga yomigaeru
+
+[Pre-Chorus]
+No, this is our new life
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Verse 2]
+Kizutsuita tsubasa mo aruita michi mo
+Onaji hibi no naka de susumu
+No stage to the hill, sore demo susumu
+Mayowanai de susumu, susumu
+
+[Pre-Chorus]
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Solo]
+
+[Bridge]
+Donna arashi ni matsu ka? I know
+Nando mo yami ni shizumu ka?
+Ore wa yuku, ore wa yuku
+Chikara tsuyoku, yume wo motte
+Chikara tsuyoku, yume wo motte
+Tooi hikari, moeagaru
+Kono kokoro ni hibiku takami
+We are in the zone, we are in the zone
+
+[Breakdown]
+Sono saki ni iru mirai ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Outro]
+Kizutsuite mo
+Makenai yume wo
+No stage to the hill, sore demo
+Ore wa susumu, ore wa susumu
+Mata tachiagaru, mata tachiagaru
+
+[Final Guitar Riff and Fade Out]<|endoftext|>
+2026-11-20 16:14:45.628 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-20 16:14:45.631 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 4590 MB)
+2026-11-20 16:14:46.000 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1534s (RSS: 4590 -> 3947 MB, delta: -643 MB)
+2026-11-20 16:14:46.110 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 3968 MB)
+2026-11-20 16:14:46.526 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1939s (RSS: 3968 -> 4611 MB, delta: +644 MB)
+2026-11-20 16:14:46.527 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-20 16:14:46.527 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading text_encoder to cuda (RSS: 4611 MB)
+2026-11-20 16:14:47.248 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded text_encoder to cuda in 0.5019s (RSS: 4611 -> 2338 MB, delta: -2273 MB)
+2026-11-20 16:14:49.940 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-20 16:14:49.940 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading text_encoder to CPU (RSS: 2669 MB)
+2026-11-20 16:14:50.593 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded text_encoder to CPU in 0.4137s (RSS: 2669 -> 3806 MB, delta: +1137 MB)
+2026-11-20 16:14:50.593 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-20 16:14:51.804 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-20 16:14:51.944 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-20 16:14:54.663 | WARNING  | acestep.models.common.dcw_loader:_try_import:39 - DCW is enabled but 'pytorch_wavelets' is not installed. Install with `pip install pytorch_wavelets PyWavelets` to use Differential Correction in Wavelet domain. Falling back to no-op for this generation.
+2026-11-20 16:14:55.136 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-20 16:14:55.267 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 750, 64]), dtype=torch.bfloat16
+2026-11-20 16:14:55.268 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.04725503921508789, 'diffusion_time_cost': 3.2844862937927246, 'diffusion_per_step_time_cost': 0.4105607867240906, 'total_time_cost': 3.3317413330078125, 'offload_time_cost': 1.6302270889282227}
+2026-11-20 16:14:55.269 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-20 16:14:55.270 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 4063 MB)
+2026-11-20 16:14:55.644 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1555s (RSS: 4063 -> 3420 MB, delta: -644 MB)
+2026-11-20 16:14:55.644 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=4.82GB, max=7.32GB
+2026-11-20 16:14:55.645 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 2.55 GB
+2026-11-20 16:14:55.645 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-20 16:14:55.645 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:108 - [_get_auto_decode_chunk_size] Effective free VRAM: 2.55 GB
+2026-11-20 16:14:55.645 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:131 - [_should_offload_wav_to_cpu] Effective free VRAM: 2.55 GB
+2026-11-20 16:14:55.645 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=128, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 750])
+2026-11-20 16:14:55.645 | WARNING  | acestep.core.generation.handler.vae_decode_chunks:_tiled_decode_inner:39 - [tiled_decode] Reduced overlap from 64 to 32 for chunk_size=128
+2026-11-20 16:14:56.839 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=4.98GB, max=7.32GB
+2026-11-20 16:14:56.844 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 3495 MB)
+2026-11-20 16:14:57.261 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1921s (RSS: 3495 -> 4138 MB, delta: +643 MB)
+2026-11-20 16:14:57.477 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-20 16:14:57.478 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-20 16:14:57.697 | INFO     | acestep.inference:generate_music:1002 - [Normalization] Audio 0 BEFORE: Peak=1.0000, Target=-1.0dB
+2026-11-20 16:14:57.709 | INFO     | acestep.inference:generate_music:1007 - [Normalization] Audio 0 AFTER: Peak=0.8913
+2026-11-20 16:14:57.926 | DEBUG    | acestep.audio_utils:save_audio:339 - [AudioSaver] Fallback soundfile Saved audio to /tmp/acestep_profile_xua61qgb/1177cd53-7852-5e02-a913-207a80a7002a.flac (flac, 48000Hz)
+2026-11-20 16:14:57.927 | INFO     | acestep.inference:generate_music:662 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=False, use_lm=False
+2026-11-20 16:14:57.927 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-20 16:14:57.927 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-20 16:14:57.927 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-20 16:14:58.145 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-20 16:14:58.146 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 4142 MB)
+2026-11-20 16:14:58.510 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1479s (RSS: 4142 -> 3499 MB, delta: -644 MB)
+2026-11-20 16:14:58.510 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 3499 MB)
+2026-11-20 16:14:58.919 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1878s (RSS: 3499 -> 4142 MB, delta: +644 MB)
+2026-11-20 16:14:58.920 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-20 16:14:58.920 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-20 16:14:58.920 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-20 16:14:58.920 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Fill the audio semantic mask based on the given conditions:
+
+# Caption
+An explosive, high-energy J-rock and pop-rock anthem driven by a powerful, punchy drum beat and a thick wall of distorted, chugging rhythm guitars. A passionate male lead vocal, delivered in a mix of Japanese and English, soars over the top with layered harmonies and echoed ad-libs that amplify the song's anthemic quality. The arrangement is dynamic, featuring a blistering, melodic guitar solo and a brief, atmospheric bridge with synth pads that provides a moment of contrast before slamming back into the high-octane chorus. The track concludes with a final, powerful guitar chord and a lingering sense of energy.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: E♭ minor
+- duration: 30 seconds
+<|endoftext|>
+
+2026-11-20 16:14:58.920 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-20 16:14:58.920 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+ja
+
+# Lyric
+[Intro]
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Riff]
+
+[Verse 1]
+Nani ga seigi ka, nani ga koukai ka
+Hakase tsuzukeru, hashirinukeru
+No life's a game, no rules to follow
+Dakedo arata na chikara ga yomigaeru
+
+[Pre-Chorus]
+No, this is our new life
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Verse 2]
+Kizutsuita tsubasa mo aruita michi mo
+Onaji hibi no naka de susumu
+No stage to the hill, sore demo susumu
+Mayowanai de susumu, susumu
+
+[Pre-Chorus]
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Solo]
+
+[Bridge]
+Donna arashi ni matsu ka? I know
+Nando mo yami ni shizumu ka?
+Ore wa yuku, ore wa yuku
+Chikara tsuyoku, yume wo motte
+Chikara tsuyoku, yume wo motte
+Tooi hikari, moeagaru
+Kono kokoro ni hibiku takami
+We are in the zone, we are in the zone
+
+[Breakdown]
+Sono saki ni iru mirai ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Outro]
+Kizutsuite mo
+Makenai yume wo
+No stage to the hill, sore demo
+Ore wa susumu, ore wa susumu
+Mata tachiagaru, mata tachiagaru
+
+[Final Guitar Riff and Fade Out]<|endoftext|>
+2026-11-20 16:14:58.920 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-20 16:14:58.922 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 4143 MB)
+2026-11-20 16:14:59.287 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1483s (RSS: 4143 -> 3499 MB, delta: -644 MB)
+2026-11-20 16:14:59.287 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 3499 MB)
+2026-11-20 16:14:59.696 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1869s (RSS: 3499 -> 4143 MB, delta: +644 MB)
+2026-11-20 16:14:59.696 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-20 16:14:59.696 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading text_encoder to cuda (RSS: 4143 MB)
+2026-11-20 16:15:00.173 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded text_encoder to cuda in 0.2600s (RSS: 4143 -> 3006 MB, delta: -1137 MB)
+2026-11-20 16:15:00.185 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-20 16:15:00.185 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading text_encoder to CPU (RSS: 3006 MB)
+2026-11-20 16:15:00.838 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded text_encoder to CPU in 0.4146s (RSS: 3006 -> 4143 MB, delta: +1137 MB)
+2026-11-20 16:15:00.838 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-20 16:15:00.880 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-20 16:15:00.950 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-20 16:15:01.482 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-20 16:15:01.495 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 750, 64]), dtype=torch.bfloat16
+2026-11-20 16:15:01.495 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.055213212966918945, 'diffusion_time_cost': 0.5468320846557617, 'diffusion_per_step_time_cost': 0.06835401058197021, 'total_time_cost': 0.6020452976226807, 'offload_time_cost': 1.345571517944336}
+2026-11-20 16:15:01.495 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-20 16:15:01.495 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 4144 MB)
+2026-11-20 16:15:01.867 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1539s (RSS: 4144 -> 3500 MB, delta: -644 MB)
+2026-11-20 16:15:01.868 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=4.98GB, max=7.32GB
+2026-11-20 16:15:01.868 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 2.39 GB
+2026-11-20 16:15:01.868 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-20 16:15:01.868 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:108 - [_get_auto_decode_chunk_size] Effective free VRAM: 2.39 GB
+2026-11-20 16:15:01.868 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:131 - [_should_offload_wav_to_cpu] Effective free VRAM: 2.39 GB
+2026-11-20 16:15:01.868 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=128, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 750])
+2026-11-20 16:15:01.868 | WARNING  | acestep.core.generation.handler.vae_decode_chunks:_tiled_decode_inner:39 - [tiled_decode] Reduced overlap from 64 to 32 for chunk_size=128
+2026-11-20 16:15:02.787 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=4.98GB, max=7.32GB
+2026-11-20 16:15:02.792 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 3511 MB)
+2026-11-20 16:15:03.206 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1913s (RSS: 3511 -> 4154 MB, delta: +643 MB)
+2026-11-20 16:15:03.423 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-20 16:15:03.423 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-20 16:15:03.643 | INFO     | acestep.inference:generate_music:1002 - [Normalization] Audio 0 BEFORE: Peak=1.0000, Target=-1.0dB
+2026-11-20 16:15:03.649 | INFO     | acestep.inference:generate_music:1007 - [Normalization] Audio 0 AFTER: Peak=0.8913
+2026-11-20 16:15:03.704 | DEBUG    | acestep.audio_utils:save_audio:339 - [AudioSaver] Fallback soundfile Saved audio to /tmp/acestep_profile_xua61qgb/1177cd53-7852-5e02-a913-207a80a7002a.flac (flac, 48000Hz)
+====================================================================================================
+ACE-Step 1.5 Inference Profiler
+====================================================================================================
+
+  Mode:           profile
+  Device:         cuda (requested: auto)
+  LLM Backend:    vllm
+  DiT Config:     acestep-v15-turbo
+  LLM Model:      acestep-5Hz-lm-1.7B
+  GPU Memory:     7.6 GB (tier: tier3)
+  CPU Offload:    enabled
+
+  Thinking:       True
+  CoT Metas:      True
+  CoT Caption:    True
+  CoT Language:   True
+  Constrained:    True
+  Warmup:         enabled
+
+----------------------------------------------------------------------------------------------------
+INITIALIZING MODELS
+----------------------------------------------------------------------------------------------------
+  Initializing DiT handler...
+  DiT ready (device=cuda)
+  Initializing LLM handler (backend=vllm)...
+  LLM initialization failed: ❌ Error initializing 5Hz LM: CUDA out of memory. Tried to allocate 850.00 MiB. GPU 0 has a total capacity of 7.60 GiB of which 44.69 MiB is free. Including non-PyTorch memory, this process has 7.45 GiB memory in use. Of the allocated memory 7.30 GiB is allocated by PyTorch, and 48.33 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+Traceback:
+Traceback (most recent call last):
+  File "/home/qiao/Documents/github/QNN/ACE-Step-1.5/acestep/llm_inference.py", line 404, in _load_pytorch_model
+    self.llm = AutoModelForCausalLM.from_pretrained(model_path, trust_remote_code=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/auto/auto_factory.py", line 604, in from_pretrained
+    return model_class.from_pretrained(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/modeling_utils.py", line 277, in _wrapper
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/modeling_utils.py", line 4971, in from_pretrained
+    model = cls(config, *model_args, **model_kwargs)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 436, in __init__
+    self.model = Qwen3Model(config)
+                 ^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/transformers/models/qwen3/modeling_qwen3.py", line 342, in __init__
+    self.embed_tokens = nn.Embedding(config.vocab_size, config.hidden_size, self.padding_idx)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/nn/modules/sparse.py", line 168, in __init__
+    torch.empty((num_embeddings, embedding_dim), **factory_kwargs),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/qiao/anaconda3/envs/py312/lib/python3.12/site-packages/torch/utils/_device.py", line 109, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 850.00 MiB. GPU 0 has a total capacity of 7.60 GiB of which 44.69 MiB is free. Including non-PyTorch memory, this process has 7.45 GiB memory in use. Of the allocated memory 7.30 GiB is allocated by PyTorch, and 48.33 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+
+
+====================================================================================================
+RUNNING MODE: PROFILE
+====================================================================================================
+
+  Loading example: example_05.json
+  Caption: An explosive, high-energy J-rock and pop-rock anthem driven by a powerful, punch...
+  Task: text2music, Batch: 1, Steps: 8
+  Thinking: True, CoT Metas: True, CoT Caption: True
+
+----------------------------------------------------------------------------------------------------
+WARMUP RUN
+----------------------------------------------------------------------------------------------------
+  Warmup completed: 13.80s
+
+====================================================================================================
+PROFILING RUN
+====================================================================================================
+
+  Success! Generated 1 audio(s)
+
+====================================================================================================
+PROFILING RESULTS
+====================================================================================================
+
+COMPONENT                                          TIME (s)     % of wall 
+------------------------------------------------------------------------
+
+DiT (Diffusion Transformer)                        2.530          43.8%
+    diffusion_per_step_time_cost                   0.068           1.2%
+    diffusion_time_cost                            0.547           9.5%
+    encoder_time_cost                              0.055           1.0%
+    offload_time_cost                              1.691          29.3%
+    vae_decode_time_cost                           1.928          33.4%
+
+Pipeline: pipeline_total_time                      2.530          43.8%
+
+Overhead (I/O, audio save, etc.)                   3.248          56.2%
+
+TOTAL WALL TIME                                    5.778        100.0%
+
+====================================================================================================
+PERFORMANCE INSIGHTS
+====================================================================================================
+
+  DiT only (no LLM): 2.5s
+    Diffusion: 0.5s, VAE decode: 1.9s
+
+====================================================================================================
+DONE
+====================================================================================================

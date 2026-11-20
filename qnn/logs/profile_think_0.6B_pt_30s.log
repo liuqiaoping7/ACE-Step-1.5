@@ -1,0 +1,607 @@
+2026-11-20 16:34:36.221 | DEBUG    | acestep.core.generation.handler.init_service_memory_basic:_apply_malloc_mmap_threshold:50 - [memory] Set M_MMAP_THRESHOLD=131072 for immediate OS reclaim of large frees
+2026-11-20 16:34:40.792 | WARNING  | acestep.training.trainer:<module>:40 - bitsandbytes not installed. Using standard AdamW.
+2026-11-20 16:34:40.813 | INFO     | acestep.gpu_config:get_gpu_memory_gb:578 - CUDA GPU detected: NVIDIA GeForce RTX 4060 (7.6 GB)
+2026-11-20 16:34:40.897 | INFO     | acestep.core.generation.handler.init_service_loader:_load_main_model_from_checkpoint:174 - [initialize_service] Attempting to load model with attention implementation: flash_attention_2
+2026-11-20 16:35:03.414 | INFO     | acestep.core.generation.handler.init_service_loader:_load_main_model_from_checkpoint:200 - [initialize_service] Keeping main model on cuda (persistent)
+2026-11-20 16:35:05.571 | INFO     | acestep.llm_inference:initialize:609 - loading 5Hz LM tokenizer... it may take 80~90s
+2026-11-20 16:35:16.878 | INFO     | acestep.llm_inference:initialize:613 - 5Hz LM tokenizer loaded successfully in 11.31 seconds
+2026-11-20 16:35:16.878 | INFO     | acestep.llm_inference:initialize:618 - Initializing constrained decoding processor...
+2026-11-20 16:35:16.878 | INFO     | acestep.llm_inference:initialize:624 - Setting constrained decoding max_duration to 480s based on GPU config (tier: tier3)
+2026-11-20 16:35:17.524 | DEBUG    | acestep.constrained_logits_processor:_precompute_audio_code_tokens:577 - Found 1535 audio code tokens with values outside valid range [0, 63999]
+2026-11-20 16:35:19.257 | INFO     | acestep.llm_inference:initialize:632 - Constrained processor initialized in 2.38 seconds
+2026-11-20 16:35:19.853 | INFO     | acestep.llm_inference:_load_pytorch_model:412 - 5Hz LM initialized successfully using PyTorch backend on cuda
+2026-11-20 16:35:19.877 | INFO     | acestep.inference:generate_music:662 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-20 16:35:19.877 | INFO     | acestep.inference:generate_music:720 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-20 16:35:19.877 | INFO     | acestep.llm_inference:generate_with_stop_condition:1428 - Phase 1: Using user-provided metadata (skipping generation)
+2026-11-20 16:35:19.877 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-20 16:35:19.909 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An explosive, high-energy J-rock and pop-rock anthem driven by a powerful, punchy drum beat and a thick wall of distorted, chugging rhythm guitars. A passionate male lead vocal, delivered in a mix of Japanese and English, soars over the top with layered harmonies and echoed ad-libs that amplify the song's anthemic quality. The arrangement is dynamic, featuring a blistering, melodic guitar solo and a brief, atmospheric bridge with synth pads that provides a moment of contrast before slamming back into the high-octane chorus. The track concludes with a final, powerful guitar chord and a lingering sense of energy.
+
+# Lyric
+[Intro]
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Riff]
+
+[Verse 1]
+Nani ga seigi ka, nani ga koukai ka
+Hakase tsuzukeru, hashirinukeru
+No life's a game, no rules to follow
+Dakedo arata na chikara ga yomigaeru
+
+[Pre-Chorus]
+No, this is our new life
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Verse 2]
+Kizutsuita tsubasa mo aruita michi mo
+Onaji hibi no naka de susumu
+No stage to the hill, sore demo susumu
+Mayowanai de susumu, susumu
+
+[Pre-Chorus]
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Solo]
+
+[Bridge]
+Donna arashi ni matsu ka? I know
+Nando mo yami ni shizumu ka?
+Ore wa yuku, ore wa yuku
+Chikara tsuyoku, yume wo motte
+Chikara tsuyoku, yume wo motte
+Tooi hikari, moeagaru
+Kono kokoro ni hibiku takami
+We are in the zone, we are in the zone
+
+[Breakdown]
+Sono saki ni iru mirai ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Outro]
+Kizutsuite mo
+Makenai yume wo
+No stage to the hill, sore demo
+Ore wa susumu, ore wa susumu
+Mata tachiagaru, mata tachiagaru
+
+[Final Guitar Riff and Fade Out]
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+duration: 30
+keyscale: E♭ minor
+timesignature: 4
+</think>
+
+
+2026-11-20 16:35:19.911 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 16:35:20.211 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2992s
+2026-11-20 16:35:20.212 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+2026-11-20 16:35:24.171 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 16:35:24.862 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.6911s
+2026-11-20 16:35:24.863 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_24519|><|audio_code_38863|><|audio_code_12060|><|audio_code_4103|><|audio_code_32817|><|audio_code_31359|><|audio_code_25455|><|audio_code_2029|><|audio_code_31292|><|audio_code_57901|><|audio_code_17513|><|audio_code_49727|><|audio_code_14661|><|audio_code_61359|><|audio_code_47276|><|audio_code_16952|><|audio_code_41491|><|audio_code_52753|><|audio_code_23855|><|audio_code_51623|><|audio_code_22636|><|audio_code_28176|><|audio_code_517|><|audio_code_23602|><|audio_code_57678|><|audio_code_61879|><|audio_code_40126|><|audio_code_16335|><|audio_code_56772|><|audio_code_46626|><|audio_code_13927|><|audio_code_14904|><|audio_code_26655|><|audio_code_27655|><|audio_code_14895|><|audio_code_39503|><|audio_code_27970|><|audio_code_33967|><|audio_code_27399|><|audio_code_52986|><|audio_code_63871|><|audio_code_19376|><|audio_code_51649|><|audio_code_54984|><|audio_code_62440|><|audio_code_25059|><|audio_code_20306|><|audio_code_28683|><|audio_code_20126|><|audio_code_18440|><|audio_code_27520|><|audio_code_15042|><|audio_code_39552|><|audio_code_25046|><|audio_code_15283|><|audio_code_37668|><|audio_code_50548|><|audio_code_53692|><|audio_code_2943|><|audio_code_53572|><|audio_code_2309|><|audio_code_323|><|audio_code_15748|><|audio_code_19348|><|audio_code_24428|><|audio_code_19520|><|audio_code_50216|><|audio_code_52746|><|audio_code_12301|><|audio_code_2498|><|audio_code_13575|><|audio_code_5988|><|audio_code_29645|><|audio_code_23440|><|audio_code_44004|><|audio_code_13252|><|audio_code_11667|><|audio_code_38278|><|audio_code_53706|><|audio_code_23035|><|audio_code_52602|><|audio_code_11250|><|audio_code_36671|><|audio_code_13764|><|audio_code_14331|><|audio_code_61376|><|audio_code_8148|><|audio_code_13253|><|audio_code_1995|><|audio_code_1415|><|audio_code_28092|><|audio_code_11756|><|audio_code_51906|><|audio_code_53716|><|audio_code_49663|><|audio_code_25580|><|audio_code_51196|><|audio_code_46032|><|audio_code_53668|><|audio_code_44019|><|audio_code_44593|><|audio_code_48422|><|audio_code_2852|><|audio_code_13128|><|audio_code_37346|><|audio_code_38200|><|audio_code_63033|><|audio_code_9868|><|audio_code_15054|><|audio_code_17779|><|audio_code_53118|><|audio_code_30528|><|audio_code_51899|><|audio_code_37652|><|audio_code_2432|><|audio_code_8076|><|audio_code_60091|><|audio_code_28482|><|audio_code_60414|><|audio_code_22587|><|audio_code_27960|><|audio_code_44591|><|audio_code_17920|><|audio_code_15302|><|audio_code_40394|><|audio_code_54866|><|audio_code_11810|><|audio_code_8134|><|audio_code_24990|><|audio_code_13006|><|audio_code_63206|><|audio_code_42496|><|audio_code_10804|><|audio_code_24015|><|audio_code_28063|><|audio_code_40705|><|audio_code_34329|><|audio_code_48402|><|audio_code_1320|><|audio_code_52741|><|audio_code_36907|><|audio_code_1808|><|audio_code_51519|><|audio_code_23022|><|audio_code_14336|><|audio_code_51718|><|audio_code_18987|><|audio_code_17545|><|audio_code_33799|><|audio_code_25574|><|im_end|>
+2026-11-20 16:35:24.863 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 4.99s. Generated 150 audio codes
+2026-11-20 16:35:24.863 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-20 16:35:24.863 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-20 16:35:24.863 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-20 16:35:24.864 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-20 16:35:25.070 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-20 16:35:25.077 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 6438 MB)
+2026-11-20 16:35:25.420 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1376s (RSS: 6438 -> 5795 MB, delta: -643 MB)
+2026-11-20 16:35:25.420 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-20 16:35:25.645 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 5807 MB)
+2026-11-20 16:35:26.048 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1865s (RSS: 5807 -> 6451 MB, delta: +644 MB)
+2026-11-20 16:35:26.050 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-20 16:35:26.053 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-20 16:35:26.053 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-20 16:35:26.053 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-20 16:35:26.053 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An explosive, high-energy J-rock and pop-rock anthem driven by a powerful, punchy drum beat and a thick wall of distorted, chugging rhythm guitars. A passionate male lead vocal, delivered in a mix of Japanese and English, soars over the top with layered harmonies and echoed ad-libs that amplify the song's anthemic quality. The arrangement is dynamic, featuring a blistering, melodic guitar solo and a brief, atmospheric bridge with synth pads that provides a moment of contrast before slamming back into the high-octane chorus. The track concludes with a final, powerful guitar chord and a lingering sense of energy.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: E♭ minor
+- duration: 30 seconds
+<|endoftext|>
+
+2026-11-20 16:35:26.053 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-20 16:35:26.053 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+ja
+
+# Lyric
+[Intro]
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Riff]
+
+[Verse 1]
+Nani ga seigi ka, nani ga koukai ka
+Hakase tsuzukeru, hashirinukeru
+No life's a game, no rules to follow
+Dakedo arata na chikara ga yomigaeru
+
+[Pre-Chorus]
+No, this is our new life
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Verse 2]
+Kizutsuita tsubasa mo aruita michi mo
+Onaji hibi no naka de susumu
+No stage to the hill, sore demo susumu
+Mayowanai de susumu, susumu
+
+[Pre-Chorus]
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Solo]
+
+[Bridge]
+Donna arashi ni matsu ka? I know
+Nando mo yami ni shizumu ka?
+Ore wa yuku, ore wa yuku
+Chikara tsuyoku, yume wo motte
+Chikara tsuyoku, yume wo motte
+Tooi hikari, moeagaru
+Kono kokoro ni hibiku takami
+We are in the zone, we are in the zone
+
+[Breakdown]
+Sono saki ni iru mirai ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Outro]
+Kizutsuite mo
+Makenai yume wo
+No stage to the hill, sore demo
+Ore wa susumu, ore wa susumu
+Mata tachiagaru, mata tachiagaru
+
+[Final Guitar Riff and Fade Out]<|endoftext|>
+2026-11-20 16:35:26.053 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-20 16:35:26.061 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 6429 MB)
+2026-11-20 16:35:26.408 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1391s (RSS: 6429 -> 5785 MB, delta: -644 MB)
+2026-11-20 16:35:26.409 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 5785 MB)
+2026-11-20 16:35:26.808 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1839s (RSS: 5785 -> 6429 MB, delta: +644 MB)
+2026-11-20 16:35:26.808 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-20 16:35:26.808 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading text_encoder to cuda (RSS: 6429 MB)
+2026-11-20 16:35:27.487 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded text_encoder to cuda in 0.4696s (RSS: 6429 -> 4156 MB, delta: -2273 MB)
+2026-11-20 16:35:27.501 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-20 16:35:27.501 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading text_encoder to CPU (RSS: 4159 MB)
+2026-11-20 16:35:28.147 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded text_encoder to CPU in 0.4141s (RSS: 4159 -> 5297 MB, delta: +1137 MB)
+2026-11-20 16:35:28.147 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-20 16:35:28.220 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-20 16:35:28.260 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-20 16:35:28.642 | WARNING  | acestep.models.common.dcw_loader:_try_import:39 - DCW is enabled but 'pytorch_wavelets' is not installed. Install with `pip install pytorch_wavelets PyWavelets` to use Differential Correction in Wavelet domain. Falling back to no-op for this generation.
+2026-11-20 16:35:29.106 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-20 16:35:29.107 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 750, 64]), dtype=torch.bfloat16
+2026-11-20 16:35:29.107 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.03882265090942383, 'diffusion_time_cost': 0.8468258380889893, 'diffusion_per_step_time_cost': 0.10585322976112366, 'total_time_cost': 0.8856484889984131, 'offload_time_cost': 1.530869722366333}
+2026-11-20 16:35:29.108 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-20 16:35:29.108 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5426 MB)
+2026-11-20 16:35:29.450 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1355s (RSS: 5426 -> 4782 MB, delta: -644 MB)
+2026-11-20 16:35:29.451 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=4.81GB, max=6.49GB
+2026-11-20 16:35:29.451 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 2.56 GB
+2026-11-20 16:35:29.451 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-20 16:35:29.451 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:108 - [_get_auto_decode_chunk_size] Effective free VRAM: 2.56 GB
+2026-11-20 16:35:29.452 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:131 - [_should_offload_wav_to_cpu] Effective free VRAM: 2.56 GB
+2026-11-20 16:35:29.452 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=128, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 750])
+2026-11-20 16:35:29.452 | WARNING  | acestep.core.generation.handler.vae_decode_chunks:_tiled_decode_inner:39 - [tiled_decode] Reduced overlap from 64 to 32 for chunk_size=128
+2026-11-20 16:35:30.408 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=4.96GB, max=6.49GB
+2026-11-20 16:35:30.412 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4871 MB)
+2026-11-20 16:35:30.808 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1831s (RSS: 4871 -> 5514 MB, delta: +643 MB)
+2026-11-20 16:35:31.013 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-20 16:35:31.013 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-20 16:35:31.223 | INFO     | acestep.inference:generate_music:1002 - [Normalization] Audio 0 BEFORE: Peak=1.0000, Target=-1.0dB
+2026-11-20 16:35:31.228 | INFO     | acestep.inference:generate_music:1007 - [Normalization] Audio 0 AFTER: Peak=0.8913
+2026-11-20 16:35:31.412 | DEBUG    | acestep.audio_utils:save_audio:339 - [AudioSaver] Fallback soundfile Saved audio to /tmp/acestep_profile_waip169p/5f542e01-71ae-26db-9358-c9f75c672cff.flac (flac, 48000Hz)
+2026-11-20 16:35:31.412 | INFO     | acestep.inference:generate_music:662 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-20 16:35:31.412 | INFO     | acestep.inference:generate_music:720 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-20 16:35:31.412 | INFO     | acestep.llm_inference:generate_with_stop_condition:1428 - Phase 1: Using user-provided metadata (skipping generation)
+2026-11-20 16:35:31.412 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-20 16:35:31.414 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An explosive, high-energy J-rock and pop-rock anthem driven by a powerful, punchy drum beat and a thick wall of distorted, chugging rhythm guitars. A passionate male lead vocal, delivered in a mix of Japanese and English, soars over the top with layered harmonies and echoed ad-libs that amplify the song's anthemic quality. The arrangement is dynamic, featuring a blistering, melodic guitar solo and a brief, atmospheric bridge with synth pads that provides a moment of contrast before slamming back into the high-octane chorus. The track concludes with a final, powerful guitar chord and a lingering sense of energy.
+
+# Lyric
+[Intro]
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Riff]
+
+[Verse 1]
+Nani ga seigi ka, nani ga koukai ka
+Hakase tsuzukeru, hashirinukeru
+No life's a game, no rules to follow
+Dakedo arata na chikara ga yomigaeru
+
+[Pre-Chorus]
+No, this is our new life
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Verse 2]
+Kizutsuita tsubasa mo aruita michi mo
+Onaji hibi no naka de susumu
+No stage to the hill, sore demo susumu
+Mayowanai de susumu, susumu
+
+[Pre-Chorus]
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Solo]
+
+[Bridge]
+Donna arashi ni matsu ka? I know
+Nando mo yami ni shizumu ka?
+Ore wa yuku, ore wa yuku
+Chikara tsuyoku, yume wo motte
+Chikara tsuyoku, yume wo motte
+Tooi hikari, moeagaru
+Kono kokoro ni hibiku takami
+We are in the zone, we are in the zone
+
+[Breakdown]
+Sono saki ni iru mirai ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Outro]
+Kizutsuite mo
+Makenai yume wo
+No stage to the hill, sore demo
+Ore wa susumu, ore wa susumu
+Mata tachiagaru, mata tachiagaru
+
+[Final Guitar Riff and Fade Out]
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+duration: 30
+keyscale: E♭ minor
+timesignature: 4
+</think>
+
+
+2026-11-20 16:35:31.416 | INFO     | acestep.llm_inference:_load_model_context:4131 - Loading LLM to cuda
+2026-11-20 16:35:31.699 | INFO     | acestep.llm_inference:_load_model_context:4136 - Loaded LLM to cuda in 0.2836s
+2026-11-20 16:35:31.701 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+2026-11-20 16:35:34.366 | INFO     | acestep.llm_inference:_load_model_context:4142 - Offloading LLM to CPU
+2026-11-20 16:35:35.052 | INFO     | acestep.llm_inference:_load_model_context:4155 - Offloaded LLM to CPU in 0.6860s
+2026-11-20 16:35:35.053 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_61831|><|audio_code_63815|><|audio_code_2179|><|audio_code_26632|><|audio_code_31463|><|audio_code_62975|><|audio_code_52382|><|audio_code_14849|><|audio_code_56699|><|audio_code_2071|><|audio_code_50296|><|audio_code_39324|><|audio_code_24598|><|audio_code_14655|><|audio_code_26575|><|audio_code_63999|><|audio_code_53860|><|audio_code_11262|><|audio_code_25287|><|audio_code_13447|><|audio_code_49043|><|audio_code_61900|><|audio_code_4775|><|audio_code_31864|><|audio_code_28207|><|audio_code_8590|><|audio_code_21999|><|audio_code_33248|><|audio_code_56230|><|audio_code_38215|><|audio_code_57774|><|audio_code_62718|><|audio_code_14204|><|audio_code_13194|><|audio_code_25127|><|audio_code_6840|><|audio_code_14399|><|audio_code_21415|><|audio_code_60847|><|audio_code_38600|><|audio_code_42479|><|audio_code_15239|><|audio_code_25360|><|audio_code_28900|><|audio_code_28157|><|audio_code_13707|><|audio_code_12614|><|audio_code_28612|><|audio_code_25487|><|audio_code_53267|><|audio_code_42545|><|audio_code_48147|><|audio_code_27935|><|audio_code_29193|><|audio_code_12472|><|audio_code_12512|><|audio_code_29848|><|audio_code_696|><|audio_code_12520|><|audio_code_60600|><|audio_code_40760|><|audio_code_12052|><|audio_code_22967|><|audio_code_27069|><|audio_code_36753|><|audio_code_2392|><|audio_code_3967|><|audio_code_40743|><|audio_code_12278|><|audio_code_51141|><|audio_code_39120|><|audio_code_17852|><|audio_code_18759|><|audio_code_26567|><|audio_code_25391|><|audio_code_33328|><|audio_code_63381|><|audio_code_3|><|audio_code_62475|><|audio_code_17442|><|audio_code_27811|><|audio_code_12716|><|audio_code_51586|><|audio_code_61434|><|audio_code_38356|><|audio_code_47490|><|audio_code_11770|><|audio_code_10996|><|audio_code_12981|><|audio_code_44668|><|audio_code_38179|><|audio_code_50098|><|audio_code_13556|><|audio_code_12773|><|audio_code_49089|><|audio_code_7675|><|audio_code_40948|><|audio_code_6132|><|audio_code_10237|><|audio_code_51156|><|audio_code_11284|><|audio_code_16319|><|audio_code_59989|><|audio_code_48567|><|audio_code_2057|><|audio_code_47738|><|audio_code_12330|><|audio_code_13511|><|audio_code_39462|><|audio_code_30551|><|audio_code_16207|><|audio_code_13928|><|audio_code_47224|><|audio_code_15739|><|audio_code_11775|><|audio_code_49502|><|audio_code_4575|><|audio_code_40623|><|audio_code_28247|><|audio_code_2550|><|audio_code_42564|><|audio_code_17630|><|audio_code_24423|><|audio_code_63978|><|audio_code_4640|><|audio_code_25209|><|audio_code_43039|><|audio_code_51157|><|audio_code_15397|><|audio_code_29702|><|audio_code_53286|><|audio_code_4616|><|audio_code_48135|><|audio_code_62420|><|audio_code_4615|><|audio_code_13503|><|audio_code_33439|><|audio_code_49495|><|audio_code_59510|><|audio_code_2599|><|audio_code_3943|><|audio_code_26182|><|audio_code_13918|><|audio_code_14143|><|audio_code_33303|><|audio_code_37927|><|audio_code_15223|><|audio_code_38935|><|audio_code_10631|><|audio_code_8622|><|im_end|>
+2026-11-20 16:35:35.053 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 3.64s. Generated 150 audio codes
+2026-11-20 16:35:35.053 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-20 16:35:35.053 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-20 16:35:35.053 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-20 16:35:35.054 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-20 16:35:35.263 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-20 16:35:35.269 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5541 MB)
+2026-11-20 16:35:35.617 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1390s (RSS: 5541 -> 4898 MB, delta: -644 MB)
+2026-11-20 16:35:35.618 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-20 16:35:35.622 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4898 MB)
+2026-11-20 16:35:36.025 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1889s (RSS: 4898 -> 5542 MB, delta: +644 MB)
+2026-11-20 16:35:36.027 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-20 16:35:36.030 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-20 16:35:36.030 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-20 16:35:36.030 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-20 16:35:36.030 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An explosive, high-energy J-rock and pop-rock anthem driven by a powerful, punchy drum beat and a thick wall of distorted, chugging rhythm guitars. A passionate male lead vocal, delivered in a mix of Japanese and English, soars over the top with layered harmonies and echoed ad-libs that amplify the song's anthemic quality. The arrangement is dynamic, featuring a blistering, melodic guitar solo and a brief, atmospheric bridge with synth pads that provides a moment of contrast before slamming back into the high-octane chorus. The track concludes with a final, powerful guitar chord and a lingering sense of energy.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: E♭ minor
+- duration: 30 seconds
+<|endoftext|>
+
+2026-11-20 16:35:36.030 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-20 16:35:36.030 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+ja
+
+# Lyric
+[Intro]
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Riff]
+
+[Verse 1]
+Nani ga seigi ka, nani ga koukai ka
+Hakase tsuzukeru, hashirinukeru
+No life's a game, no rules to follow
+Dakedo arata na chikara ga yomigaeru
+
+[Pre-Chorus]
+No, this is our new life
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Verse 2]
+Kizutsuita tsubasa mo aruita michi mo
+Onaji hibi no naka de susumu
+No stage to the hill, sore demo susumu
+Mayowanai de susumu, susumu
+
+[Pre-Chorus]
+Aisuru chikara, ima koso
+We believe in ourselves
+Mou atomodori dekinai
+
+[Chorus]
+Eikou no hikari
+Sono saki ni iru jiyuu ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Guitar Solo]
+
+[Bridge]
+Donna arashi ni matsu ka? I know
+Nando mo yami ni shizumu ka?
+Ore wa yuku, ore wa yuku
+Chikara tsuyoku, yume wo motte
+Chikara tsuyoku, yume wo motte
+Tooi hikari, moeagaru
+Kono kokoro ni hibiku takami
+We are in the zone, we are in the zone
+
+[Breakdown]
+Sono saki ni iru mirai ga aru
+One more time, just one more time
+Mou modorenai, mou modorenai
+The GURU, my dream come true, my dream come true
+
+[Outro]
+Kizutsuite mo
+Makenai yume wo
+No stage to the hill, sore demo
+Ore wa susumu, ore wa susumu
+Mata tachiagaru, mata tachiagaru
+
+[Final Guitar Riff and Fade Out]<|endoftext|>
+2026-11-20 16:35:36.030 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-20 16:35:36.038 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5520 MB)
+2026-11-20 16:35:36.386 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1387s (RSS: 5520 -> 4876 MB, delta: -644 MB)
+2026-11-20 16:35:36.386 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4876 MB)
+2026-11-20 16:35:36.783 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1838s (RSS: 4876 -> 5520 MB, delta: +644 MB)
+2026-11-20 16:35:36.784 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-20 16:35:36.784 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading text_encoder to cuda (RSS: 5520 MB)
+2026-11-20 16:35:37.249 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded text_encoder to cuda in 0.2561s (RSS: 5520 -> 4383 MB, delta: -1137 MB)
+2026-11-20 16:35:37.262 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-20 16:35:37.262 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading text_encoder to CPU (RSS: 4383 MB)
+2026-11-20 16:35:37.906 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded text_encoder to CPU in 0.4142s (RSS: 4383 -> 5520 MB, delta: +1137 MB)
+2026-11-20 16:35:37.906 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-20 16:35:37.946 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-20 16:35:37.985 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-20 16:35:38.522 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-20 16:35:38.523 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 750, 64]), dtype=torch.bfloat16
+2026-11-20 16:35:38.523 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.03887677192687988, 'diffusion_time_cost': 0.5370018482208252, 'diffusion_per_step_time_cost': 0.06712523102760315, 'total_time_cost': 0.5758786201477051, 'offload_time_cost': 1.320666790008545}
+2026-11-20 16:35:38.524 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-20 16:35:38.524 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:41 - [_load_model_context] Loading vae to cuda (RSS: 5520 MB)
+2026-11-20 16:35:38.868 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:58 - [_load_model_context] Loaded vae to cuda in 0.1375s (RSS: 5520 -> 4877 MB, delta: -644 MB)
+2026-11-20 16:35:38.869 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=4.96GB, max=6.66GB
+2026-11-20 16:35:38.869 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 2.40 GB
+2026-11-20 16:35:38.869 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-20 16:35:38.869 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:108 - [_get_auto_decode_chunk_size] Effective free VRAM: 2.40 GB
+2026-11-20 16:35:38.870 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:131 - [_should_offload_wav_to_cpu] Effective free VRAM: 2.40 GB
+2026-11-20 16:35:38.870 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=128, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 750])
+2026-11-20 16:35:38.870 | WARNING  | acestep.core.generation.handler.vae_decode_chunks:_tiled_decode_inner:39 - [tiled_decode] Reduced overlap from 64 to 32 for chunk_size=128
+2026-11-20 16:35:39.786 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=4.96GB, max=6.66GB
+2026-11-20 16:35:39.790 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:67 - [_load_model_context] Offloading vae to CPU (RSS: 4888 MB)
+2026-11-20 16:35:40.185 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:83 - [_load_model_context] Offloaded vae to CPU in 0.1829s (RSS: 4888 -> 5531 MB, delta: +643 MB)
+2026-11-20 16:35:40.391 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-20 16:35:40.391 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-20 16:35:40.600 | INFO     | acestep.inference:generate_music:1002 - [Normalization] Audio 0 BEFORE: Peak=1.0000, Target=-1.0dB
+2026-11-20 16:35:40.606 | INFO     | acestep.inference:generate_music:1007 - [Normalization] Audio 0 AFTER: Peak=0.8913
+2026-11-20 16:35:40.657 | DEBUG    | acestep.audio_utils:save_audio:339 - [AudioSaver] Fallback soundfile Saved audio to /tmp/acestep_profile_waip169p/6e2a4026-3598-235d-832f-2fb99d7153ab.flac (flac, 48000Hz)
+====================================================================================================
+ACE-Step 1.5 Inference Profiler
+====================================================================================================
+
+  Mode:           profile
+  Device:         cuda (requested: auto)
+  LLM Backend:    pt
+  DiT Config:     acestep-v15-turbo
+  LLM Model:      acestep-5Hz-lm-0.6B
+  GPU Memory:     7.6 GB (tier: tier3)
+  CPU Offload:    enabled
+
+  Thinking:       True
+  CoT Metas:      True
+  CoT Caption:    True
+  CoT Language:   True
+  Constrained:    True
+  Warmup:         enabled
+
+----------------------------------------------------------------------------------------------------
+INITIALIZING MODELS
+----------------------------------------------------------------------------------------------------
+  Initializing DiT handler...
+  DiT ready (device=cuda)
+  Initializing LLM handler (backend=pt)...
+  LLM ready (backend=pt)
+
+====================================================================================================
+RUNNING MODE: PROFILE
+====================================================================================================
+
+  Loading example: example_05.json
+  Caption: An explosive, high-energy J-rock and pop-rock anthem driven by a powerful, punch...
+  Task: text2music, Batch: 1, Steps: 8
+  Thinking: True, CoT Metas: True, CoT Caption: True
+
+----------------------------------------------------------------------------------------------------
+WARMUP RUN
+----------------------------------------------------------------------------------------------------
+Using precomputed LM hints
+Using precomputed LM hints
+  Warmup completed: 11.54s
+
+====================================================================================================
+PROFILING RUN
+====================================================================================================
+Using precomputed LM hints
+Using precomputed LM hints
+
+  Success! Generated 1 audio(s)
+
+====================================================================================================
+PROFILING RESULTS
+====================================================================================================
+
+COMPONENT                                          TIME (s)     % of wall 
+------------------------------------------------------------------------
+
+LLM (5Hz Language Model)                           3.640          39.4%
+    phase1_time                                    0.000           0.0%
+    phase2_time                                    3.640          39.4%
+
+DiT (Diffusion Transformer)                        2.443          26.4%
+    diffusion_per_step_time_cost                   0.067           0.7%
+    diffusion_time_cost                            0.537           5.8%
+    encoder_time_cost                              0.039           0.4%
+    offload_time_cost                              1.641          17.8%
+    vae_decode_time_cost                           1.867          20.2%
+
+Pipeline: pipeline_total_time                      6.083          65.8%
+
+Overhead (I/O, audio save, etc.)                   3.162          34.2%
+
+TOTAL WALL TIME                                    9.245        100.0%
+
+====================================================================================================
+PERFORMANCE INSIGHTS
+====================================================================================================
+
+  Balanced pipeline: LLM=3.6s, DiT=2.4s
+
+====================================================================================================
+DONE
+====================================================================================================
