@@ -687,7 +687,15 @@ def generate_music(
                    f"use_cot_caption={params.use_cot_caption}, use_cot_language={params.use_cot_language}, "
                    f"use_cot_metas={params.use_cot_metas}, need_lm_for_cot={need_lm_for_cot}, "
                    f"llm_initialized={llm_handler.llm_initialized if llm_handler else False}, use_lm={use_lm}")
-        
+
+        # Overlap the DiT weight upload (DiT-offload mode) with LM decoding.
+        _prefetch_dit = getattr(dit_handler, "prefetch_dit_async", None)
+        if use_lm and callable(_prefetch_dit):
+            try:
+                _prefetch_dit()
+            except Exception as exc:  # prefetch is an optimisation only
+                logger.warning(f"[generate_music] DiT prefetch skipped: {exc}")
+
         if use_lm:
             # Convert sampling parameters - handle None values safely
             top_k_value = None if not params.lm_top_k or params.lm_top_k == 0 else int(params.lm_top_k)
@@ -1139,6 +1147,15 @@ def generate_music(
             success=False,
             error=str(e),
         )
+    finally:
+        # A prefetched DiT that was never consumed (early return / error) must not
+        # stay resident.  No-op after a normal run (DiT already offloaded).
+        _release = getattr(dit_handler, "release_dit_prefetch", None)
+        if callable(_release):
+            try:
+                _release()
+            except Exception as exc:
+                logger.warning(f"[generate_music] Releasing DiT prefetch failed: {exc}")
 
 
 def understand_music(

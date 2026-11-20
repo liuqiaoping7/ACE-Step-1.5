@@ -72,6 +72,36 @@ class PinnedOffloadTests(unittest.TestCase):
         self.assertEqual(self.net.lin.weight.dtype, torch.bfloat16)
         self.assertTrue(torch.equal(self.net.lin.weight, self.ref["lin.weight"].to(torch.bfloat16)))
 
+    def test_prefetch_then_full_load_adopts_resident_tensors(self):
+        po.load_to_device(self.net, "cuda"); po.offload_to_cpu(self.net)  # create masters
+        master_ptr = self.net.lin.weight.data_ptr()
+        po.prefetch_to_device(self.net.lin, "cuda")
+        self.assertTrue(po.is_prefetched(self.net))
+        po.load_to_device(self.net, "cuda")  # waits for the prefetch, loads the rest
+        self.assertFalse(po.is_prefetched(self.net))
+        self._assert_on("cuda")
+        y = self.net.lin(torch.ones(1, 4, device="cuda"))
+        ref = torch.ones(1, 4) @ self.ref["lin.weight"].T + self.ref["lin.bias"]
+        torch.testing.assert_close(y.cpu(), ref)
+        po.offload_to_cpu(self.net)
+        self.assertEqual(self.net.lin.weight.data_ptr(), master_ptr)  # no new host copy
+
+    def test_submodule_load_then_full_offload_shares_masters(self):
+        po.load_to_device(self.net, "cuda"); po.offload_to_cpu(self.net)
+        ptr = self.net.lin.weight.data_ptr()
+        po.load_to_device(self.net.lin, "cuda")
+        po.offload_to_cpu(self.net)  # whole-model offload of a submodule-loaded tensor
+        self.assertEqual(self.net.lin.weight.data_ptr(), ptr)
+        for k, v in self.net.state_dict().items():
+            self.assertTrue(torch.equal(v, self.ref[k]), k)
+
+    def test_module_bytes(self):
+        n = sum(t.numel() * t.element_size() for t in list(self.net.parameters()) + list(self.net.buffers()))
+        self.assertEqual(po.module_bytes(self.net), n)
+        po.load_to_device(self.net.lin, "cuda")
+        self.assertLess(po.module_bytes(self.net, only_on_cpu=True), n)
+        po.offload_to_cpu(self.net)
+
     def test_cpu_target_is_not_supported(self):
         self.assertFalse(po.supports(self.net, "cpu"))
         self.assertTrue(po.supports(self.net, "cuda"))

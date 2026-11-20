@@ -1,5 +1,6 @@
 """Context manager for temporary model loading/offloading."""
 
+import os
 import time
 from contextlib import contextmanager
 
@@ -108,6 +109,8 @@ class InitServiceOffloadContextMixin:
         if not (self.offload_to_cpu and self.offload_dit_to_cpu):
             yield
             return
+        # Parts may already be resident because of an async DiT prefetch.
+        pinned_offload.wait_prefetch(self.model)
         to_load = []
         for part in parts:
             try:
@@ -128,3 +131,63 @@ class InitServiceOffloadContextMixin:
                     pinned_offload.offload_to_cpu(part)
                 else:
                     self._recursive_to_device(part, "cpu")
+
+    def prefetch_dit_async(self) -> bool:
+        """Start uploading most of the DiT checkpoint on a side stream (DiT-offload mode).
+
+        Called before the LM runs so the ~3.3 GB H2D copy of the decoder,
+        tokenizer and detokenizer overlaps LM decoding instead of stalling the
+        GPU later.  The condition encoder (~1.1 GB) is left to the normal load
+        so the text encoder still fits next to the LM.  The text encoder and the
+        VAE are loaded one at a time, and prefetched + text encoder (~4.4 GB)
+        stays below the full DiT that diffusion needs anyway, so the prefetch
+        does not raise the peak.  Skipped when free VRAM would not leave room
+        for the larger of the two plus a 0.25 GB margin.
+        Disable with ``ACESTEP_DIT_PREFETCH=0``.
+        """
+        if not (getattr(self, "offload_to_cpu", False) and getattr(self, "offload_dit_to_cpu", False)):
+            return False
+        if os.environ.get("ACESTEP_DIT_PREFETCH", "1") == "0":
+            return False
+        model = getattr(self, "model", None)
+        if model is None or not pinned_offload.supports(model, self.device):
+            return False
+        parts = [getattr(model, n, None) for n in ("decoder", "tokenizer", "detokenizer")]
+        parts = [p for p in parts if p is not None]
+        need = sum(pinned_offload.module_bytes(p, only_on_cpu=True) for p in parts)
+        if need == 0:
+            return False
+        try:
+            from acestep.gpu_config import get_effective_free_vram_gb
+
+            free = get_effective_free_vram_gb() * (1024 ** 3)
+        except Exception:
+            return False
+        largest = 0
+        for name in ("text_encoder", "vae"):
+            m = getattr(self, name, None)
+            if m is not None:
+                largest = max(largest, pinned_offload.module_bytes(m))
+        reserve = largest + int(0.25 * 1024 ** 3)
+        if free - need < reserve:
+            logger.info(
+                f"[prefetch_dit_async] Skipped: need {need / 1024**3:.2f} GB + reserve "
+                f"{reserve / 1024**3:.2f} GB, free {free / 1024**3:.2f} GB"
+            )
+            return False
+        for part in parts:
+            pinned_offload.prefetch_to_device(part, self.device, self.dtype)
+        logger.info(f"[prefetch_dit_async] Prefetching {need / 1024**3:.2f} GB of DiT weights")
+        return True
+
+    def release_dit_prefetch(self) -> None:
+        """Offload DiT weights left on the GPU by a prefetch that was never consumed."""
+        model = getattr(self, "model", None)
+        if model is None or not (getattr(self, "offload_to_cpu", False) and getattr(self, "offload_dit_to_cpu", False)):
+            return
+        if not pinned_offload.supports(model, self.device):
+            return
+        if pinned_offload.module_bytes(model, only_on_cpu=True) == pinned_offload.module_bytes(model):
+            return  # nothing resident
+        pinned_offload.offload_to_cpu(model)
+        self._empty_cache()
