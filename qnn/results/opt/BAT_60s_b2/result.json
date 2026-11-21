@@ -1,0 +1,178 @@
+{
+ "meta": {
+  "commit": "560c9bd+dirty",
+  "cmd": "qnn/perf/bench_e2e.py --tag BAT_60s_b2 --backend vllm --offload --offload-dit --flash --duration 60 --batch 2 --runs 2 --phases",
+  "date": "2026-11-21 11:41:05",
+  "gpu": "NVIDIA GeForce RTX 4060",
+  "torch": "2.10.0+cu128",
+  "python": "3.12.13",
+  "args": {
+   "tag": "BAT_60s_b2",
+   "lm": "acestep-5Hz-lm-0.6B",
+   "backend": "vllm",
+   "offload": true,
+   "offload_dit": true,
+   "quant": null,
+   "compile": false,
+   "flash": true,
+   "runs": 2,
+   "duration": 60.0,
+   "seed": 42,
+   "batch": 2,
+   "no_batch_guard": false,
+   "lm_chunk": 8,
+   "cprofile": false,
+   "phases": true,
+   "nsys_range": false
+  }
+ },
+ "summary": {
+  "wall_median_s": 6.866,
+  "wall_min_s": 6.854,
+  "wall_max_s": 6.878,
+  "wall_cv": 0.0018,
+  "time_costs_median": {
+   "dit_diffusion_per_step_time_cost": 0.202,
+   "dit_diffusion_time_cost": 1.614,
+   "dit_encoder_time_cost": 0.031,
+   "dit_offload_time_cost": 0.135,
+   "dit_total_time_cost": 3.066,
+   "dit_vae_decode_time_cost": 1.421,
+   "lm_phase1_time": 0.802,
+   "lm_phase2_time": 1.915,
+   "lm_total_time": 2.717,
+   "pipeline_total_time": 5.783
+  },
+  "peak_alloc_gb_max": 6.834,
+  "peak_reserved_gb_max": 6.953,
+  "host_rss_peak_gb": 8.61,
+  "host_swap_gb_max": 0.0,
+  "cold_start_s": {
+   "dit_init": 38.69,
+   "lm_init": 37.18,
+   "warmup_run": 54.3171
+  }
+ },
+ "runs": [
+  {
+   "run": -1,
+   "warmup": true,
+   "wall_s": 54.3171,
+   "time_costs": {
+    "lm_phase1_time": 1.3686,
+    "lm_phase2_time": 2.0765,
+    "lm_total_time": 3.4451,
+    "dit_encoder_time_cost": 0.0356,
+    "dit_diffusion_time_cost": 4.9164,
+    "dit_diffusion_per_step_time_cost": 0.6146,
+    "dit_total_time_cost": 6.8913,
+    "dit_offload_time_cost": 39.0345,
+    "dit_vae_decode_time_cost": 1.9393,
+    "pipeline_total_time": 10.3364
+   },
+   "peak_alloc_gb": 6.676,
+   "peak_reserved_gb": 6.824,
+   "host_gb": {
+    "VmHWM": 8.55,
+    "VmRSS": 8.46,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "1073ec3443",
+   "n_codes": 300,
+   "wav_md5": "12e11b05a3",
+   "n_audios": 2,
+   "items": [
+    {
+     "n_codes": 300,
+     "codes_md5": "1073ec3443",
+     "wav_md5": "12e11b05a3"
+    },
+    {
+     "n_codes": 300,
+     "codes_md5": "d5afd31c4d",
+     "wav_md5": "c306a238b0"
+    }
+   ]
+  },
+  {
+   "run": 0,
+   "warmup": false,
+   "wall_s": 6.878,
+   "time_costs": {
+    "lm_phase1_time": 0.8033,
+    "lm_phase2_time": 1.9174,
+    "lm_total_time": 2.7207,
+    "dit_encoder_time_cost": 0.0313,
+    "dit_diffusion_time_cost": 1.6158,
+    "dit_diffusion_per_step_time_cost": 0.202,
+    "dit_total_time_cost": 3.071,
+    "dit_offload_time_cost": 0.1382,
+    "dit_vae_decode_time_cost": 1.424,
+    "pipeline_total_time": 5.7917
+   },
+   "peak_alloc_gb": 6.834,
+   "peak_reserved_gb": 6.945,
+   "host_gb": {
+    "VmHWM": 8.6,
+    "VmRSS": 8.47,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "1073ec3443",
+   "n_codes": 300,
+   "wav_md5": "f99560349a",
+   "n_audios": 2,
+   "items": [
+    {
+     "n_codes": 300,
+     "codes_md5": "1073ec3443",
+     "wav_md5": "f99560349a"
+    },
+    {
+     "n_codes": 300,
+     "codes_md5": "d5afd31c4d",
+     "wav_md5": "7024e33aca"
+    }
+   ]
+  },
+  {
+   "run": 1,
+   "warmup": false,
+   "wall_s": 6.8535,
+   "time_costs": {
+    "lm_phase1_time": 0.8002,
+    "lm_phase2_time": 1.9125,
+    "lm_total_time": 2.7127,
+    "dit_encoder_time_cost": 0.0313,
+    "dit_diffusion_time_cost": 1.6117,
+    "dit_diffusion_per_step_time_cost": 0.2015,
+    "dit_total_time_cost": 3.0607,
+    "dit_offload_time_cost": 0.1318,
+    "dit_vae_decode_time_cost": 1.4177,
+    "pipeline_total_time": 5.7734
+   },
+   "peak_alloc_gb": 6.833,
+   "peak_reserved_gb": 6.953,
+   "host_gb": {
+    "VmHWM": 8.61,
+    "VmRSS": 8.47,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "1073ec3443",
+   "n_codes": 300,
+   "wav_md5": "f99560349a",
+   "n_audios": 2,
+   "items": [
+    {
+     "n_codes": 300,
+     "codes_md5": "1073ec3443",
+     "wav_md5": "f99560349a"
+    },
+    {
+     "n_codes": 300,
+     "codes_md5": "d5afd31c4d",
+     "wav_md5": "7024e33aca"
+    }
+   ]
+  }
+ ]
+}

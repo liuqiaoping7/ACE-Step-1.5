@@ -1,0 +1,178 @@
+{
+ "meta": {
+  "commit": "560c9bd+dirty",
+  "cmd": "qnn/perf/bench_e2e.py --tag BAT_10s_b4 --backend vllm --offload --offload-dit --flash --duration 10 --batch 4 --runs 2 --phases",
+  "date": "2026-11-21 11:03:29",
+  "gpu": "NVIDIA GeForce RTX 4060",
+  "torch": "2.10.0+cu128",
+  "python": "3.12.13",
+  "args": {
+   "tag": "BAT_10s_b4",
+   "lm": "acestep-5Hz-lm-0.6B",
+   "backend": "vllm",
+   "offload": true,
+   "offload_dit": true,
+   "quant": null,
+   "compile": false,
+   "flash": true,
+   "runs": 2,
+   "duration": 10.0,
+   "seed": 42,
+   "batch": 4,
+   "no_batch_guard": false,
+   "lm_chunk": 8,
+   "cprofile": false,
+   "phases": true,
+   "nsys_range": false
+  }
+ },
+ "summary": {
+  "wall_median_s": 2.563,
+  "wall_min_s": 2.43,
+  "wall_max_s": 2.697,
+  "wall_cv": 0.0521,
+  "time_costs_median": {
+   "dit_diffusion_per_step_time_cost": 0.03,
+   "dit_diffusion_time_cost": 0.243,
+   "dit_encoder_time_cost": 0.031,
+   "dit_offload_time_cost": 0.147,
+   "dit_total_time_cost": 0.43,
+   "dit_vae_decode_time_cost": 0.157,
+   "lm_phase1_time": 0.804,
+   "lm_phase2_time": 0.369,
+   "lm_total_time": 1.173,
+   "pipeline_total_time": 1.603
+  },
+  "peak_alloc_gb_max": 6.771,
+  "peak_reserved_gb_max": 6.865,
+  "host_rss_peak_gb": 8.46,
+  "host_swap_gb_max": 0.0,
+  "cold_start_s": {
+   "dit_init": 24.76,
+   "lm_init": 56.31,
+   "warmup_run": 50.1772
+  }
+ },
+ "runs": [
+  {
+   "run": -1,
+   "warmup": true,
+   "wall_s": 50.1772,
+   "time_costs": {
+    "lm_phase1_time": 1.3557,
+    "lm_phase2_time": 0.5223,
+    "lm_total_time": 1.878,
+    "dit_encoder_time_cost": 0.0375,
+    "dit_diffusion_time_cost": 3.6945,
+    "dit_diffusion_per_step_time_cost": 0.4618,
+    "dit_total_time_cost": 4.8166,
+    "dit_offload_time_cost": 39.2273,
+    "dit_vae_decode_time_cost": 1.0845,
+    "pipeline_total_time": 6.6945
+   },
+   "peak_alloc_gb": 6.75,
+   "peak_reserved_gb": 6.891,
+   "host_gb": {
+    "VmHWM": 8.46,
+    "VmRSS": 8.43,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "be70c9ecc3",
+   "n_codes": 50,
+   "wav_md5": "16313f9917",
+   "n_audios": 4,
+   "items": [
+    {
+     "n_codes": 50,
+     "codes_md5": "be70c9ecc3",
+     "wav_md5": "16313f9917"
+    },
+    {
+     "n_codes": 50,
+     "codes_md5": "2537b45bc5",
+     "wav_md5": "88446afb8a"
+    },
+    {
+     "n_codes": 50,
+     "codes_md5": "c21c82742d",
+     "wav_md5": "dfe579a2f1"
+    },
+    {
+     "n_codes": 50,
+     "codes_md5": "ddc5ba40e2",
+     "wav_md5": "5deacbeff3"
+    }
+   ]
+  },
+  {
+   "run": 0,
+   "warmup": false,
+   "wall_s": 2.6967,
+   "time_costs": {
+    "lm_phase1_time": 0.804,
+    "lm_phase2_time": 0.3697,
+    "lm_total_time": 1.1737,
+    "dit_encoder_time_cost": 0.0303,
+    "dit_diffusion_time_cost": 0.2446,
+    "dit_diffusion_per_step_time_cost": 0.0306,
+    "dit_total_time_cost": 0.4319,
+    "dit_offload_time_cost": 0.1498,
+    "dit_vae_decode_time_cost": 0.157,
+    "pipeline_total_time": 1.6056
+   },
+   "peak_alloc_gb": 6.771,
+   "peak_reserved_gb": 6.857,
+   "host_gb": {
+    "VmHWM": 8.46,
+    "VmRSS": 8.43,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "be70c9ecc3",
+   "n_codes": 50,
+   "wav_md5": "8e1118edbe",
+   "n_audios": 1,
+   "items": [
+    {
+     "n_codes": 50,
+     "codes_md5": "be70c9ecc3",
+     "wav_md5": "8e1118edbe"
+    }
+   ]
+  },
+  {
+   "run": 1,
+   "warmup": false,
+   "wall_s": 2.4298,
+   "time_costs": {
+    "lm_phase1_time": 0.803,
+    "lm_phase2_time": 0.3691,
+    "lm_total_time": 1.1721,
+    "dit_encoder_time_cost": 0.0308,
+    "dit_diffusion_time_cost": 0.2414,
+    "dit_diffusion_per_step_time_cost": 0.0302,
+    "dit_total_time_cost": 0.4282,
+    "dit_offload_time_cost": 0.144,
+    "dit_vae_decode_time_cost": 0.156,
+    "pipeline_total_time": 1.6003
+   },
+   "peak_alloc_gb": 6.77,
+   "peak_reserved_gb": 6.865,
+   "host_gb": {
+    "VmHWM": 8.46,
+    "VmRSS": 8.43,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "be70c9ecc3",
+   "n_codes": 50,
+   "wav_md5": "8e1118edbe",
+   "n_audios": 1,
+   "items": [
+    {
+     "n_codes": 50,
+     "codes_md5": "be70c9ecc3",
+     "wav_md5": "8e1118edbe"
+    }
+   ]
+  }
+ ]
+}

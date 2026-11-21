@@ -1,0 +1,62 @@
+{
+ "LM.generate_with_stop_condition": {
+  "calls": 1,
+  "s": 4.3819
+ },
+ "H.prepare_service_inputs": {
+  "calls": 1,
+  "s": 0.0092
+ },
+ "H.decode_codes": {
+  "calls": 2,
+  "s": 0.0005
+ },
+ "H.prepare_target_latents": {
+  "calls": 1,
+  "s": 0.0676
+ },
+ "H._prepare_batch": {
+  "calls": 1,
+  "s": 0.0823
+ },
+ "H.refer_latent": {
+  "calls": 1,
+  "s": 0.0002
+ },
+ "H.text_encoder": {
+  "calls": 1,
+  "s": 0.0118
+ },
+ "H.preprocess_batch": {
+  "calls": 1,
+  "s": 0.1917
+ },
+ "M.prepare_condition": {
+  "calls": 1,
+  "s": 0.0215
+ },
+ "M.generate_audio": {
+  "calls": 1,
+  "s": 1.6455
+ },
+ "H.service_generate": {
+  "calls": 1,
+  "s": 2.1192
+ },
+ "H.tiled_decode": {
+  "calls": 1,
+  "s": 1.3347
+ },
+ "H.vae_decode_total": {
+  "calls": 1,
+  "s": 1.4065
+ },
+ "H.build_payload": {
+  "calls": 1,
+  "s": 0.0012
+ },
+ "H.generate_music(DiT total)": {
+  "calls": 1,
+  "s": 3.541
+ }
+}

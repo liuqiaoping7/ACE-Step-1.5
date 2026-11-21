@@ -1,0 +1,23 @@
+BAT_30s_b1 exit=0 SUMMARY {"wall_median_s": 3.448, "wall_min_s": 3.447, "wall_max_s": 3.449, "wall_cv": 0.0002, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.064, "dit_diffusion_time_cost": 0.515, "dit_en
+BAT_30s_b2 exit=0 SUMMARY {"wall_median_s": 4.234, "wall_min_s": 4.212, "wall_max_s": 4.257, "wall_cv": 0.0054, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.101, "dit_diffusion_time_cost": 0.807, "dit_en
+BAT_30s_b4 exit=0 SUMMARY {"wall_median_s": 3.689, "wall_min_s": 3.582, "wall_max_s": 3.796, "wall_cv": 0.029, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.068, "dit_diffusion_time_cost": 0.544, "dit_enc
+BAT_120s_b2 exit=0 SUMMARY {"wall_median_s": 12.71, "wall_min_s": 12.685, "wall_max_s": 12.734, "wall_cv": 0.0019, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.455, "dit_diffusion_time_cost": 3.637, "dit_
+BAT_120s_b4 exit=0 SUMMARY {"wall_median_s": 9.426, "wall_min_s": 9.324, "wall_max_s": 9.527, "wall_cv": 0.0108, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.208, "dit_diffusion_time_cost": 1.662, "dit_en
+BAT_240s_b2 exit=0 SUMMARY {"wall_median_s": 35.897, "wall_min_s": 26.292, "wall_max_s": 45.503, "wall_cv": 0.2676, "time_costs_median": {"dit_diffusion_per_step_time_cost": 1.006, "dit_diffusion_time_cost": 8.047, "dit
+BAT_10s_b4 exit=0 SUMMARY {"wall_median_s": 2.563, "wall_min_s": 2.43, "wall_max_s": 2.697, "wall_cv": 0.0521, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.03, "dit_diffusion_time_cost": 0.243, "dit_enco
+BAT_10s_b8 exit=0 SUMMARY {"wall_median_s": 2.638, "wall_min_s": 2.523, "wall_max_s": 2.752, "wall_cv": 0.0436, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.03, "dit_diffusion_time_cost": 0.242, "dit_enc
+DONE
+BATNG_30s_b4 exit=0 SUMMARY {"wall_median_s": 5.953, "wall_min_s": 5.918, "wall_max_s": 5.988, "wall_cv": 0.0059, "time_costs_median": {"dit
+BATNG_10s_b4 exit=0 SUMMARY {"wall_median_s": 3.233, "wall_min_s": 3.229, "wall_max_s": 3.237, "wall_cv": 0.0012, "time_costs_median": {"dit
+BATNG_10s_b8 exit=1 
+BATNG_60s_b4 exit=0 SUMMARY {"wall_median_s": 10.704, "wall_min_s": 10.701, "wall_max_s": 10.707, "wall_cv": 0.0003, "time_costs_median": {"
+BATNG_120s_b4 exit=0 SUMMARY {"wall_median_s": 20.526, "wall_min_s": 20.518, "wall_max_s": 20.535, "wall_cv": 0.0004, "time_costs_median": {"
+BATNG_30s_b8 exit=1 
+DONE2
+BAT_10s_b1 exit=0 SUMMARY {"wall_median_s": 2.385, "wall_min_s": 2.365, "wall_max_s": 2.405, "wall_cv": 0.0083, "time_costs_median": {"dit
+BAT_60s_b1 exit=0 SUMMARY {"wall_median_s": 4.957, "wall_min_s": 4.939, "wall_max_s": 4.976, "wall_cv": 0.0037, "time_costs_median": {"dit
+BAT_120s_b1 exit=0 SUMMARY {"wall_median_s": 8.34, "wall_min_s": 8.335, "wall_max_s": 8.345, "wall_cv": 0.0006, "time_costs_median": {"dit_
+BAT_240s_b1 exit=0 SUMMARY {"wall_median_s": 15.87, "wall_min_s": 15.857, "wall_max_s": 15.883, "wall_cv": 0.0008, "time_costs_median": {"d
+BAT_60s_b2 exit=0 SUMMARY {"wall_median_s": 6.866, "wall_min_s": 6.854, "wall_max_s": 6.878, "wall_cv": 0.0018, "time_costs_median": {"dit
+BAT_10s_b2 exit=0 SUMMARY {"wall_median_s": 2.665, "wall_min_s": 2.62, "wall_max_s": 2.71, "wall_cv": 0.0169, "time_costs_median": {"dit_d
+DONE3

@@ -1,4 +1,4 @@
-"""End-to-end benchmark for ACE-Step 1.5 (text2music, batch 1).
+"""End-to-end benchmark for ACE-Step 1.5 (text2music, --batch songs per call, default 1).
 
 Cold start (model init / compile) is timed separately; then 1 warmup + N measured runs
 in the same process.  Saves per-run timings, peak VRAM, audio and LM codes for correctness.
@@ -70,6 +70,10 @@ def main():
     ap.add_argument("--runs", type=int, default=3)
     ap.add_argument("--duration", type=float, default=30)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--batch", type=int, default=1, help="GenerationConfig.batch_size (songs per call)")
+    ap.add_argument("--no-batch-guard", action="store_true",
+                    help="bypass handler._vram_guard_reduce_batch (it measures free VRAM after the DiT prefetch and caps batch>tier limit to 1)")
+    ap.add_argument("--lm-chunk", type=int, default=8, help="GenerationConfig.lm_batch_chunk_size")
     ap.add_argument("--cprofile", action="store_true", help="cProfile the last measured run")
     ap.add_argument("--phases", action="store_true", help="synchronised wall time per pipeline function (last run)")
     ap.add_argument("--nsys-range", action="store_true", help="cudaProfilerStart/Stop around the last run (nsys --capture-range=cudaProfilerApi)")
@@ -134,12 +138,16 @@ def main():
             (h, "_build_generate_music_success_payload", "H.build_payload"),
         ]:
             wrap(obj, attr, name)
+    if args.no_batch_guard:
+        h._vram_guard_reduce_batch = lambda bs, *a, **k: bs
     params = GenerationParams(task_type="text2music", caption=CAPTION, lyrics=LYRICS, duration=args.duration,
                               inference_steps=8, shift=3.0, seed=args.seed, thinking=use_lm,
                               use_cot_metas=use_lm, use_cot_caption=use_lm, use_cot_language=use_lm,
                               **({} if use_lm else dict(bpm=100, keyscale="E♭ minor", timesignature="4",
                                                         vocal_language="en")))
-    cfg = GenerationConfig(batch_size=1, use_random_seed=False, audio_format="wav")
+    cfg = GenerationConfig(batch_size=args.batch, use_random_seed=False, audio_format="wav",
+                           seeds=[args.seed + k for k in range(args.batch)] if args.batch > 1 else None,
+                           lm_batch_chunk_size=args.lm_chunk)
     runs = []
     for i in range(args.runs + 1):  # first = warmup
         torch.manual_seed(args.seed); torch.cuda.manual_seed_all(args.seed)  # LM sampling uses global RNG
@@ -177,7 +185,12 @@ def main():
              "peak_reserved_gb": round(torch.cuda.max_memory_reserved() / 2**30, 3),
              "host_gb": host_mem_gb(),
              "codes_md5": hashlib.md5(codes.encode()).hexdigest()[:10], "n_codes": codes.count("<|audio_code_"),
-             "wav_md5": hashlib.md5(a["tensor"].float().cpu().numpy().tobytes()).hexdigest()[:10]}
+             "wav_md5": hashlib.md5(a["tensor"].float().cpu().numpy().tobytes()).hexdigest()[:10],
+             "n_audios": len(res.audios),
+             "items": [{"n_codes": (x["params"].get("audio_codes") or "").count("<|audio_code_"),
+                        "codes_md5": hashlib.md5((x["params"].get("audio_codes") or "").encode()).hexdigest()[:10],
+                        "wav_md5": hashlib.md5(x["tensor"].float().cpu().numpy().tobytes()).hexdigest()[:10]}
+                       for x in res.audios]}
         runs.append(r)
         print(json.dumps(r), flush=True)
         if args.phases and i == args.runs:

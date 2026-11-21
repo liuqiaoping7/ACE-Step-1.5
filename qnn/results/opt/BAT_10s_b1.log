@@ -1,0 +1,530 @@
+2026-11-21 11:25:52.337 | DEBUG    | acestep.core.generation.handler.init_service_memory_basic:_apply_malloc_mmap_threshold:50 - [memory] Set M_MMAP_THRESHOLD=131072 for immediate OS reclaim of large frees
+2026-11-21 11:26:14.115 | WARNING  | acestep.training.trainer:<module>:40 - bitsandbytes not installed. Using standard AdamW.
+2026-11-21 11:26:14.402 | INFO     | acestep.gpu_config:get_gpu_memory_gb:578 - CUDA GPU detected: NVIDIA GeForce RTX 4060 (7.6 GB)
+2026-11-21 11:26:14.594 | INFO     | acestep.core.generation.handler.init_service_loader:_load_main_model_from_checkpoint:174 - [initialize_service] Attempting to load model with attention implementation: flash_attention_2
+2026-11-21 11:26:46.789 | INFO     | acestep.core.generation.handler.init_service_loader_components:_load_vae_model:74 - [initialize_service] Fused Snake activation enabled for 72 VAE modules
+2026-11-21 11:26:57.738 | INFO     | acestep.llm_inference:initialize:609 - loading 5Hz LM tokenizer... it may take 80~90s
+2026-11-21 11:27:09.499 | INFO     | acestep.llm_inference:initialize:613 - 5Hz LM tokenizer loaded successfully in 11.76 seconds
+2026-11-21 11:27:09.499 | INFO     | acestep.llm_inference:initialize:618 - Initializing constrained decoding processor...
+2026-11-21 11:27:09.499 | INFO     | acestep.llm_inference:initialize:624 - Setting constrained decoding max_duration to 480s based on GPU config (tier: tier3)
+2026-11-21 11:27:10.154 | DEBUG    | acestep.constrained_logits_processor:_precompute_audio_code_tokens:577 - Found 1535 audio code tokens with values outside valid range [0, 63999]
+2026-11-21 11:27:11.932 | INFO     | acestep.llm_inference:initialize:632 - Constrained processor initialized in 2.43 seconds
+2026-11-21 11:27:11.932 | INFO     | acestep.gpu_config:get_gpu_memory_gb:578 - CUDA GPU detected: NVIDIA GeForce RTX 4060 (7.6 GB)
+2026-11-21 11:27:13.204 | INFO     | acestep.gpu_config:get_lm_gpu_memory_ratio:1057 - [get_lm_gpu_memory_ratio] model=0.6B, free=7.40GB, current_usage=0.00GB, lm_target=2.10GB, usable_for_lm=2.10GB, ratio=0.276
+2026-11-21 11:27:13.204 | INFO     | acestep.llm_inference:get_gpu_memory_utilization:211 - Adaptive LM memory allocation: model=/home/qiao/Documents/github/QNN/ACE-Step-1.5/checkpoints/acestep-5Hz-lm-0.6B, target=1.2GB, ratio=0.276, total_gpu=7.6GB
+2026-11-21 11:27:13.204 | INFO     | acestep.llm_inference:_initialize_5hz_lm_vllm:824 - Initializing 5Hz LM with model: /home/qiao/Documents/github/QNN/ACE-Step-1.5/checkpoints/acestep-5Hz-lm-0.6B, enforce_eager: False, tensor_parallel_size: 1, max_model_len: 2048, gpu_memory_utilization: 0.276
+`torch_dtype` is deprecated! Use `dtype` instead!
+2026-11-21 11:27:38.954 | INFO     | acestep.llm_inference:_initialize_5hz_lm_vllm:854 - 5Hz LM initialized successfully in 25.75 seconds
+2026-11-21 11:27:38.954 | INFO     | acestep.llm_inference:initialize:749 - 5Hz LM status message: ✅ 5Hz LM initialized successfully
+Model: /home/qiao/Documents/github/QNN/ACE-Step-1.5/checkpoints/acestep-5Hz-lm-0.6B
+Device: NVIDIA GeForce RTX 4060
+GPU Memory Utilization: 0.276
+Low GPU Memory Mode: True
+2026-11-21 11:27:38.954 | INFO     | acestep.inference:generate_music:686 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-21 11:27:38.961 | INFO     | acestep.core.generation.handler.init_service_offload_context:prefetch_dit_async:173 - [prefetch_dit_async] Skipped: need 3.33 GB + reserve 2.47 GB, free 5.12 GB
+2026-11-21 11:27:38.961 | INFO     | acestep.inference:generate_music:752 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-21 11:27:38.961 | INFO     | acestep.llm_inference:generate_with_stop_condition:1371 - Phase 1: Generating CoT metadata...
+2026-11-21 11:27:38.973 | INFO     | acestep.llm_inference:generate_with_stop_condition:1377 - generate_with_stop_condition: formatted_prompt=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+
+[nanovllm] KV cache allocated: 30 blocks × 256 tokens = 7680 tokens capacity, 0.82 GB (free: 6.05 GB, used: 1.26 GB, target: 2.10 GB, block: 28.00 MB, post_kv_free: 5.23 GB)
+Generating:   0%|          | 0/1 [00:00<?, ?it/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=0tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=141tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=144tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=109tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=145tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=144tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=145tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:01<?, ?it/s, Prefill=158tok/s, Decode=148tok/s]Generating: 100%|██████████| 1/1 [00:01<00:00,  1.33s/it, Prefill=158tok/s, Decode=148tok/s]Generating: 100%|██████████| 1/1 [00:01<00:00,  1.33s/it, Prefill=158tok/s, Decode=148tok/s]
+2026-11-21 11:27:40.307 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, plucky synth melody that serves as the main hook. A clean, confident female
+  vocal delivers a catchy topline over a driving synth bassline. The production is
+  polished and modern, with layered synths creating a full, vibrant soundscape perfect
+  for a fashion runway or an upbeat anthem.
+duration: 10
+keyscale: A major
+language: en
+timesignature: 4
+<|im_end|>
+2026-11-21 11:27:40.308 | INFO     | acestep.llm_inference:generate_with_stop_condition:1422 - Phase 1 completed in 1.35s. Generated metadata: ['bpm', 'caption', 'duration', 'keyscale', 'language', 'timesignature']
+2026-11-21 11:27:40.308 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-21 11:27:40.309 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, plucky synth melody that serves as the main hook. A clean, confident female
+  vocal delivers a catchy topline over a driving synth bassline. The production is
+  polished and modern, with layered synths creating a full, vibrant soundscape perfect
+  for a fashion runway or an upbeat anthem.
+duration: 10
+keyscale: A major
+language: en
+timesignature: 4
+</think>
+
+
+2026-11-21 11:27:40.311 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+Generating:   0%|          | 0/1 [00:00<?, ?it/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=0tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=175tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=174tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=175tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=174tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=175tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=174tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=175tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=2929tok/s, Decode=177tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  2.72it/s, Prefill=2929tok/s, Decode=177tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  2.72it/s, Prefill=2929tok/s, Decode=177tok/s]
+2026-11-21 11:27:40.679 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_18340|><|audio_code_34797|><|audio_code_53530|><|audio_code_9586|><|audio_code_15339|><|audio_code_4903|><|audio_code_53240|><|audio_code_40440|><|audio_code_56027|><|audio_code_58508|><|audio_code_58739|><|audio_code_30536|><|audio_code_58799|><|audio_code_15223|><|audio_code_23826|><|audio_code_16075|><|audio_code_30594|><|audio_code_38368|><|audio_code_18263|><|audio_code_55623|><|audio_code_50642|><|audio_code_40938|><|audio_code_4931|><|audio_code_33293|><|audio_code_20843|><|audio_code_50476|><|audio_code_20178|><|audio_code_19202|><|audio_code_15155|><|audio_code_14063|><|audio_code_12712|><|audio_code_33249|><|audio_code_4315|><|audio_code_10900|><|audio_code_5835|><|audio_code_2824|><|audio_code_16352|><|audio_code_7554|><|audio_code_3943|><|audio_code_37824|><|audio_code_56200|><|audio_code_35380|><|audio_code_53645|><|audio_code_25045|><|audio_code_36340|><|audio_code_35855|><|audio_code_35847|><|audio_code_48775|><|audio_code_32855|><|audio_code_35847|><|im_end|>
+2026-11-21 11:27:40.679 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 0.37s. Generated 50 audio codes
+2026-11-21 11:27:40.679 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-21 11:27:40.679 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-21 11:27:40.679 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-21 11:27:40.680 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-21 11:27:40.681 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-21 11:27:40.686 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 5087 MB)
+2026-11-21 11:27:40.818 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.1323s (RSS: 5087 -> 4769 MB, delta: -318 MB)
+2026-11-21 11:27:40.818 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-21 11:27:42.044 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 5154 MB)
+2026-11-21 11:27:42.058 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0037s (RSS: 5154 -> 5154 MB, delta: +0 MB)
+2026-11-21 11:27:42.059 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-21 11:27:42.059 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-21 11:27:42.059 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-21 11:27:42.059 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-21 11:27:42.060 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An energetic synth-pop track driven by a punchy electronic drum machine and a bright, plucky synth melody that serves as the main hook. A clean, confident female vocal delivers a catchy topline over a driving synth bassline. The production is polished and modern, with layered synths creating a full, vibrant soundscape perfect for a fashion runway or an upbeat anthem.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: A major
+- duration: 10 seconds
+<|endoftext|>
+
+2026-11-21 11:27:42.060 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-21 11:27:42.060 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+en
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight<|endoftext|>
+2026-11-21 11:27:42.060 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-21 11:27:42.062 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 5139 MB)
+2026-11-21 11:27:42.076 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.0137s (RSS: 5139 -> 5140 MB, delta: +0 MB)
+2026-11-21 11:27:42.102 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 5154 MB)
+2026-11-21 11:27:42.109 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0010s (RSS: 5154 -> 5154 MB, delta: +0 MB)
+2026-11-21 11:27:42.109 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-21 11:27:42.109 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading text_encoder to cuda (RSS: 5154 MB)
+2026-11-21 11:27:42.476 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded text_encoder to cuda in 0.3660s (RSS: 5154 -> 4043 MB, delta: -1110 MB)
+2026-11-21 11:27:42.525 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-21 11:27:42.525 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading text_encoder to CPU (RSS: 4048 MB)
+2026-11-21 11:27:42.548 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded text_encoder to CPU in 0.0012s (RSS: 4048 -> 4048 MB, delta: +0 MB)
+2026-11-21 11:27:42.548 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-21 11:27:42.548 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading model to cuda (RSS: 4048 MB)
+2026-11-21 11:28:16.038 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded model to cuda in 33.4891s (RSS: 4048 -> 8386 MB, delta: +4338 MB)
+2026-11-21 11:28:17.846 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-21 11:28:17.935 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-21 11:28:21.164 | WARNING  | acestep.models.common.dcw_loader:_try_import:39 - DCW is enabled but 'pytorch_wavelets' is not installed. Install with `pip install pytorch_wavelets PyWavelets` to use Differential Correction in Wavelet domain. Falling back to no-op for this generation.
+2026-11-21 11:28:21.384 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading model to CPU (RSS: 8584 MB)
+2026-11-21 11:28:21.447 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded model to CPU in 0.0021s (RSS: 8584 -> 8584 MB, delta: +0 MB)
+2026-11-21 11:28:21.448 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-21 11:28:21.467 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 250, 64]), dtype=torch.bfloat16
+2026-11-21 11:28:21.467 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.0337831974029541, 'diffusion_time_cost': 3.5040063858032227, 'diffusion_per_step_time_cost': 0.43800079822540283, 'total_time_cost': 3.5377895832061768, 'offload_time_cost': 34.00900197029114}
+2026-11-21 11:28:21.488 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-21 11:28:21.488 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 8584 MB)
+2026-11-21 11:28:21.508 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.0198s (RSS: 8584 -> 8584 MB, delta: +0 MB)
+2026-11-21 11:28:21.529 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=2.42GB, max=6.61GB
+2026-11-21 11:28:21.529 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 4.76 GB
+2026-11-21 11:28:21.529 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-21 11:28:21.529 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:117 - [_get_auto_decode_chunk_size] Effective free VRAM: 4.76 GB
+2026-11-21 11:28:21.530 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:149 - [_should_offload_wav_to_cpu] Effective free VRAM: 4.76 GB
+2026-11-21 11:28:21.530 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=1015, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 250])
+2026-11-21 11:28:22.142 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=2.58GB, max=6.61GB
+2026-11-21 11:28:22.142 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 8627 MB)
+2026-11-21 11:28:22.157 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0037s (RSS: 8627 -> 8627 MB, delta: +0 MB)
+2026-11-21 11:28:22.157 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-21 11:28:22.159 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-21 11:28:22.224 | INFO     | acestep.inference:generate_music:1036 - [Normalization] Audio 0 BEFORE: Peak=0.8047, Target=-1.0dB
+2026-11-21 11:28:22.230 | INFO     | acestep.inference:generate_music:1041 - [Normalization] Audio 0 AFTER: Peak=0.8913
+Using precomputed LM hints
+{"run": -1, "warmup": true, "wall_s": 43.316, "time_costs": {"lm_phase1_time": 1.346, "lm_phase2_time": 0.3714, "lm_total_time": 1.7174, "dit_encoder_time_cost": 0.0338, "dit_diffusion_time_cost": 3.504, "dit_diffusion_per_step_time_cost": 0.438, "dit_total_time_cost": 4.2073, "dit_offload_time_cost": 34.0325, "dit_vae_decode_time_cost": 0.6695, "pipeline_total_time": 5.9247}, "peak_alloc_gb": 6.611, "peak_reserved_gb": 6.697, "host_gb": {"VmHWM": 8.43, "VmRSS": 8.43, "VmSwap": 0.0}, "codes_md5": "5df2b23830", "n_codes": 50, "wav_md5": "06e878890a", "n_audios": 1, "items": [{"n_codes": 50, "codes_md5": "5df2b23830", "wav_md5": "06e878890a"}]}
+2026-11-21 11:28:22.299 | INFO     | acestep.inference:generate_music:686 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-21 11:28:22.338 | INFO     | acestep.core.generation.handler.init_service_offload_context:prefetch_dit_async:180 - [prefetch_dit_async] Prefetching 3.33 GB of DiT weights
+2026-11-21 11:28:22.338 | INFO     | acestep.inference:generate_music:752 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-21 11:28:22.668 | INFO     | acestep.llm_inference:generate_with_stop_condition:1371 - Phase 1: Generating CoT metadata...
+2026-11-21 11:28:22.670 | INFO     | acestep.llm_inference:generate_with_stop_condition:1377 - generate_with_stop_condition: formatted_prompt=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+
+Generating:   0%|          | 0/1 [00:00<?, ?it/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=0tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=145tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=144tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=143tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=143tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=145tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=142tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=144tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=145tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4484tok/s, Decode=146tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  1.23it/s, Prefill=4484tok/s, Decode=146tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  1.23it/s, Prefill=4484tok/s, Decode=146tok/s]
+2026-11-21 11:28:23.482 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, plucky synth melody that serves as the main hook. A clean, confident female
+  vocal delivers a catchy topline over a driving synth bassline. The production is
+  polished and modern, with layered synths creating a full, vibrant soundscape perfect
+  for a fashion runway or an upbeat anthem.
+duration: 10
+keyscale: A major
+language: en
+timesignature: 4
+<|im_end|>
+2026-11-21 11:28:23.482 | INFO     | acestep.llm_inference:generate_with_stop_condition:1422 - Phase 1 completed in 0.81s. Generated metadata: ['bpm', 'caption', 'duration', 'keyscale', 'language', 'timesignature']
+2026-11-21 11:28:23.482 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-21 11:28:23.484 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, plucky synth melody that serves as the main hook. A clean, confident female
+  vocal delivers a catchy topline over a driving synth bassline. The production is
+  polished and modern, with layered synths creating a full, vibrant soundscape perfect
+  for a fashion runway or an upbeat anthem.
+duration: 10
+keyscale: A major
+language: en
+timesignature: 4
+</think>
+
+
+2026-11-21 11:28:23.486 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+Generating:   0%|          | 0/1 [00:00<?, ?it/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=0tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=175tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=174tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=176tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=11688tok/s, Decode=178tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  3.27it/s, Prefill=11688tok/s, Decode=178tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  3.27it/s, Prefill=11688tok/s, Decode=178tok/s]
+2026-11-21 11:28:23.792 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_18340|><|audio_code_34797|><|audio_code_53530|><|audio_code_9586|><|audio_code_15339|><|audio_code_4903|><|audio_code_53240|><|audio_code_40440|><|audio_code_56027|><|audio_code_58508|><|audio_code_58739|><|audio_code_30536|><|audio_code_58799|><|audio_code_15223|><|audio_code_23826|><|audio_code_16075|><|audio_code_30594|><|audio_code_38368|><|audio_code_18263|><|audio_code_55623|><|audio_code_50642|><|audio_code_40938|><|audio_code_4931|><|audio_code_33293|><|audio_code_20843|><|audio_code_50476|><|audio_code_20178|><|audio_code_19202|><|audio_code_15155|><|audio_code_14063|><|audio_code_12712|><|audio_code_33249|><|audio_code_4315|><|audio_code_10900|><|audio_code_5835|><|audio_code_2824|><|audio_code_16352|><|audio_code_7554|><|audio_code_3943|><|audio_code_37824|><|audio_code_56200|><|audio_code_35380|><|audio_code_53645|><|audio_code_25045|><|audio_code_36340|><|audio_code_35855|><|audio_code_35847|><|audio_code_48775|><|audio_code_32855|><|audio_code_35847|><|im_end|>
+2026-11-21 11:28:23.792 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 0.31s. Generated 50 audio codes
+2026-11-21 11:28:23.793 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-21 11:28:23.793 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-21 11:28:23.793 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-21 11:28:23.793 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-21 11:28:23.794 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-21 11:28:23.799 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 8647 MB)
+2026-11-21 11:28:23.816 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.0175s (RSS: 8647 -> 8647 MB, delta: +0 MB)
+2026-11-21 11:28:23.816 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-21 11:28:23.835 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 8647 MB)
+2026-11-21 11:28:23.842 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0015s (RSS: 8647 -> 8647 MB, delta: +0 MB)
+2026-11-21 11:28:23.843 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-21 11:28:23.843 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-21 11:28:23.844 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-21 11:28:23.844 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-21 11:28:23.844 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An energetic synth-pop track driven by a punchy electronic drum machine and a bright, plucky synth melody that serves as the main hook. A clean, confident female vocal delivers a catchy topline over a driving synth bassline. The production is polished and modern, with layered synths creating a full, vibrant soundscape perfect for a fashion runway or an upbeat anthem.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: A major
+- duration: 10 seconds
+<|endoftext|>
+
+2026-11-21 11:28:23.844 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-21 11:28:23.844 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+en
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight<|endoftext|>
+2026-11-21 11:28:23.844 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-21 11:28:23.846 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 8632 MB)
+2026-11-21 11:28:23.861 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.0155s (RSS: 8632 -> 8633 MB, delta: +0 MB)
+2026-11-21 11:28:23.881 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 8633 MB)
+2026-11-21 11:28:23.887 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0010s (RSS: 8633 -> 8633 MB, delta: +0 MB)
+2026-11-21 11:28:23.887 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-21 11:28:23.887 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading text_encoder to cuda (RSS: 8633 MB)
+2026-11-21 11:28:23.931 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded text_encoder to cuda in 0.0438s (RSS: 8633 -> 8633 MB, delta: +0 MB)
+2026-11-21 11:28:24.029 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-21 11:28:24.030 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading text_encoder to CPU (RSS: 8633 MB)
+2026-11-21 11:28:24.051 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded text_encoder to CPU in 0.0014s (RSS: 8633 -> 8633 MB, delta: +0 MB)
+2026-11-21 11:28:24.051 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-21 11:28:24.051 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading model to cuda (RSS: 8633 MB)
+2026-11-21 11:28:24.105 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded model to cuda in 0.0542s (RSS: 8633 -> 8633 MB, delta: +0 MB)
+2026-11-21 11:28:24.195 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-21 11:28:24.225 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-21 11:28:24.470 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading model to CPU (RSS: 8634 MB)
+2026-11-21 11:28:24.527 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded model to CPU in 0.0021s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:24.527 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-21 11:28:24.528 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 250, 64]), dtype=torch.bfloat16
+2026-11-21 11:28:24.528 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.029971599578857422, 'diffusion_time_cost': 0.24485135078430176, 'diffusion_per_step_time_cost': 0.03060641884803772, 'total_time_cost': 0.2748229503631592, 'offload_time_cost': 0.13697600364685059}
+2026-11-21 11:28:24.528 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-21 11:28:24.528 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 8634 MB)
+2026-11-21 11:28:24.541 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.0125s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:24.565 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=2.58GB, max=6.77GB
+2026-11-21 11:28:24.565 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 4.60 GB
+2026-11-21 11:28:24.565 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-21 11:28:24.565 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:117 - [_get_auto_decode_chunk_size] Effective free VRAM: 4.60 GB
+2026-11-21 11:28:24.565 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:149 - [_should_offload_wav_to_cpu] Effective free VRAM: 4.60 GB
+2026-11-21 11:28:24.565 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=976, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 250])
+2026-11-21 11:28:24.676 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=2.58GB, max=6.77GB
+2026-11-21 11:28:24.676 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 8634 MB)
+2026-11-21 11:28:24.690 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0036s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:24.690 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-21 11:28:24.692 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-21 11:28:24.693 | INFO     | acestep.inference:generate_music:1036 - [Normalization] Audio 0 BEFORE: Peak=0.8047, Target=-1.0dB
+2026-11-21 11:28:24.695 | INFO     | acestep.inference:generate_music:1041 - [Normalization] Audio 0 AFTER: Peak=0.8913
+Using precomputed LM hints
+{"run": 0, "warmup": false, "wall_s": 2.405, "time_costs": {"lm_phase1_time": 0.8143, "lm_phase2_time": 0.3097, "lm_total_time": 1.124, "dit_encoder_time_cost": 0.03, "dit_diffusion_time_cost": 0.2449, "dit_diffusion_per_step_time_cost": 0.0306, "dit_total_time_cost": 0.4372, "dit_offload_time_cost": 0.1531, "dit_vae_decode_time_cost": 0.1624, "pipeline_total_time": 1.5612}, "peak_alloc_gb": 6.769, "peak_reserved_gb": 6.846, "host_gb": {"VmHWM": 8.45, "VmRSS": 8.43, "VmSwap": 0.0}, "codes_md5": "5df2b23830", "n_codes": 50, "wav_md5": "06e878890a", "n_audios": 1, "items": [{"n_codes": 50, "codes_md5": "5df2b23830", "wav_md5": "06e878890a"}]}
+2026-11-21 11:28:24.753 | INFO     | acestep.inference:generate_music:686 - [generate_music] LLM usage decision: thinking=True, use_cot_caption=True, use_cot_language=True, use_cot_metas=True, need_lm_for_cot=True, llm_initialized=True, use_lm=True
+2026-11-21 11:28:24.792 | INFO     | acestep.core.generation.handler.init_service_offload_context:prefetch_dit_async:180 - [prefetch_dit_async] Prefetching 3.33 GB of DiT weights
+2026-11-21 11:28:24.792 | INFO     | acestep.inference:generate_music:752 - LM chunk 1/1 (infer_type=llm_dit) (size: 1, seeds: [42])
+2026-11-21 11:28:25.123 | INFO     | acestep.llm_inference:generate_with_stop_condition:1371 - Phase 1: Generating CoT metadata...
+2026-11-21 11:28:25.124 | INFO     | acestep.llm_inference:generate_with_stop_condition:1377 - generate_with_stop_condition: formatted_prompt=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+
+Generating:   0%|          | 0/1 [00:00<?, ?it/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=0tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=154tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=152tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=153tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=151tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=144tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=146tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=147tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=148tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=149tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=150tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=4509tok/s, Decode=148tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  1.25it/s, Prefill=4509tok/s, Decode=148tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  1.25it/s, Prefill=4509tok/s, Decode=148tok/s]
+2026-11-21 11:28:25.924 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, plucky synth melody that serves as the main hook. A clean, confident female
+  vocal delivers a catchy topline over a driving synth bassline. The production is
+  polished and modern, with layered synths creating a full, vibrant soundscape perfect
+  for a fashion runway or an upbeat anthem.
+duration: 10
+keyscale: A major
+language: en
+timesignature: 4
+<|im_end|>
+2026-11-21 11:28:25.925 | INFO     | acestep.llm_inference:generate_with_stop_condition:1422 - Phase 1 completed in 0.80s. Generated metadata: ['bpm', 'caption', 'duration', 'keyscale', 'language', 'timesignature']
+2026-11-21 11:28:25.925 | INFO     | acestep.llm_inference:generate_with_stop_condition:1482 - Phase 2: Generating audio codes...
+2026-11-21 11:28:25.926 | INFO     | acestep.llm_inference:generate_with_stop_condition:1490 - generate_with_stop_condition: formatted_prompt_with_cot=<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+# Caption
+An upbeat synth-pop song with punchy drums, bright synth leads and a female vocal
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight
+<|im_end|>
+<|im_start|>assistant
+<think>
+bpm: 100
+caption: An energetic synth-pop track driven by a punchy electronic drum machine and
+  a bright, plucky synth melody that serves as the main hook. A clean, confident female
+  vocal delivers a catchy topline over a driving synth bassline. The production is
+  polished and modern, with layered synths creating a full, vibrant soundscape perfect
+  for a fashion runway or an upbeat anthem.
+duration: 10
+keyscale: A major
+language: en
+timesignature: 4
+</think>
+
+
+2026-11-21 11:28:25.927 | INFO     | acestep.llm_inference:_build_unconditional_prompt:395 - CFG unconditional prompt (phase=codes, is_batch=False, negative_prompt='NO USER INPUT'):
+<|im_start|>system
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+<|im_end|>
+<|im_start|>user
+NO USER INPUT<|im_end|>
+<|im_start|>assistant
+<think>
+
+</think>
+
+
+Generating:   0%|          | 0/1 [00:00<?, ?it/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=0tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=177tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=180tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=178tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=179tok/s]Generating:   0%|          | 0/1 [00:00<?, ?it/s, Prefill=12747tok/s, Decode=178tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  3.33it/s, Prefill=12747tok/s, Decode=178tok/s]Generating: 100%|██████████| 1/1 [00:00<00:00,  3.33it/s, Prefill=12747tok/s, Decode=178tok/s]
+2026-11-21 11:28:26.228 | DEBUG    | acestep.llm_inference:parse_lm_output:2813 - Debug output text: <|audio_code_18340|><|audio_code_34797|><|audio_code_53530|><|audio_code_9586|><|audio_code_15339|><|audio_code_4903|><|audio_code_53240|><|audio_code_40440|><|audio_code_56027|><|audio_code_58508|><|audio_code_58739|><|audio_code_30536|><|audio_code_58799|><|audio_code_15223|><|audio_code_23826|><|audio_code_16075|><|audio_code_30594|><|audio_code_38368|><|audio_code_18263|><|audio_code_55623|><|audio_code_50642|><|audio_code_40938|><|audio_code_4931|><|audio_code_33293|><|audio_code_20843|><|audio_code_50476|><|audio_code_20178|><|audio_code_19202|><|audio_code_15155|><|audio_code_14063|><|audio_code_12712|><|audio_code_33249|><|audio_code_4315|><|audio_code_10900|><|audio_code_5835|><|audio_code_2824|><|audio_code_16352|><|audio_code_7554|><|audio_code_3943|><|audio_code_37824|><|audio_code_56200|><|audio_code_35380|><|audio_code_53645|><|audio_code_25045|><|audio_code_36340|><|audio_code_35855|><|audio_code_35847|><|audio_code_48775|><|audio_code_32855|><|audio_code_35847|><|im_end|>
+2026-11-21 11:28:26.229 | INFO     | acestep.llm_inference:generate_with_stop_condition:1650 - Phase 2 completed in 0.30s. Generated 50 audio codes
+2026-11-21 11:28:26.229 | INFO     | acestep.core.generation.handler.generate_music:generate_music:313 - [generate_music] Turbo model detected: overriding guidance_scale 7.0 -> 1.0 (turbo does not use CFG).
+2026-11-21 11:28:26.229 | INFO     | acestep.core.generation.handler.generate_music:generate_music:329 - [generate_music] Starting generation...
+2026-11-21 11:28:26.229 | INFO     | acestep.core.generation.handler.generate_music:generate_music:332 - [generate_music] Preparing inputs...
+2026-11-21 11:28:26.230 | INFO     | acestep.core.generation.handler.generate_music_request:_prepare_reference_and_source_audio:204 - [generate_music] cover task: no src_audio but audio codes provided, proceeding with codes
+2026-11-21 11:28:26.230 | DEBUG    | acestep.core.generation.handler.generate_music:_vram_preflight_check:133 - [generate_music] VRAM pre-flight: skipping check (offload_to_cpu=True, models loaded one-at-a-time)
+2026-11-21 11:28:26.235 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 8649 MB)
+2026-11-21 11:28:26.250 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.0149s (RSS: 8649 -> 8649 MB, delta: +0 MB)
+2026-11-21 11:28:26.250 | INFO     | acestep.core.generation.handler.conditioning_target:_prepare_target_latents_and_wavs:78 - [generate_music] Decoding audio codes for item 0...
+2026-11-21 11:28:26.271 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 8649 MB)
+2026-11-21 11:28:26.278 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0016s (RSS: 8649 -> 8649 MB, delta: +0 MB)
+2026-11-21 11:28:26.279 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_precomputed_lm_hints:31 - [generate_music] Decoding audio codes for LM hints for item 0...
+2026-11-21 11:28:26.279 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:119 - 
+======================================================================
+2026-11-21 11:28:26.279 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:120 - 🔍 [DEBUG] DiT TEXT ENCODER INPUT (Inference)
+2026-11-21 11:28:26.279 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:121 - ======================================================================
+2026-11-21 11:28:26.279 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:122 - text_prompt:
+# Instruction
+Generate audio semantic tokens based on the given conditions:
+
+# Caption
+An energetic synth-pop track driven by a punchy electronic drum machine and a bright, plucky synth melody that serves as the main hook. A clean, confident female vocal delivers a catchy topline over a driving synth bassline. The production is polished and modern, with layered synths creating a full, vibrant soundscape perfect for a fashion runway or an upbeat anthem.
+
+# Metas
+- bpm: 100
+- timesignature: 4
+- keyscale: A major
+- duration: 10 seconds
+<|endoftext|>
+
+2026-11-21 11:28:26.279 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:123 - ======================================================================
+2026-11-21 11:28:26.279 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:124 - lyrics_text:
+# Languages
+en
+
+# Lyric
+[Verse]
+City lights are calling me
+Neon rivers in the street
+[Chorus]
+We are dancing in the night
+Hold me close and hold me tight<|endoftext|>
+2026-11-21 11:28:26.279 | INFO     | acestep.core.generation.handler.conditioning_text:_prepare_text_conditioning_inputs:125 - ======================================================================
+
+2026-11-21 11:28:26.281 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 8634 MB)
+2026-11-21 11:28:26.296 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.0145s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:26.317 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 8634 MB)
+2026-11-21 11:28:26.323 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0009s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:26.323 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:110 - [preprocess_batch] Inferring prompt embeddings...
+2026-11-21 11:28:26.323 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading text_encoder to cuda (RSS: 8634 MB)
+2026-11-21 11:28:26.366 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded text_encoder to cuda in 0.0426s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:26.452 | INFO     | acestep.core.generation.handler.conditioning_embed:preprocess_batch:113 - [preprocess_batch] Inferring lyric embeddings...
+2026-11-21 11:28:26.452 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading text_encoder to CPU (RSS: 8634 MB)
+2026-11-21 11:28:26.473 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded text_encoder to CPU in 0.0012s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:26.473 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:173 - [service_generate] Generating audio... (DiT backend: PyTorch (cuda))
+2026-11-21 11:28:26.473 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading model to cuda (RSS: 8634 MB)
+2026-11-21 11:28:26.526 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded model to cuda in 0.0529s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:26.616 | INFO     | acestep.core.generation.handler.service_generate_execute:_execute_service_generate_diffusion:276 - [service_generate] DiT diffusion via PyTorch (cuda)...
+2026-11-21 11:28:26.646 | INFO     | acestep.models.common.dcw_correction:__init__:98 - [DCW] Active — mode=double, scaler=0.0500, high_scaler=0.0200, wavelet='haar'
+2026-11-21 11:28:26.892 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading model to CPU (RSS: 8634 MB)
+2026-11-21 11:28:26.948 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded model to CPU in 0.0022s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:26.948 | INFO     | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:42 - [generate_music] Model generation completed. Decoding latents...
+2026-11-21 11:28:26.949 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:64 - [generate_music] pred_latents: torch.Size([1, 250, 64]), dtype=torch.bfloat16
+2026-11-21 11:28:26.949 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_prepare_generate_music_decode_state:65 - [generate_music] time_costs: {'encoder_time_cost': 0.02999567985534668, 'diffusion_time_cost': 0.2456214427947998, 'diffusion_per_step_time_cost': 0.030702680349349976, 'total_time_cost': 0.2756171226501465, 'offload_time_cost': 0.13077211380004883}
+2026-11-21 11:28:26.949 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:127 - [generate_music] Decoding latents with VAE...
+2026-11-21 11:28:26.949 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:44 - [_load_model_context] Loading vae to cuda (RSS: 8634 MB)
+2026-11-21 11:28:26.958 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:65 - [_load_model_context] Loaded vae to cuda in 0.0085s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:26.986 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:136 - [generate_music] Before VAE decode: allocated=2.58GB, max=6.77GB
+2026-11-21 11:28:26.986 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:154 - [generate_music] Effective free VRAM before VAE decode: 4.60 GB
+2026-11-21 11:28:26.986 | INFO     | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:172 - [generate_music] Using tiled VAE decode to reduce VRAM usage...
+2026-11-21 11:28:26.986 | DEBUG    | acestep.core.generation.handler.memory_utils:_get_auto_decode_chunk_size:117 - [_get_auto_decode_chunk_size] Effective free VRAM: 4.60 GB
+2026-11-21 11:28:26.986 | DEBUG    | acestep.core.generation.handler.memory_utils:_should_offload_wav_to_cpu:149 - [_should_offload_wav_to_cpu] Effective free VRAM: 4.60 GB
+2026-11-21 11:28:26.986 | INFO     | acestep.core.generation.handler.vae_decode:tiled_decode:56 - [tiled_decode] chunk_size=976, offload_wav_to_cpu=True, latents_shape=torch.Size([1, 64, 250])
+2026-11-21 11:28:27.098 | DEBUG    | acestep.core.generation.handler.generate_music_decode:_decode_generate_music_pred_latents:193 - [generate_music] After VAE decode: allocated=2.58GB, max=6.77GB
+2026-11-21 11:28:27.098 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:74 - [_load_model_context] Offloading vae to CPU (RSS: 8634 MB)
+2026-11-21 11:28:27.105 | INFO     | acestep.core.generation.handler.init_service_offload_context:_load_model_context:96 - [_load_model_context] Offloaded vae to CPU in 0.0033s (RSS: 8634 -> 8634 MB, delta: +0 MB)
+2026-11-21 11:28:27.105 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:38 - [generate_music] VAE decode completed. Preparing audio tensors...
+2026-11-21 11:28:27.107 | INFO     | acestep.core.generation.handler.generate_music_payload:_build_generate_music_success_payload:50 - [generate_music] Done! Generated 1 audio tensors.
+2026-11-21 11:28:27.108 | INFO     | acestep.inference:generate_music:1036 - [Normalization] Audio 0 BEFORE: Peak=0.8047, Target=-1.0dB
+2026-11-21 11:28:27.110 | INFO     | acestep.inference:generate_music:1041 - [Normalization] Audio 0 AFTER: Peak=0.8913
+Using precomputed LM hints
+{"run": 1, "warmup": false, "wall_s": 2.3653, "time_costs": {"lm_phase1_time": 0.8019, "lm_phase2_time": 0.3038, "lm_total_time": 1.1057, "dit_encoder_time_cost": 0.03, "dit_diffusion_time_cost": 0.2456, "dit_diffusion_per_step_time_cost": 0.0307, "dit_total_time_cost": 0.4316, "dit_offload_time_cost": 0.1425, "dit_vae_decode_time_cost": 0.156, "pipeline_total_time": 1.5373}, "peak_alloc_gb": 6.77, "peak_reserved_gb": 6.859, "host_gb": {"VmHWM": 8.45, "VmRSS": 8.43, "VmSwap": 0.0}, "codes_md5": "5df2b23830", "n_codes": 50, "wav_md5": "06e878890a", "n_audios": 1, "items": [{"n_codes": 50, "codes_md5": "5df2b23830", "wav_md5": "06e878890a"}]}
+PHASES {"LM.generate_with_stop_condition": 1.106, "H.prepare_service_inputs": 0.001, "H.decode_codes": 0.0, "H.prepare_target_latents": 0.045, "H._prepare_batch": 0.05, "H.refer_latent": 0.0, "H.text_encoder": 0.012, "H.preprocess_batch": 0.192, "M.prepare_condition": 0.021, "M.generate_audio": 0.276, "H.service_generate": 0.717, "H.tiled_decode": 0.102, "H.vae_decode_total": 0.156, "H.build_payload": 0.002, "H.generate_music(DiT total)": 0.879}
+SUMMARY {"wall_median_s": 2.385, "wall_min_s": 2.365, "wall_max_s": 2.405, "wall_cv": 0.0083, "time_costs_median": {"dit_diffusion_per_step_time_cost": 0.031, "dit_diffusion_time_cost": 0.245, "dit_encoder_time_cost": 0.03, "dit_offload_time_cost": 0.148, "dit_total_time_cost": 0.434, "dit_vae_decode_time_cost": 0.159, "lm_phase1_time": 0.808, "lm_phase2_time": 0.307, "lm_total_time": 1.115, "pipeline_total_time": 1.549}, "peak_alloc_gb_max": 6.77, "peak_reserved_gb_max": 6.859, "host_rss_peak_gb": 8.45, "host_swap_gb_max": 0.0, "cold_start_s": {"dit_init": 43.26, "lm_init": 41.33, "warmup_run": 43.316}}
