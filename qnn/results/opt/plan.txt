@@ -1,0 +1,6 @@
+PLAN_30s_b1 exit=0
+PLAN_10s_b8 exit=0
+PLAN_30s_b8 exit=0
+PLAN_120s_b8 exit=0
+PLAN_240s_b8 exit=0
+DONE

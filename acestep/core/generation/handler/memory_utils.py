@@ -6,11 +6,11 @@ from typing import Optional
 import torch
 from loguru import logger
 
+from acestep.core.generation.handler import batch_plan
+
 from acestep.gpu_config import (
     cuda_supports_bfloat16,
-    get_dit_type_from_path,
     get_effective_free_vram_gb,
-    get_global_gpu_config,
     is_rocm_available,
 )
 
@@ -153,66 +153,49 @@ class MemoryUtilsMixin:
                 pass
         return True
 
+    def plan_batch_size(self, batch_size: int, audio_duration: Optional[float] = None) -> int:
+        """Largest batch <= ``batch_size`` that fits the DiT phase in VRAM and host RAM.
+
+        Gives the same answer before and after the LM runs (weights already
+        prefetched count as allocated, weights still on CPU are added), so
+        ``generate_music`` can size the batch before the LM writes per-item
+        codes.  ``audio_duration`` <= 0 / None assumes the tier's maximum.
+        See :mod:`batch_plan` for the measured memory model.
+        """
+        if batch_size <= 1:
+            return max(1, batch_size)
+        device = self.device
+        if not _is_cuda_device(device):
+            return batch_size
+        try:
+            free_gb = get_effective_free_vram_gb(_cuda_device_index(device))
+        except Exception:
+            return batch_size
+        planned, info = batch_plan.plan_batch_size(self, batch_size, audio_duration, free_vram_gb=free_gb)
+        try:
+            idx = _cuda_device_index(device)
+            dev_free, dev_total = torch.cuda.mem_get_info(idx)
+            info.update(alloc_gb=round(torch.cuda.memory_allocated(idx) / 2**30, 2),
+                        reserved_gb=round(torch.cuda.memory_reserved(idx) / 2**30, 2),
+                        device_free_gb=round(dev_free / 2**30, 2), device_total_gb=round(dev_total / 2**30, 2))
+        except Exception:
+            pass
+        if planned < batch_size:
+            logger.warning(
+                f"[VRAM guard] batch_size {batch_size} -> {planned}: {info}"
+            )
+        else:
+            logger.debug(f"[VRAM guard] batch_size {batch_size} fits: {info}")
+        return planned
+
     def _vram_guard_reduce_batch(
         self,
         batch_size: int,
         audio_duration: Optional[float] = None,
         use_lm: bool = False,
     ) -> int:
-        """Auto-reduce batch_size when free VRAM is too tight."""
-        if batch_size <= 1:
-            return batch_size
-
-        device = self.device
-        if device == "cpu" or device == "mps":
-            return batch_size
-
-        if self.offload_to_cpu:
-            gpu_config = get_global_gpu_config()
-            if gpu_config is not None:
-                tier_max = gpu_config.max_batch_size_with_lm
-                if batch_size <= tier_max:
-                    logger.debug(
-                        f"[VRAM guard] offload_to_cpu=True, batch_size={batch_size} <= "
-                        f"tier limit {tier_max} - skipping dynamic VRAM check"
-                    )
-                    return batch_size
-
-        try:
-            free_gb = get_effective_free_vram_gb(_cuda_device_index(device))
-        except Exception:
-            return batch_size
-
-        duration_sec = float(audio_duration) if audio_duration and float(audio_duration) > 0 else 60.0
-        per_sample_gb = 0.5 + max(0.0, 0.15 * (duration_sec - 60.0) / 60.0)
-        if hasattr(self, "model") and self.model is not None:
-            config_path = ""
-            if getattr(self, "last_init_params", None):
-                config_path = self.last_init_params.get("config_path", "")
-            dit_type = get_dit_type_from_path(config_path)
-            # XL (4B DiT) models have ~70% more activations per sample
-            if dit_type.startswith("xl_"):
-                per_sample_gb *= 1.7
-            # Base/SFT models use CFG (2x forward passes)
-            if dit_type.endswith("_base") or dit_type == "base":
-                per_sample_gb *= 2.0
-
-        safety_margin_gb = 1.5
-        available_for_batch = free_gb - safety_margin_gb
-        if available_for_batch <= 0:
-            logger.warning(
-                f"[VRAM guard] Only {free_gb:.1f} GB free - reducing batch_size to 1"
-            )
-            return 1
-
-        max_safe_batch = max(1, int(available_for_batch / per_sample_gb))
-        if max_safe_batch < batch_size:
-            logger.warning(
-                f"[VRAM guard] Free VRAM {free_gb:.1f} GB can safely fit ~{max_safe_batch} samples "
-                f"(requested {batch_size}). Reducing batch_size to {max_safe_batch}."
-            )
-            return max_safe_batch
-        return batch_size
+        """Auto-reduce batch_size when VRAM / host RAM is too tight (see ``plan_batch_size``)."""
+        return MemoryUtilsMixin.plan_batch_size(self, batch_size, audio_duration)
 
     def _get_vae_dtype(self, device: Optional[str] = None) -> torch.dtype:
         """Get VAE dtype based on target device and GPU tier."""

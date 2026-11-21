@@ -81,6 +81,7 @@ class InitServiceOffloadContextMixin:
                 self._recursive_to_device(model, "cpu", self._get_vae_dtype("cpu"))
             else:
                 self._recursive_to_device(model, "cpu")
+            pinned_offload.release_derived_weights(model)
 
             offload_time = time.time() - start_time
             self.current_offload_cost += offload_time

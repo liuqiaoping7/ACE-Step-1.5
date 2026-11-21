@@ -1,0 +1,7 @@
+leak success True n 4 alloc delta GB 0.012 
+PLAN2_30s_b1 exit=0
+PLAN2_10s_b8 exit=0
+PLAN2_30s_b8 exit=0
+PLAN2_120s_b8 exit=0
+PLAN2_240s_b8 exit=0
+DONE

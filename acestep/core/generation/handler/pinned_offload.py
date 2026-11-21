@@ -257,6 +257,33 @@ def wait_prefetch(module: nn.Module) -> None:
         m.__dict__[_PREFETCH] = None
 
 
+def release_derived_weights(module: nn.Module) -> int:
+    """Drop device tensors that forward pre-hooks cache as plain module attributes.
+
+    Legacy ``torch.nn.utils.weight_norm`` (used by the Oobleck VAE) recomputes
+    ``weight = g * v / ||v||`` before every forward and stores it with ``setattr``.
+    That tensor is neither a parameter nor a buffer, so offloading the module
+    leaves it on the GPU: 0.17 GiB of VAE weights stayed resident after the
+    first generation, shrinking the DiT-phase headroom.  The hook recomputes the
+    weight on the next forward, so clearing it changes no numerics.  Returns the
+    number of bytes released.
+    """
+    try:
+        from torch.nn.utils.weight_norm import WeightNorm
+    except ImportError:  # pragma: no cover - removed in a future torch
+        return 0
+    released = 0
+    for m in module.modules():
+        for hook in m._forward_pre_hooks.values():
+            if not isinstance(hook, WeightNorm):
+                continue
+            t = m.__dict__.get(hook.name)
+            if isinstance(t, torch.Tensor) and t.device.type != "cpu":
+                released += t.numel() * t.element_size()
+                setattr(m, hook.name, None)
+    return released
+
+
 def offload_to_cpu(module: nn.Module) -> None:
     """Point *module* back at its pinned masters; copy back only modified tensors."""
     with torch.inference_mode(False), torch.no_grad():

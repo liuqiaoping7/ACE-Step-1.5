@@ -3,6 +3,7 @@
 Handles all LM-related operations including initialization and generation
 """
 import gc
+import math
 import os
 import sys
 import traceback
@@ -871,6 +872,32 @@ class LLMHandler:
                 return status_msg
             return f"❌ Error initializing 5Hz LM: {str(e)}\n\nTraceback:\n{traceback.format_exc()}"
 
+    def _vllm_items_per_call(self, prompts: List[str], unconditional_prompt: Optional[str], max_tokens: int) -> int:
+        """How many items of a batch fit the vllm KV cache at once (CFG pairs count twice).
+
+        Conservative: every sequence is charged its full length (prompt + max_tokens + 1)
+        rounded up to whole blocks, with no credit for prefix sharing.
+        """
+        n = len(prompts)
+        if n <= 1:
+            return max(1, n)
+        try:
+            block_manager = self.llm.scheduler.block_manager
+            block_size = int(block_manager.block_size)
+            total_blocks = len(block_manager.blocks)
+            tokenizer = self.llm_tokenizer
+
+            def blocks(text: str) -> int:
+                return math.ceil((len(tokenizer.encode(text)) + max_tokens + 1) / block_size)
+
+            per_item = max(blocks(p) for p in prompts)
+            if unconditional_prompt is not None:
+                per_item += blocks(unconditional_prompt)
+            return max(1, min(n, total_blocks // per_item))
+        except Exception as exc:  # unknown engine layout: keep the single call
+            logger.debug(f"[vllm] KV capacity check skipped: {exc}")
+            return n
+
     def _run_vllm(
         self,
         formatted_prompts: Union[str, List[str]],
@@ -913,22 +940,6 @@ class LLMHandler:
         use_phase_temperatures = not is_batch and (metadata_temperature is not None or codes_temperature is not None)
         effective_sampler_temp = 1.0 if use_phase_temperatures else temperature
 
-        # Setup constrained processor
-        constrained_processor = self._setup_constrained_processor(
-            use_constrained_decoding=use_constrained_decoding or use_phase_temperatures,
-            constrained_decoding_debug=constrained_decoding_debug,
-            target_duration=target_duration,
-            user_metadata=user_metadata,
-            stop_at_reasoning=stop_at_reasoning,
-            skip_genres=skip_genres,
-            skip_caption=skip_caption,
-            skip_language=skip_language,
-            generation_phase=generation_phase,
-            is_batch=is_batch,
-            metadata_temperature=metadata_temperature,
-            codes_temperature=codes_temperature,
-        )
-
         # Calculate max_tokens based on target_duration and generation phase
         max_tokens = self._compute_max_new_tokens(
             target_duration=target_duration,
@@ -936,17 +947,7 @@ class LLMHandler:
             fallback_max=self.max_model_len - 64,
         )
 
-        sampling_params = SamplingParams(
-            max_tokens=max_tokens,
-            temperature=effective_sampler_temp,
-            cfg_scale=cfg_scale,
-            top_k=top_k,
-            top_p=top_p,
-            repetition_penalty=repetition_penalty,
-            logits_processor=constrained_processor,
-            logits_processor_update_state=constrained_processor.update_state if constrained_processor else None,
-        )
-
+        formatted_unconditional_prompt = None
         if cfg_scale > 1.0:
             # Build unconditional prompt based on generation phase
             formatted_unconditional_prompt = self._build_unconditional_prompt(
@@ -957,15 +958,54 @@ class LLMHandler:
                 generation_phase=generation_phase,
                 is_batch=is_batch,
             )
-            unconditional_prompts = [formatted_unconditional_prompt] * batch_size
 
-            outputs = self.llm.generate(
-                formatted_prompt_list,
-                sampling_params,
-                unconditional_prompts=unconditional_prompts,
+        def _generate(prompts: List[str]):
+            # The constrained processor is stateful and shared by the sequences of one call.
+            constrained_processor = self._setup_constrained_processor(
+                use_constrained_decoding=use_constrained_decoding or use_phase_temperatures,
+                constrained_decoding_debug=constrained_decoding_debug,
+                target_duration=target_duration,
+                user_metadata=user_metadata,
+                stop_at_reasoning=stop_at_reasoning,
+                skip_genres=skip_genres,
+                skip_caption=skip_caption,
+                skip_language=skip_language,
+                generation_phase=generation_phase,
+                is_batch=is_batch,
+                metadata_temperature=metadata_temperature,
+                codes_temperature=codes_temperature,
             )
-        else:
-            outputs = self.llm.generate(formatted_prompt_list, sampling_params)
+            sampling_params = SamplingParams(
+                max_tokens=max_tokens,
+                temperature=effective_sampler_temp,
+                cfg_scale=cfg_scale,
+                top_k=top_k,
+                top_p=top_p,
+                repetition_penalty=repetition_penalty,
+                logits_processor=constrained_processor,
+                logits_processor_update_state=constrained_processor.update_state if constrained_processor else None,
+            )
+            if formatted_unconditional_prompt is not None:
+                return self.llm.generate(
+                    prompts,
+                    sampling_params,
+                    unconditional_prompts=[formatted_unconditional_prompt] * len(prompts),
+                )
+            return self.llm.generate(prompts, sampling_params)
+
+        # Run as many items at once as the KV cache holds without preemption.  nano-vllm
+        # preempts single sequences when blocks run out, which splits CFG pairs (crash:
+        # cond/uncond row-count mismatch) and desynchronises the shared constrained
+        # decoder; e.g. 3 x 240 s songs need 42 of the 30 blocks of an 8 GB card.
+        group = self._vllm_items_per_call(formatted_prompt_list, formatted_unconditional_prompt, max_tokens)
+        if group < batch_size:
+            logger.info(
+                f"[vllm] KV cache holds {group} of {batch_size} items without preemption; "
+                f"generating in {math.ceil(batch_size / group)} groups"
+            )
+        outputs = []
+        for start in range(0, batch_size, group):
+            outputs.extend(_generate(formatted_prompt_list[start:start + group]))
 
         # Extract text from outputs
         output_texts = []

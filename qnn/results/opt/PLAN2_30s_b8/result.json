@@ -1,0 +1,294 @@
+{
+ "meta": {
+  "commit": "331ced0+dirty",
+  "cmd": "qnn/perf/bench_e2e.py --tag PLAN2_30s_b8 --backend vllm --offload --offload-dit --flash --duration 30 --batch 8 --runs 2 --phases",
+  "date": "2026-11-21 13:26:22",
+  "gpu": "NVIDIA GeForce RTX 4060",
+  "torch": "2.10.0+cu128",
+  "python": "3.12.13",
+  "args": {
+   "tag": "PLAN2_30s_b8",
+   "lm": "acestep-5Hz-lm-0.6B",
+   "backend": "vllm",
+   "offload": true,
+   "offload_dit": true,
+   "quant": null,
+   "compile": false,
+   "flash": true,
+   "runs": 2,
+   "duration": 30.0,
+   "seed": 42,
+   "batch": 8,
+   "no_batch_guard": false,
+   "lm_chunk": 8,
+   "cprofile": false,
+   "phases": true,
+   "nsys_range": false
+  }
+ },
+ "summary": {
+  "wall_median_s": 7.833,
+  "wall_min_s": 7.812,
+  "wall_max_s": 7.853,
+  "wall_cv": 0.0026,
+  "time_costs_median": {
+   "dit_diffusion_per_step_time_cost": 0.319,
+   "dit_diffusion_time_cost": 2.549,
+   "dit_encoder_time_cost": 0.034,
+   "dit_offload_time_cost": 0.146,
+   "dit_total_time_cost": 4.508,
+   "dit_vae_decode_time_cost": 1.925,
+   "lm_phase1_time": 0.824,
+   "lm_phase2_time": 1.16,
+   "lm_total_time": 1.984,
+   "pipeline_total_time": 6.492
+  },
+  "peak_alloc_gb_max": 6.863,
+  "peak_reserved_gb_max": 2.287,
+  "host_rss_peak_gb": 8.69,
+  "host_swap_gb_max": 0.0,
+  "cold_start_s": {
+   "dit_init": 48.55,
+   "lm_init": 42.04,
+   "warmup_run": 54.5247
+  }
+ },
+ "runs": [
+  {
+   "run": -1,
+   "warmup": true,
+   "wall_s": 54.5247,
+   "time_costs": {
+    "lm_phase1_time": 1.6564,
+    "lm_phase2_time": 1.3807,
+    "lm_total_time": 3.0371,
+    "dit_encoder_time_cost": 0.0399,
+    "dit_diffusion_time_cost": 6.4119,
+    "dit_diffusion_per_step_time_cost": 0.8015,
+    "dit_total_time_cost": 8.9875,
+    "dit_offload_time_cost": 36.4907,
+    "dit_vae_decode_time_cost": 2.5357,
+    "pipeline_total_time": 12.0246
+   },
+   "peak_alloc_gb": 6.914,
+   "phase_peak_gb": {
+    "LM.generate_with_stop_condition": 2.138,
+    "H.prepare_service_inputs": 2.093,
+    "H.decode_codes": 2.766,
+    "H.prepare_target_latents": 2.766,
+    "H._prepare_batch": 2.766,
+    "H.refer_latent": 2.498,
+    "H.text_encoder": 3.415,
+    "H.preprocess_batch": 3.415,
+    "M.prepare_condition": 6.914,
+    "M.generate_audio": 6.65,
+    "H.service_generate": 6.914,
+    "H.tiled_decode": 4.52,
+    "H.vae_decode_total": 4.52,
+    "H.build_payload": 2.15,
+    "H.generate_music(DiT total)": 6.914
+   },
+   "peak_reserved_gb": 2.303,
+   "host_gb": {
+    "VmHWM": 8.63,
+    "VmRSS": 8.48,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "b934c43de2",
+   "n_codes": 150,
+   "wav_md5": "4b1b41e943",
+   "n_audios": 7,
+   "items": [
+    {
+     "n_codes": 150,
+     "codes_md5": "b934c43de2",
+     "wav_md5": "4b1b41e943"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "71994077bb",
+     "wav_md5": "159e9c2508"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "82f2f65f36",
+     "wav_md5": "7a8d11940f"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "d2902c4e8c",
+     "wav_md5": "677823f01d"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "73363ee91c",
+     "wav_md5": "144d64ed81"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "83fb544d85",
+     "wav_md5": "ec419465d5"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "034af37c5a",
+     "wav_md5": "f3cf57f2a6"
+    }
+   ]
+  },
+  {
+   "run": 0,
+   "warmup": false,
+   "wall_s": 7.8533,
+   "time_costs": {
+    "lm_phase1_time": 0.8486,
+    "lm_phase2_time": 1.1583,
+    "lm_total_time": 2.0069,
+    "dit_encoder_time_cost": 0.0339,
+    "dit_diffusion_time_cost": 2.5495,
+    "dit_diffusion_per_step_time_cost": 0.3187,
+    "dit_total_time_cost": 4.5096,
+    "dit_offload_time_cost": 0.144,
+    "dit_vae_decode_time_cost": 1.9262,
+    "pipeline_total_time": 6.5165
+   },
+   "peak_alloc_gb": 6.863,
+   "phase_peak_gb": {
+    "LM.generate_with_stop_condition": 5.47,
+    "H.prepare_service_inputs": 5.43,
+    "H.decode_codes": 5.881,
+    "H.prepare_target_latents": 5.881,
+    "H._prepare_batch": 5.881,
+    "H.refer_latent": 5.815,
+    "H.text_encoder": 6.712,
+    "H.preprocess_batch": 6.712,
+    "M.prepare_condition": 6.863,
+    "M.generate_audio": 6.638,
+    "H.service_generate": 6.863,
+    "H.tiled_decode": 4.512,
+    "H.vae_decode_total": 4.512,
+    "H.build_payload": 2.144,
+    "H.generate_music(DiT total)": 6.863
+   },
+   "peak_reserved_gb": 2.287,
+   "host_gb": {
+    "VmHWM": 8.69,
+    "VmRSS": 8.48,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "b9fea274b1",
+   "n_codes": 150,
+   "wav_md5": "3cc1c801d3",
+   "n_audios": 6,
+   "items": [
+    {
+     "n_codes": 150,
+     "codes_md5": "b9fea274b1",
+     "wav_md5": "3cc1c801d3"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "8978cfbe75",
+     "wav_md5": "f6634edf7b"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "c120118f4f",
+     "wav_md5": "531e270c0a"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "8f50866761",
+     "wav_md5": "ad568504c8"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "a5351b9bc6",
+     "wav_md5": "a23ddbb868"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "b5ad3e1fcd",
+     "wav_md5": "cd42926a92"
+    }
+   ]
+  },
+  {
+   "run": 1,
+   "warmup": false,
+   "wall_s": 7.8124,
+   "time_costs": {
+    "lm_phase1_time": 0.8001,
+    "lm_phase2_time": 1.161,
+    "lm_total_time": 1.9611,
+    "dit_encoder_time_cost": 0.0339,
+    "dit_diffusion_time_cost": 2.5487,
+    "dit_diffusion_per_step_time_cost": 0.3186,
+    "dit_total_time_cost": 4.5057,
+    "dit_offload_time_cost": 0.1471,
+    "dit_vae_decode_time_cost": 1.923,
+    "pipeline_total_time": 6.4668
+   },
+   "peak_alloc_gb": 6.863,
+   "phase_peak_gb": {
+    "LM.generate_with_stop_condition": 5.47,
+    "H.prepare_service_inputs": 5.43,
+    "H.decode_codes": 5.881,
+    "H.prepare_target_latents": 5.881,
+    "H._prepare_batch": 5.881,
+    "H.refer_latent": 5.815,
+    "H.text_encoder": 6.712,
+    "H.preprocess_batch": 6.712,
+    "M.prepare_condition": 6.863,
+    "M.generate_audio": 6.638,
+    "H.service_generate": 6.863,
+    "H.tiled_decode": 4.512,
+    "H.vae_decode_total": 4.512,
+    "H.build_payload": 2.144,
+    "H.generate_music(DiT total)": 6.863
+   },
+   "peak_reserved_gb": 2.287,
+   "host_gb": {
+    "VmHWM": 8.69,
+    "VmRSS": 8.48,
+    "VmSwap": 0.0
+   },
+   "codes_md5": "b9fea274b1",
+   "n_codes": 150,
+   "wav_md5": "3cc1c801d3",
+   "n_audios": 6,
+   "items": [
+    {
+     "n_codes": 150,
+     "codes_md5": "b9fea274b1",
+     "wav_md5": "3cc1c801d3"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "8978cfbe75",
+     "wav_md5": "f6634edf7b"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "c120118f4f",
+     "wav_md5": "531e270c0a"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "8f50866761",
+     "wav_md5": "ad568504c8"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "a5351b9bc6",
+     "wav_md5": "a23ddbb868"
+    },
+    {
+     "n_codes": 150,
+     "codes_md5": "b5ad3e1fcd",
+     "wav_md5": "cd42926a92"
+    }
+   ]
+  }
+ ]
+}

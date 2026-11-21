@@ -171,7 +171,7 @@ class InitServiceMixinTests(unittest.TestCase):
         with patch.object(
             MEMORY_UTILS_MODULE,
             "get_effective_free_vram_gb",
-            return_value=1.0,
+            return_value=0.4,
         ) as free_mock:
             self.assertEqual(
                 MEMORY_UTILS_MODULE.MemoryUtilsMixin._vram_guard_reduce_batch(

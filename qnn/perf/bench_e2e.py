@@ -101,6 +101,7 @@ def main():
 
     use_lm = llm is not None
     PH = {}
+    PK, PK_STACK = {}, []  # per-phase peak allocated bytes (absolute), see wrap()
 
     def wrap(obj, attr, name):
         if obj is None or not hasattr(obj, attr):
@@ -110,12 +111,22 @@ def main():
 
         @functools.wraps(fn)  # keep the signature: inference.py filters kwargs via inspect.signature
         def w(*a, **k):
+            # Per-phase peak VRAM, nesting-safe: each frame keeps the max seen so far; a child resets
+            # the device counter on entry and hands its peak up to the parent on exit.
             torch.cuda.synchronize(); t_ = time.perf_counter()
+            if PK_STACK:
+                PK_STACK[-1] = max(PK_STACK[-1], torch.cuda.max_memory_allocated())
+            torch.cuda.reset_peak_memory_stats()
+            PK_STACK.append(torch.cuda.memory_allocated())
             try:
                 return fn(*a, **k)
             finally:
                 torch.cuda.synchronize()
                 d = PH.setdefault(name, [0, 0.0]); d[0] += 1; d[1] += time.perf_counter() - t_
+                pk = max(PK_STACK.pop(), torch.cuda.max_memory_allocated())
+                PK[name] = max(PK.get(name, 0), pk)
+                if PK_STACK:
+                    PK_STACK[-1] = max(PK_STACK[-1], pk)
         setattr(obj, attr, w)
 
     if args.phases:
@@ -180,8 +191,10 @@ def main():
         codes = a["params"].get("audio_codes") or ""
         tc = {k: round(float(v), 4) for k, v in (res.extra_outputs.get("time_costs") or {}).items()
               if isinstance(v, (int, float))}
+        run_peak = max([torch.cuda.max_memory_allocated()] + list(PK.values()))  # phases reset the counter
         r = {"run": i - 1, "warmup": i == 0, "wall_s": round(wall, 4), "time_costs": tc,
-             "peak_alloc_gb": round(torch.cuda.max_memory_allocated() / 2**30, 3),
+             "peak_alloc_gb": round(run_peak / 2**30, 3),
+             "phase_peak_gb": {k: round(v / 2**30, 3) for k, v in PK.items()},
              "peak_reserved_gb": round(torch.cuda.max_memory_reserved() / 2**30, 3),
              "host_gb": host_mem_gb(),
              "codes_md5": hashlib.md5(codes.encode()).hexdigest()[:10], "n_codes": codes.count("<|audio_code_"),
@@ -197,7 +210,7 @@ def main():
             with open(os.path.join(out_dir, "phases.json"), "w") as f:
                 json.dump({k: {"calls": v[0], "s": round(v[1], 4)} for k, v in PH.items()}, f, indent=1)
             print("PHASES", json.dumps({k: round(v[1], 3) for k, v in PH.items()}), flush=True)
-        PH.clear()
+        PH.clear(); PK.clear()
         if i == 1:
             save_wav(os.path.join(out_dir, "run0.wav"), a["tensor"])
             torch.save(a["tensor"].float().cpu(), os.path.join(out_dir, "run0_wav.pt"))

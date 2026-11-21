@@ -114,5 +114,28 @@ class PinnedOffloadTests(unittest.TestCase):
             del os.environ["ACESTEP_PINNED_OFFLOAD"]
 
 
+
+@unittest.skipUnless(torch.cuda.is_available(), "needs CUDA")
+class ReleaseDerivedWeightsTests(unittest.TestCase):
+    """Legacy weight_norm caches ``weight`` as a plain attribute that offloading used to leave on the GPU."""
+
+    def test_offload_releases_weight_norm_weight_and_forward_recomputes_it(self):
+        import warnings
+        from torch.nn.utils import weight_norm
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", FutureWarning)
+            conv = weight_norm(torch.nn.Conv1d(8, 8, 3)).cuda()
+        x = torch.randn(1, 8, 16, device="cuda")
+        ref = conv(x)
+        self.assertTrue(conv.weight.is_cuda)
+        po.offload_to_cpu(conv)
+        released = po.release_derived_weights(conv)
+        self.assertEqual(released, 8 * 8 * 3 * 4)
+        self.assertIsNone(conv.weight)
+        self.assertEqual(po.release_derived_weights(conv), 0)
+        po.load_to_device(conv, "cuda")
+        torch.testing.assert_close(conv(x), ref, rtol=0, atol=0)
+
 if __name__ == "__main__":
     unittest.main()

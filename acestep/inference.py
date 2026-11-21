@@ -688,6 +688,25 @@ def generate_music(
                    f"use_cot_metas={params.use_cot_metas}, need_lm_for_cot={need_lm_for_cot}, "
                    f"llm_initialized={llm_handler.llm_initialized if llm_handler else False}, use_lm={use_lm}")
 
+        # Size the batch before the LM writes per-item codes: the DiT-side guard
+        # used to shrink it afterwards, silently dropping codes already generated.
+        _plan_batch = getattr(dit_handler, "plan_batch_size", None)
+        if use_lm and actual_batch_size > 1 and callable(_plan_batch):
+            try:
+                planned_batch_size = _plan_batch(actual_batch_size, audio_duration=audio_duration)
+                if isinstance(planned_batch_size, bool) or not isinstance(planned_batch_size, int):
+                    planned_batch_size = actual_batch_size  # handler without a real planner (e.g. test doubles)
+            except Exception as exc:  # planning is best-effort; the DiT-side guard still runs
+                logger.warning(f"[generate_music] batch planning skipped: {exc}")
+                planned_batch_size = actual_batch_size
+            if 1 <= planned_batch_size < actual_batch_size:
+                logger.warning(
+                    f"[generate_music] batch_size {actual_batch_size} -> {planned_batch_size} "
+                    f"(VRAM/host memory budget, duration={audio_duration})"
+                )
+                actual_batch_size = planned_batch_size
+                actual_seed_list = actual_seed_list[:actual_batch_size]
+
         # Overlap the DiT weight upload (DiT-offload mode) with LM decoding.
         _prefetch_dit = getattr(dit_handler, "prefetch_dit_async", None)
         if use_lm and callable(_prefetch_dit):
@@ -890,7 +909,7 @@ def generate_music(
             "seed": seed_for_generation,  # Use config.seed (or params.seed fallback) instead of params.seed directly
             "reference_audio": params.reference_audio,
             "audio_duration": audio_duration,
-            "batch_size": config.batch_size if config.batch_size is not None else 1,
+            "batch_size": actual_batch_size,
             # text2music (Custom mode) never uses src_audio EXCEPT when
             # flow_edit_morph=True — the overlay needs ``src_audio`` for
             # zt_src/zt_tar formation in the V_delta integration.

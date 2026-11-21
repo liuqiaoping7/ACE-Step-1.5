@@ -1,0 +1,23 @@
+PK_240s_b2 start 11:59:54 swap=989
+PK_240s_b2 exit=0
+PK_240s_b1 start 12:02:37 swap=983
+PK_240s_b1 exit=0
+PK_30s_b1 start 12:05:34 swap=982
+PK_30s_b1 exit=0
+PK_30s_b2 start 12:08:16 swap=1018
+PK_30s_b2 exit=0
+PK_30s_b4 start 12:11:01 swap=1020
+PK_30s_b4 exit=0
+PK_120s_b1 start 12:13:43 swap=1018
+PK_120s_b1 exit=0
+PK_120s_b2 start 12:20:47 swap=1031
+PK_120s_b2 exit=0
+PK_120s_b4 start 12:23:18 swap=1030
+PK_120s_b4 exit=0
+PK_10s_b4 start 12:26:50 swap=1023
+PK_10s_b4 exit=0
+PK_10s_b6 start 12:29:37 swap=1026
+PK_10s_b6 exit=0
+PK_240s_b3 start 12:32:20 swap=1018
+PK_240s_b3 exit=1
+DONE

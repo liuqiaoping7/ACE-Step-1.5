@@ -353,12 +353,14 @@ GPU_TIER_CONFIGS = {
     },
     "tier3": {  # 6-8GB
         # Offload mode.  DiT(4.46) + context(0.5) ≈ 5.0GB.
-        # ~1.5-3GB headroom allows LM 0.6B (1.2+0.6=1.8GB) and batch=2.
         # With CPU offload, DiT is offloaded before LM runs → vllm can use freed VRAM.
+        # Batch cap is the UI maximum; each request is sized by plan_batch_size()
+        # (batch_plan.py); on an RTX 4060 8 GB with LM 0.6B it allows 7-8 / 6-7 /
+        # 4-5 / 3-4 items at 10 / 30 / 120 / 240 s, all run without OOM.
         "max_duration_with_lm": 480,  # 8 minutes
         "max_duration_without_lm": 600,  # 10 minutes (max supported)
-        "max_batch_size_with_lm": 2,
-        "max_batch_size_without_lm": 2,
+        "max_batch_size_with_lm": 4,
+        "max_batch_size_without_lm": 4,
         "init_lm_default": True,
         "available_lm_models": ["acestep-5Hz-lm-0.6B"],
         "recommended_lm_model": "acestep-5Hz-lm-0.6B",
